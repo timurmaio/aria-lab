@@ -6,26 +6,26 @@ import type { Key, UIListItem } from "../types";
 
 // Общие тестовые данные для всех тестов
 export const TEST_DATA = {
-  basic: [
-    { id: "1", name: "JavaScript", description: "Programming language" },
-    { id: "2", name: "TypeScript", description: "Typed JavaScript" },
-    { id: "3", name: "React", description: "UI library" },
-    { id: "4", name: "Vue", description: "Progressive framework" },
-    { id: "5", name: "Angular", description: "Platform for building applications" },
-  ] as UIListItem[],
+	basic: [
+		{ id: "1", name: "JavaScript", description: "Programming language" },
+		{ id: "2", name: "TypeScript", description: "Typed JavaScript" },
+		{ id: "3", name: "React", description: "UI library" },
+		{ id: "4", name: "Vue", description: "Progressive framework" },
+		{ id: "5", name: "Angular", description: "Platform for building applications" },
+	] as UIListItem[],
 
-  withDisabled: [
-    { id: "1", name: "JavaScript", description: "Programming language" },
-    { id: "2", name: "TypeScript", description: "Typed JavaScript", disabled: true },
-    { id: "3", name: "React", description: "UI library" },
-    { id: "4", name: "Vue", description: "Progressive framework", disabled: true },
-    { id: "5", name: "Angular", description: "Platform for building applications" },
-  ] as UIListItem[],
+	withDisabled: [
+		{ id: "1", name: "JavaScript", description: "Programming language" },
+		{ id: "2", name: "TypeScript", description: "Typed JavaScript", disabled: true },
+		{ id: "3", name: "React", description: "UI library" },
+		{ id: "4", name: "Vue", description: "Progressive framework", disabled: true },
+		{ id: "5", name: "Angular", description: "Platform for building applications" },
+	] as UIListItem[],
 
-  minimal: [
-    { id: "1", name: "Item 1" },
-    { id: "2", name: "Item 2" },
-  ] as UIListItem[],
+	minimal: [
+		{ id: "1", name: "Item 1" },
+		{ id: "2", name: "Item 2" },
+	] as UIListItem[],
 } as const;
 
 // Для обратной совместимости
@@ -36,11 +36,18 @@ export const mockItemsWithDisabled = TEST_DATA.withDisabled;
  * Общие настройки для всех тестов UIListBox
  */
 export const createTestSetup = () => {
-	const originalScrollIntoView = Element.prototype.scrollIntoView;
-	Element.prototype.scrollIntoView = vi.fn();
+	let originalScrollIntoView: any;
+
+	// Проверяем, что мы в DOM окружении
+	if (typeof Element !== 'undefined' && Element.prototype) {
+		originalScrollIntoView = Element.prototype.scrollIntoView;
+		Element.prototype.scrollIntoView = vi.fn();
+	}
 
 	const cleanup = () => {
-		Element.prototype.scrollIntoView = originalScrollIntoView;
+		if (typeof Element !== 'undefined' && Element.prototype && originalScrollIntoView) {
+			Element.prototype.scrollIntoView = originalScrollIntoView;
+		}
 	};
 
 	return { cleanup };
@@ -83,7 +90,7 @@ export const createTestEnvironment = () => {
  * Утилиты для тестирования UIListBox компонента
  */
 export class ListBoxTestUtils {
-	constructor(private listId: string) {}
+	constructor(private listId: string) { }
 
 	/**
 	 * Найти элемент по тексту

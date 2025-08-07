@@ -1,7 +1,7 @@
-import { useContext } from "react";
+import { useContext, createContext } from "react";
 import type { ListContextValue } from "../types";
 
-const ListContext = React.createContext<ListContextValue<any> | null>(null);
+const ListContext = createContext<ListContextValue<any> | null>(null);
 
 /**
  * Хук для использования контекста списка

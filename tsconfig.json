@@ -1,13 +1,13 @@
 {
   "compilerOptions": {
     "target": "esnext",
-    "jsx": "react",
-    "lib": ["es2023"],
+    "jsx": "react-jsx",
+    "lib": ["es2023", "dom", "dom.iterable"],
     "moduleDetection": "force",
     "module": "preserve",
     "moduleResolution": "bundler",
     "resolveJsonModule": true,
-    "types": ["node"],
+    "types": ["node", "vitest/globals", "@testing-library/jest-dom"],
     "strict": true,
     "noUnusedLocals": true,
     "declaration": true,
@@ -17,5 +17,5 @@
     "verbatimModuleSyntax": true,
     "skipLibCheck": true
   },
-  "include": ["src"]
+  "include": ["src", "vitest.config.ts", "tests/setup.ts"]
 }
