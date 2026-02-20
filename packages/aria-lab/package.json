@@ -1,0 +1,74 @@
+{
+  "name": "aria-lab",
+  "version": "0.1.0",
+  "description": "React Aria component library with full accessibility",
+  "type": "module",
+  "license": "MIT",
+  "homepage": "https://github.com/timurmaio/aria-lab#readme",
+  "bugs": {
+    "url": "https://github.com/timurmaio/aria-lab/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/timurmaio/aria-lab.git"
+  },
+  "author": "Timur Makarov <timurmaio@gmail.com>",
+  "files": [
+    "dist"
+  ],
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": "./dist/index.js",
+    "./theme": "./dist/theme/index.css",
+    "./theme/tokens": "./dist/theme/tokens.css",
+    "./theme/default": "./dist/theme/default.css",
+    "./package.json": "./package.json"
+  },
+  "peerDependencies": {
+    "react": "^18.0.0 || ^19.0.0",
+    "react-aria-components": ">=1.0.0",
+    "react-dom": "^18.0.0 || ^19.0.0"
+  },
+  "peerDependenciesMeta": {
+    "react": {
+      "optional": false
+    },
+    "react-dom": {
+      "optional": false
+    },
+    "react-aria-components": {
+      "optional": false
+    }
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "build": "tsdown && pnpm copy-css",
+    "copy-css": "node -e \"const fs=require('fs');const path=require('path');fs.mkdirSync('dist/theme',{recursive:true});fs.readdirSync('src/theme').forEach(f=>fs.copyFileSync(path.join('src/theme',f),path.join('dist/theme',f)))\"",
+    "dev": "tsdown --watch",
+    "test": "vitest",
+    "typecheck": "tsc --noEmit",
+    "release": "bumpp && pnpm publish",
+    "prepublishOnly": "pnpm run build"
+  },
+  "devDependencies": {
+    "@types/node": "22.15.17",
+    "@types/react": "19.1.3",
+    "@types/react-dom": "19.1.4",
+    "@vitest/browser": "3.2.4",
+    "@vitest/coverage-v8": "3.2.4",
+    "happy-dom": "17.6.3",
+    "jsdom": "26.1.0",
+    "react": "19.1.1",
+    "react-dom": "19.1.1",
+    "tsdown": "^0.20.3",
+    "typescript": "5.9.2",
+    "vitest": "3.2.4"
+  },
+  "dependencies": {
+    "react-aria-components": "1.11.0"
+  }
+}

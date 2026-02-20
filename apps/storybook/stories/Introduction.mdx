@@ -1,0 +1,40 @@
+import { Meta } from '@storybook/blocks'
+
+<Meta title="Introduction" />
+
+# Aria Lab
+
+React Aria component library with full accessibility.
+
+## Installation
+
+```bash
+npm install aria-lab
+```
+
+## Usage
+
+```tsx
+import { Button, Input } from 'aria-lab';
+import 'aria-lab/theme/default';
+
+function App() {
+  return (
+    <>
+      <Button>Click me</Button>
+      <Input placeholder="Enter text" />
+    </>
+  );
+}
+```
+
+## Theming
+
+Override CSS variables in your CSS:
+
+```css
+:root {
+  --aria-accent: #8b5cf6;
+  --aria-radius-md: 0.75rem;
+}
+```

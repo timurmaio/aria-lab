@@ -1,29 +1,88 @@
-# react-components-starter
+# aria-lab
 
-A starter for creating a React component library.
+React Aria component library with full accessibility.
+
+## Installation
+
+```bash
+npm install aria-lab
+```
+
+## Usage
+
+```tsx
+import { Button, Input, UI } from 'aria-lab';
+import 'aria-lab/theme/default';
+
+function App() {
+  return (
+    <>
+      <Button>Click me</Button>
+      <Input placeholder="Enter text" />
+      
+      {/* Or use UI namespace */}
+      <UI.Button variant="secondary">Secondary</UI.Button>
+    </>
+  );
+}
+```
+
+## Theming
+
+Override CSS variables in your CSS:
+
+```css
+:root {
+  /* Colors */
+  --aria-accent: #8b5cf6;
+  --aria-text-primary: #1f2937;
+  
+  /* Radius */
+  --aria-radius-md: 0.75rem;
+  
+  /* Focus ring */
+  --aria-focus-ring: 0 0 0 2px #fff, 0 0 0 4px #8b5cf6;
+}
+```
+
+### Default Theme
+
+Import the default shadcn-like theme:
+
+```tsx
+import 'aria-lab/theme/default';
+```
+
+### Tokens Only
+
+Import only CSS variables (without default values):
+
+```tsx
+import 'aria-lab/theme/tokens';
+```
 
 ## Development
 
-- Install dependencies:
-
 ```bash
-npm install
+# Install dependencies
+pnpm install
+
+# Build the library
+pnpm build
+
+# Run demo
+pnpm dev:demo
+
+# Run storybook
+pnpm storybook
 ```
 
-- Run the playground:
+## Packages
 
-```bash
-npm run playground
-```
+- `packages/aria-lab` - Component library
+- `apps/demo` - Demo application
+- `apps/storybook` - Storybook documentation
 
-- Run the unit tests:
+## License
 
-```bash
-npm run test
-```
-
-- Build the library:
-
-```bash
-npm run build
-```
+MIT

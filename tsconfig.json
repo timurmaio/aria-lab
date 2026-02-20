@@ -1,21 +1,18 @@
 {
   "compilerOptions": {
-    "target": "esnext",
-    "jsx": "react-jsx",
-    "lib": ["es2023", "dom", "dom.iterable"],
-    "moduleDetection": "force",
-    "module": "preserve",
-    "moduleResolution": "bundler",
+    "target": "es2022",
+    "lib": ["es2022"],
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
+    "skipLibCheck": true,
     "resolveJsonModule": true,
-    "types": ["node", "vitest/globals", "@testing-library/jest-dom"],
-    "strict": true,
-    "noUnusedLocals": true,
-    "declaration": true,
-    "emitDeclarationOnly": true,
-    "esModuleInterop": true,
     "isolatedModules": true,
-    "verbatimModuleSyntax": true,
-    "skipLibCheck": true
-  },
-  "include": ["src", "vitest.config.ts", "tests/setup.ts"]
+    "strict": true,
+    "noUncheckedIndexedAccess": true,
+    "noImplicitOverride": true,
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "moduleDetection": "force",
+    "jsx": "react-jsx"
+  }
 }

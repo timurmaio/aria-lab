@@ -1,0 +1,121 @@
+/* Default theme - shadcn-like */
+
+:root {
+  /* Background */
+  --aria-bg-primary: #ffffff;
+  --aria-bg-secondary: #fafafa;
+  --aria-bg-tertiary: #f4f4f5;
+  --aria-bg-inverse: #18181b;
+
+  /* Text */
+  --aria-text-primary: #09090b;
+  --aria-text-secondary: #71717a;
+  --aria-text-tertiary: #a1a1aa;
+  --aria-text-inverse: #fafafa;
+  --aria-text-disabled: #d4d4d8;
+
+  /* Interactive */
+  --aria-bg-hover: #f4f4f5;
+  --aria-bg-pressed: #e4e4e7;
+  --aria-bg-focus: #dbeafe;
+  --aria-bg-selected: #eff6ff;
+  --aria-bg-disabled: #f4f4f5;
+
+  /* Brand */
+  --aria-accent: #18181b;
+  --aria-accent-hover: #27272a;
+  --aria-accent-text: #fafafa;
+  --aria-accent-subtle: #f4f4f5;
+
+  /* Semantic */
+  --aria-success: #22c55e;
+  --aria-warning: #eab308;
+  --aria-error: #ef4444;
+  --aria-info: #3b82f6;
+
+  /* Borders */
+  --aria-border: #e4e4e7;
+  --aria-border-hover: #d4d4d8;
+  --aria-border-focus: #18181b;
+  --aria-border-disabled: #e4e4e7;
+
+  /* Typography */
+  --aria-font-sans: ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+
+  /* Font Sizes */
+  --aria-font-size-xs: 0.75rem;
+  --aria-font-size-sm: 0.875rem;
+  --aria-font-size-base: 1rem;
+  --aria-font-size-lg: 1.125rem;
+  --aria-font-size-xl: 1.25rem;
+  --aria-font-size-2xl: 1.5rem;
+
+  /* Spacing */
+  --aria-space-1: 0.25rem;
+  --aria-space-2: 0.5rem;
+  --aria-space-3: 0.75rem;
+  --aria-space-4: 1rem;
+  --aria-space-6: 1.5rem;
+  --aria-space-8: 2rem;
+
+  /* Border Radius */
+  --aria-radius-none: 0;
+  --aria-radius-sm: 0.125rem;
+  --aria-radius-md: 0.375rem;
+  --aria-radius-lg: 0.5rem;
+  --aria-radius-xl: 0.75rem;
+  --aria-radius-full: 9999px;
+
+  /* Shadows */
+  --aria-shadow-xs: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  --aria-shadow-sm: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+  --aria-shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+  --aria-shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+
+  /* Focus Ring */
+  --aria-focus-ring: 0 0 0 2px #ffffff, 0 0 0 4px #18181b;
+  --aria-focus-ring-inset: inset 0 0 0 2px #ffffff, inset 0 0 0 4px #18181b;
+
+  /* Transitions */
+  --aria-duration-fast: 150ms;
+  --aria-duration-normal: 200ms;
+}
+
+/* Dark mode - using media query */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --aria-bg-primary: #09090b;
+    --aria-bg-secondary: #18181b;
+    --aria-bg-tertiary: #27272a;
+    --aria-bg-inverse: #fafafa;
+
+    --aria-text-primary: #fafafa;
+    --aria-text-secondary: #a1a1aa;
+    --aria-text-tertiary: #71717a;
+    --aria-text-inverse: #09090b;
+    --aria-text-disabled: #52525b;
+
+    --aria-bg-hover: #27272a;
+    --aria-bg-pressed: #3f3f46;
+    --aria-bg-focus: #1e3a5f;
+    --aria-bg-selected: #1e3a5f;
+    --aria-bg-disabled: #27272a;
+
+    --aria-accent: #fafafa;
+    --aria-accent-hover: #e4e4e7;
+    --aria-accent-text: #18181b;
+    --aria-accent-subtle: #27272a;
+
+    --aria-border: #27272a;
+    --aria-border-hover: #3f3f46;
+    --aria-border-focus: #fafafa;
+    --aria-border-disabled: #27272a;
+
+    --aria-shadow-xs: 0 1px 2px 0 rgb(0 0 0 / 0.3);
+    --aria-shadow-sm: 0 1px 3px 0 rgb(0 0 0 / 0.4), 0 1px 2px -1px rgb(0 0 0 / 0.4);
+    --aria-shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.4), 0 2px 4px -2px rgb(0 0 0 / 0.4);
+    --aria-shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.4), 0 4px 6px -4px rgb(0 0 0 / 0.4);
+
+    --aria-focus-ring: 0 0 0 2px #18181b, 0 0 0 4px #fafafa;
+  }
+}
