@@ -1,0 +1,159 @@
+@import "tailwindcss";
+@import "aria-lab/styles.css";
+@import "aria-lab/theme/tokens.css";
+
+:root {
+  color-scheme: light;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: radial-gradient(circle at 20% 10%, #e7f0ff 0%, #f6f8fb 45%, #f2f4f8 100%);
+  color: #1d2939;
+  font-family: 'Manrope', system-ui, sans-serif;
+}
+
+.themegen-root {
+  min-height: 100vh;
+  padding: 2rem;
+  font-family: var(--aria-font-sans);
+}
+
+.themegen-header {
+  margin-bottom: 1.5rem;
+}
+
+.themegen-header h1 {
+  margin: 0;
+  font-size: clamp(1.7rem, 2.4vw, 2.4rem);
+  letter-spacing: -0.03em;
+}
+
+.themegen-header p {
+  margin: 0.4rem 0 0;
+  color: #475467;
+}
+
+.themegen-main {
+  display: grid;
+  grid-template-columns: minmax(300px, 420px) 1fr;
+  gap: 1rem;
+}
+
+.themegen-panel,
+.themegen-preview {
+  border: 1px solid #d0d8e2;
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.88);
+  backdrop-filter: blur(10px);
+}
+
+.themegen-panel {
+  padding: 1rem;
+  display: grid;
+  gap: 1rem;
+  max-height: calc(100vh - 8rem);
+  overflow: auto;
+}
+
+.themegen-panel section {
+  padding: 0.8rem;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  background: #fff;
+}
+
+.themegen-panel h2,
+.themegen-preview h2 {
+  margin: 0 0 0.7rem;
+  font-size: 0.95rem;
+  letter-spacing: 0.02em;
+}
+
+.controls-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.65rem;
+}
+
+label {
+  display: grid;
+  gap: 0.35rem;
+  font-size: 0.78rem;
+  color: #344054;
+}
+
+input,
+select,
+textarea {
+  width: 100%;
+  border: 1px solid #d0d8e2;
+  border-radius: 8px;
+  padding: 0.45rem 0.55rem;
+  font: inherit;
+}
+
+input[type='color'] {
+  padding: 0.15rem;
+  min-height: 2rem;
+}
+
+.row {
+  display: grid;
+}
+
+.actions {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 0.6rem;
+}
+
+.themegen-preview {
+  padding: 1rem;
+}
+
+.preview-card {
+  border: 1px solid var(--aria-border);
+  border-radius: 14px;
+  padding: 1rem;
+  background: linear-gradient(180deg, var(--aria-bg-secondary), var(--aria-bg-primary));
+  display: grid;
+  gap: 1rem;
+  max-width: 720px;
+}
+
+.preview-row {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.preview-col {
+  display: grid;
+  gap: 0.75rem;
+  max-width: 340px;
+}
+
+.modal-text {
+  margin: 0.4rem 0 0;
+  color: var(--aria-text-secondary);
+}
+
+@media (max-width: 980px) {
+  .themegen-root {
+    padding: 1rem;
+  }
+
+  .themegen-main {
+    grid-template-columns: 1fr;
+  }
+
+  .themegen-panel {
+    max-height: none;
+  }
+}

@@ -76,6 +76,9 @@ pnpm build
 # Run demo
 pnpm dev:demo
 
+# Run theme generator
+pnpm dev:theme
+
 # Run storybook
 pnpm storybook
 ```
@@ -84,6 +87,7 @@ pnpm storybook
 
 - `packages/aria-lab` - Component library
 - `apps/demo` - Demo application
+- `apps/theme-generator` - Visual theme generator
 - `apps/storybook` - Storybook documentation
 
 ## License
