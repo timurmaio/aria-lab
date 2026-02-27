@@ -1,6 +1,6 @@
 import { useState, useCallback, useMemo } from "react";
 import type { Key, ListProps, NewListState, Selection, UIListItem } from "../types";
-import { cloneSet, selectionToSet } from "../utils";
+import { cloneSet } from "../utils";
 
 /**
  * React Aria-совместимый хук для управления состоянием списка

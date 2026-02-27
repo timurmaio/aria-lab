@@ -16,14 +16,22 @@
   "files": [
     "dist"
   ],
+  "sideEffects": [
+    "**/*.css"
+  ],
   "main": "./dist/index.js",
   "module": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "exports": {
     ".": "./dist/index.js",
+    "./styles": "./dist/styles.css",
+    "./styles.css": "./dist/styles.css",
     "./theme": "./dist/theme/index.css",
+    "./theme/index.css": "./dist/theme/index.css",
     "./theme/tokens": "./dist/theme/tokens.css",
+    "./theme/tokens.css": "./dist/theme/tokens.css",
     "./theme/default": "./dist/theme/default.css",
+    "./theme/default.css": "./dist/theme/default.css",
     "./package.json": "./package.json"
   },
   "peerDependencies": {
@@ -46,7 +54,8 @@
     "access": "public"
   },
   "scripts": {
-    "build": "tsdown && pnpm copy-css",
+    "build": "tsdown && pnpm build:styles && pnpm copy-css",
+    "build:styles": "tailwindcss -i ./src/styles.css -o ./dist/styles.css --content ./src/**/*.{ts,tsx} --minify",
     "copy-css": "node -e \"const fs=require('fs');const path=require('path');fs.mkdirSync('dist/theme',{recursive:true});fs.readdirSync('src/theme').forEach(f=>fs.copyFileSync(path.join('src/theme',f),path.join('dist/theme',f)))\"",
     "dev": "tsdown --watch",
     "test": "vitest",
@@ -64,6 +73,7 @@
     "jsdom": "26.1.0",
     "react": "19.1.1",
     "react-dom": "19.1.1",
+    "tailwindcss": "3.4.17",
     "tsdown": "^0.20.3",
     "typescript": "5.9.2",
     "vitest": "3.2.4"

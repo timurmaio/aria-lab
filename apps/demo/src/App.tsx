@@ -1,5 +1,19 @@
 import { useState } from 'react'
-import { Button, Input, UIListBox, useListState } from 'aria-lab'
+import {
+  AlertDialog,
+  Button,
+  ComboBox,
+  ComboBoxItem,
+  Dialog,
+  Input,
+  Modal,
+  Select,
+  SelectItem,
+  TextField,
+  UIListBox,
+  useListState,
+} from 'aria-lab'
+import { DialogTrigger, Heading } from 'react-aria-components'
 
 const ELEMENTS = [
   { id: '1', name: 'Hydrogen',   description: 'H · 1.008 · Group 1'  },
@@ -24,6 +38,20 @@ const TOKENS = [
   { var: '--aria-success',      label: 'success'      },
   { var: '--aria-warning',      label: 'warning'      },
   { var: '--aria-border',       label: 'border'       },
+]
+
+const FRAMEWORKS = [
+  { id: 'react', name: 'React' },
+  { id: 'vue', name: 'Vue' },
+  { id: 'svelte', name: 'Svelte' },
+  { id: 'solid', name: 'Solid' },
+]
+
+const LANGUAGES = [
+  { id: 'ts', name: 'TypeScript' },
+  { id: 'go', name: 'Go' },
+  { id: 'rust', name: 'Rust' },
+  { id: 'python', name: 'Python' },
 ]
 
 function SectionHead({ num, title }: { num: string; title: string }) {
@@ -171,6 +199,66 @@ export default function App() {
                 <Input size="sm" placeholder="Small" />
                 <Input size="md" placeholder="Medium" />
                 <Input size="lg" placeholder="Large" />
+              </div>
+            </Card>
+            <Card label="TextField">
+              <div className="demo-col">
+                <TextField
+                  label="Email"
+                  placeholder="you@example.com"
+                  description="Used only for account notifications"
+                />
+              </div>
+            </Card>
+            <Card label="Select">
+              <div className="demo-col">
+                <Select
+                  label="Framework"
+                  placeholder="Choose framework"
+                  items={FRAMEWORKS}
+                >
+                  {(item) => <SelectItem id={item.id}>{item.name}</SelectItem>}
+                </Select>
+                <ComboBox
+                  label="Language"
+                  placeholder="Search language"
+                  items={LANGUAGES}
+                >
+                  {(item) => <ComboBoxItem id={item.id}>{item.name}</ComboBoxItem>}
+                </ComboBox>
+                <DialogTrigger>
+                  <Button variant="secondary">Open dialog</Button>
+                  <Modal>
+                    <Dialog>
+                      {({ close }) => (
+                        <>
+                          <Heading slot="title" className="text-lg font-semibold text-[var(--aria-text-primary)]">
+                            Team invite
+                          </Heading>
+                          <p className="mt-2 text-sm text-[var(--aria-text-secondary)]">
+                            Send an invite link so they can access this project.
+                          </p>
+                          <div className="mt-6 flex justify-end gap-2">
+                            <Button variant="secondary" onPress={close}>Cancel</Button>
+                            <Button onPress={close}>Send invite</Button>
+                          </div>
+                        </>
+                      )}
+                    </Dialog>
+                  </Modal>
+                </DialogTrigger>
+                <DialogTrigger>
+                  <Button variant="destructive">Delete...</Button>
+                  <Modal>
+                    <AlertDialog
+                      title="Delete project"
+                      actionLabel="Delete"
+                      variant="destructive"
+                    >
+                      Are you sure you want to delete this project? This action cannot be undone.
+                    </AlertDialog>
+                  </Modal>
+                </DialogTrigger>
               </div>
             </Card>
           </div>

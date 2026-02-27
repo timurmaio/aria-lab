@@ -1,75 +1,43 @@
-import { type ReactNode } from 'react';
-import { Button as AriaButton, type ButtonProps as AriaButtonProps } from 'react-aria-components';
+import { type ReactNode } from 'react'
+import {
+  Button as AriaButton,
+  composeRenderProps,
+  type ButtonProps as AriaButtonProps,
+} from 'react-aria-components'
+import { cn, composeClassName } from '../../../lib/cn.js'
 
-type ButtonVariant = 'primary' | 'secondary' | 'ghost' | 'link' | 'destructive';
-type ButtonSize = 'sm' | 'md' | 'lg' | 'icon' | 'icon-sm' | 'icon-lg';
+type ButtonVariant = 'primary' | 'secondary' | 'ghost' | 'link' | 'destructive'
+type ButtonSize = 'sm' | 'md' | 'lg' | 'icon' | 'icon-sm' | 'icon-lg'
 
-const sizeStyles: Record<ButtonSize, React.CSSProperties> = {
-  sm: { height: '2rem', padding: '0 0.75rem', fontSize: '0.75rem' },
-  md: { height: '2.5rem', padding: '0.5rem 1rem', fontSize: '0.875rem' },
-  lg: { height: '3rem', padding: '0.5rem 2rem', fontSize: '1.125rem' },
-  icon: { height: '2.5rem', width: '2.5rem' },
-  'icon-sm': { height: '2rem', width: '2rem' },
-  'icon-lg': { height: '3rem', width: '3rem' },
-};
+const sizeStyles: Record<ButtonSize, string> = {
+  sm: 'h-8 px-3 text-xs',
+  md: 'h-10 px-4 text-sm',
+  lg: 'h-12 px-8 text-lg',
+  icon: 'h-10 w-10 p-0',
+  'icon-sm': 'h-8 w-8 p-0',
+  'icon-lg': 'h-12 w-12 p-0',
+}
 
-const variantStyles: Record<ButtonVariant, React.CSSProperties> = {
-  primary: {
-    backgroundColor: 'var(--aria-accent)',
-    color: 'var(--aria-accent-text)',
-    border: 'none',
-  },
-  secondary: {
-    backgroundColor: 'var(--aria-bg-secondary)',
-    color: 'var(--aria-text-primary)',
-    border: '1px solid var(--aria-border)',
-  },
-  ghost: {
-    backgroundColor: 'transparent',
-    color: 'var(--aria-text-primary)',
-    border: 'none',
-  },
-  link: {
-    backgroundColor: 'transparent',
-    color: 'var(--aria-accent)',
-    border: 'none',
-    textDecoration: 'underline',
-  },
-  destructive: {
-    backgroundColor: 'var(--aria-error)',
-    color: '#ffffff',
-    border: 'none',
-  },
-};
+const variantStyles: Record<ButtonVariant, string> = {
+  primary:
+    'border-transparent bg-[var(--aria-accent)] text-[var(--aria-accent-text)] hover:bg-[var(--aria-accent-hover)]',
+  secondary:
+    'border-[var(--aria-border)] bg-[var(--aria-bg-secondary)] text-[var(--aria-text-primary)] hover:border-[var(--aria-border-hover)] hover:bg-[var(--aria-bg-hover)]',
+  ghost:
+    'border-transparent bg-transparent text-[var(--aria-text-primary)] hover:bg-[var(--aria-bg-hover)]',
+  link:
+    'h-auto border-transparent bg-transparent px-0 text-[var(--aria-accent)] underline-offset-4 hover:underline',
+  destructive:
+    'border-transparent bg-[var(--aria-error)] text-white hover:brightness-95',
+}
 
-const baseStyles: React.CSSProperties = {
-  display: 'inline-flex',
-  alignItems: 'center',
-  justifyContent: 'center',
-  gap: '0.5rem',
-  whiteSpace: 'nowrap',
-  borderRadius: 'var(--aria-radius-md)',
-  fontSize: '0.875rem',
-  fontWeight: '500',
-  transition: 'all 200ms ease',
-  cursor: 'pointer',
-  outline: 'none',
-};
-
-const focusStyles: React.CSSProperties = {
-  boxShadow: 'var(--aria-focus-ring)',
-};
-
-const disabledStyles: React.CSSProperties = {
-  opacity: '0.5',
-  cursor: 'not-allowed',
-  pointerEvents: 'none',
-};
+const baseStyles =
+  'relative inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-[var(--aria-radius-md)] border text-sm font-medium transition duration-200 ease-out outline-none focus-visible:shadow-[var(--aria-focus-ring)] data-[disabled]:pointer-events-none data-[disabled]:bg-[var(--aria-bg-disabled)] data-[disabled]:text-[var(--aria-text-disabled)]'
 
 export interface ButtonProps extends AriaButtonProps {
-  variant?: ButtonVariant;
-  size?: ButtonSize;
-  children?: ReactNode;
+  variant?: ButtonVariant
+  size?: ButtonSize
+  children?: ReactNode
 }
 
 export function Button({
@@ -77,23 +45,42 @@ export function Button({
   size = 'md',
   className,
   children,
-  style,
   ...props
 }: ButtonProps) {
-  const combinedStyles: React.CSSProperties = {
-    ...baseStyles,
-    ...variantStyles[variant],
-    ...sizeStyles[size],
-    ...style,
-  };
-
   return (
     <AriaButton
-      className={className}
-      style={combinedStyles}
+      className={composeClassName(className, ({ isPending }: { isPending: boolean }) =>
+        cn(baseStyles, sizeStyles[size], variantStyles[variant], isPending && 'text-transparent'),
+      )}
       {...props}
     >
-      {children}
+      {composeRenderProps(children, (children, { isPending }) => (
+        <>
+          {children}
+          {isPending && (
+            <span aria-hidden className="absolute inset-0 flex items-center justify-center">
+              <svg
+                className="h-4 w-4 animate-spin"
+                viewBox="0 0 24 24"
+                stroke={variant === 'secondary' || variant === 'ghost' || variant === 'link' ? 'currentColor' : 'white'}
+              >
+                <circle cx="12" cy="12" r="10" strokeWidth="4" fill="none" className="opacity-25" />
+                <circle
+                  cx="12"
+                  cy="12"
+                  r="10"
+                  strokeWidth="4"
+                  strokeLinecap="round"
+                  fill="none"
+                  pathLength="100"
+                  strokeDasharray="60 140"
+                  strokeDashoffset="0"
+                />
+              </svg>
+            </span>
+          )}
+        </>
+      ))}
     </AriaButton>
-  );
+  )
 }

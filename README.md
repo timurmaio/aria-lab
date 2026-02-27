@@ -11,7 +11,8 @@ npm install aria-lab
 ## Usage
 
 ```tsx
-import { Button, Input, UI } from 'aria-lab';
+import { Button, Input, TextField, UI } from 'aria-lab';
+import 'aria-lab/styles';
 import 'aria-lab/theme/default';
 
 function App() {
@@ -19,6 +20,7 @@ function App() {
     <>
       <Button>Click me</Button>
       <Input placeholder="Enter text" />
+      <TextField label="Email" placeholder="you@example.com" />
       
       {/* Or use UI namespace */}
       <UI.Button variant="secondary">Secondary</UI.Button>
@@ -47,9 +49,10 @@ Override CSS variables in your CSS:
 
 ### Default Theme
 
-Import the default shadcn-like theme:
+Import prebuilt component styles and the default shadcn-like theme:
 
 ```tsx
+import 'aria-lab/styles';
 import 'aria-lab/theme/default';
 ```
 

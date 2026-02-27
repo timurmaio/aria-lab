@@ -1,5 +1,6 @@
 import type { Preview } from '@storybook/react'
-import 'aria-lab/theme/default'
+import 'aria-lab/styles.css'
+import 'aria-lab/theme/default.css'
 
 const preview: Preview = {
   parameters: {

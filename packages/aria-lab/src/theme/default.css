@@ -58,6 +58,11 @@
   --aria-space-6: 1.5rem;
   --aria-space-8: 2rem;
 
+  /* Control Size */
+  --aria-control-height-sm: 2rem;
+  --aria-control-height-md: 2.5rem;
+  --aria-control-height-lg: 3rem;
+
   /* Border Radius */
   --aria-radius-none: 0;
   --aria-radius-sm: 0.125rem;
@@ -75,6 +80,18 @@
   /* Focus Ring */
   --aria-focus-ring: 0 0 0 2px #ffffff, 0 0 0 4px #18181b;
   --aria-focus-ring-inset: inset 0 0 0 2px #ffffff, inset 0 0 0 4px #18181b;
+
+  /* Overlay and Dialog */
+  --aria-overlay-backdrop: rgb(0 0 0 / 0.45);
+  --aria-dialog-padding: 1.5rem;
+  --aria-modal-max-width-sm: 24rem;
+  --aria-modal-max-width-md: 32rem;
+  --aria-modal-max-width-lg: 44rem;
+
+  /* Dropdown */
+  --aria-dropdown-item-padding-x: 0.5rem;
+  --aria-dropdown-item-padding-y: 0.375rem;
+  --aria-dropdown-item-gap: 0.5rem;
 
   /* Transitions */
   --aria-duration-fast: 150ms;
