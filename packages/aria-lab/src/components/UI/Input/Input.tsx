@@ -23,6 +23,7 @@ const baseStyles =
 export interface InputProps extends Omit<AriaInputProps, 'size'> {
   variant?: InputVariant
   size?: InputSize
+  isDisabled?: boolean
   disabled?: boolean
 }
 
@@ -30,13 +31,16 @@ export function Input({
   variant = 'default',
   size = 'md',
   className,
+  isDisabled,
   disabled,
   ...props
 }: InputProps) {
+  const resolvedDisabled = isDisabled ?? disabled
+
   return (
     <AriaInput
       className={composeClassName(className, () => cn(baseStyles, sizeStyles[size], variantStyles[variant]))}
-      disabled={disabled}
+      disabled={resolvedDisabled}
       {...props}
     />
   )

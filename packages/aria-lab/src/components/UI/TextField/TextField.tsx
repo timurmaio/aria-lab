@@ -51,7 +51,13 @@ export function TextField({
       {label && <FieldLabel>{label}</FieldLabel>}
       <Input
         placeholder={placeholder}
-        className={cn(inputBaseStyles, sizeStyles[size], variantStyles[variant])}
+        className={composeClassName(undefined, ({ isInvalid }: { isInvalid: boolean }) =>
+          cn(
+            inputBaseStyles,
+            sizeStyles[size],
+            variant === 'error' || isInvalid ? variantStyles.error : variantStyles.default,
+          ),
+        )}
       />
       {description && <FieldDescription>{description}</FieldDescription>}
       <FieldErrorText>{errorMessage}</FieldErrorText>

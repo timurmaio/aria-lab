@@ -70,31 +70,41 @@ export function ComboBox<T extends object>({
       {...props}
       className={composeClassName(props.className, () => 'group flex flex-col gap-1.5')}
     >
-      {label && <FieldLabel>{label}</FieldLabel>}
-      <div className={cn(fieldBaseStyles, fieldSizeStyles[size], fieldVariantStyles[variant])}>
-        <Input placeholder={placeholder} className={inputStyles} />
-        <Button className={cn(buttonStyles, buttonSizeStyles[size])}>
-          <svg
-            aria-hidden
-            viewBox="0 0 24 24"
-            className="h-4 w-4"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
+      {({ isInvalid }) => (
+        <>
+          {label && <FieldLabel>{label}</FieldLabel>}
+          <div
+            className={cn(
+              fieldBaseStyles,
+              fieldSizeStyles[size],
+              variant === 'error' || isInvalid ? fieldVariantStyles.error : fieldVariantStyles.default,
+            )}
           >
-            <path d="m6 9 6 6 6-6" />
-          </svg>
-        </Button>
-      </div>
-      {description && <FieldDescription>{description}</FieldDescription>}
-      <FieldErrorText>{errorMessage}</FieldErrorText>
-      <Popover className="min-w-[var(--trigger-width)]">
-        <ListBox items={items} className="max-h-72 overflow-auto outline-none">
-          {children}
-        </ListBox>
-      </Popover>
+            <Input placeholder={placeholder} className={inputStyles} />
+            <Button className={cn(buttonStyles, buttonSizeStyles[size])}>
+              <svg
+                aria-hidden
+                viewBox="0 0 24 24"
+                className="h-4 w-4"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                <path d="m6 9 6 6 6-6" />
+              </svg>
+            </Button>
+          </div>
+          {description && <FieldDescription>{description}</FieldDescription>}
+          <FieldErrorText>{errorMessage}</FieldErrorText>
+          <Popover className="min-w-[var(--trigger-width)]">
+            <ListBox items={items} className="max-h-72 overflow-auto outline-none">
+              {children}
+            </ListBox>
+          </Popover>
+        </>
+      )}
     </AriaComboBox>
   )
 }

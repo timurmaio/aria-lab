@@ -57,31 +57,41 @@ export function Select<T extends object>({
       {...props}
       className={composeClassName(props.className, () => 'group flex flex-col gap-1.5')}
     >
-      {label && <FieldLabel>{label}</FieldLabel>}
-      <Button className={cn(triggerBaseStyles, triggerSizeStyles[size], triggerVariantStyles[variant])}>
-        <SelectValue className="flex-1 truncate text-[var(--aria-text-primary)]">
-          {({ selectedText }) => selectedText ?? placeholder}
-        </SelectValue>
-        <svg
-          aria-hidden
-          viewBox="0 0 24 24"
-          className="h-4 w-4 shrink-0 text-[var(--aria-text-secondary)]"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="2"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        >
-          <path d="m6 9 6 6 6-6" />
-        </svg>
-      </Button>
-      {description && <FieldDescription>{description}</FieldDescription>}
-      <FieldErrorText>{errorMessage}</FieldErrorText>
-      <Popover className="min-w-[var(--trigger-width)]">
-        <ListBox items={items} className="max-h-72 overflow-auto outline-none">
-          {children}
-        </ListBox>
-      </Popover>
+      {({ isInvalid }) => (
+        <>
+          {label && <FieldLabel>{label}</FieldLabel>}
+          <Button
+            className={cn(
+              triggerBaseStyles,
+              triggerSizeStyles[size],
+              variant === 'error' || isInvalid ? triggerVariantStyles.error : triggerVariantStyles.default,
+            )}
+          >
+            <SelectValue className="flex-1 truncate text-[var(--aria-text-primary)]">
+              {({ selectedText }) => selectedText ?? placeholder}
+            </SelectValue>
+            <svg
+              aria-hidden
+              viewBox="0 0 24 24"
+              className="h-4 w-4 shrink-0 text-[var(--aria-text-secondary)]"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            >
+              <path d="m6 9 6 6 6-6" />
+            </svg>
+          </Button>
+          {description && <FieldDescription>{description}</FieldDescription>}
+          <FieldErrorText>{errorMessage}</FieldErrorText>
+          <Popover className="min-w-[var(--trigger-width)]">
+            <ListBox items={items} className="max-h-72 overflow-auto outline-none">
+              {children}
+            </ListBox>
+          </Popover>
+        </>
+      )}
     </AriaSelect>
   )
 }

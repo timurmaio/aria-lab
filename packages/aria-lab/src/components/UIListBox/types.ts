@@ -1,4 +1,4 @@
-import type { ReactNode } from "react";
+import type { HTMLAttributes, ReactNode } from "react";
 
 export type Key = string | number;
 
@@ -13,7 +13,8 @@ export interface UIListItem {
 	disabled?: boolean;
 }
 
-export interface UIListBoxProps<T extends UIListItem = UIListItem> {
+export interface UIListBoxProps<T extends UIListItem = UIListItem>
+	extends Omit<HTMLAttributes<HTMLUListElement>, "children" | "onSelectionChange"> {
 	/**
 	 * Уникальный идентификатор списка
 	 */
@@ -58,6 +59,14 @@ export interface UIListBoxProps<T extends UIListItem = UIListItem> {
 	 * Дополнительные CSS классы
 	 */
 	className?: string;
+	/**
+	 * Accessible name для listbox
+	 */
+	ariaLabel?: string;
+	/**
+	 * Ссылка на внешний label через id
+	 */
+	ariaLabelledby?: string;
 }
 
 export interface UIListBoxItemProps<T extends UIListItem = UIListItem> {

@@ -17,7 +17,7 @@ const meta: Meta<typeof Button> = {
       control: 'select',
       options: ['sm', 'md', 'lg', 'icon', 'icon-sm', 'icon-lg'],
     },
-    disabled: {
+    isDisabled: {
       control: 'boolean',
     },
   },
@@ -92,6 +92,6 @@ export const Icon: Story = {
 export const Disabled: Story = {
   args: {
     children: 'Disabled Button',
-    disabled: true,
+    isDisabled: true,
   },
 }
