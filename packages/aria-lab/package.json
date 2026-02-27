@@ -55,7 +55,7 @@
   },
   "scripts": {
     "build": "tsdown && pnpm build:styles && pnpm copy-css",
-    "build:styles": "tailwindcss -i ./src/styles.css -o ./dist/styles.css --content ./src/**/*.{ts,tsx} --minify",
+    "build:styles": "tailwindcss -i ./src/styles.css -o ./dist/styles.css --content \"./src/**/*.ts\" --content \"./src/**/*.tsx\" --minify",
     "copy-css": "node -e \"const fs=require('fs');const path=require('path');fs.mkdirSync('dist/theme',{recursive:true});fs.readdirSync('src/theme').forEach(f=>fs.copyFileSync(path.join('src/theme',f),path.join('dist/theme',f)))\"",
     "dev": "tsdown --watch",
     "test": "vitest",
