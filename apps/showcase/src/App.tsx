@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useMemo, useRef, useState, type CSSProperties, type ChangeEvent } from 'react'
 import {
   AlertDialog,
   Button,
@@ -14,6 +14,9 @@ import {
   useListState,
 } from 'aria-lab'
 import { DialogTrigger, Heading } from 'react-aria-components'
+import { getContrastReport } from './contrast'
+import { clearSavedTheme, generateCss, loadTheme, parseThemePayload, saveTheme, toThemePayload } from './theme-io'
+import { fontOptions, initialVars, presets, type ThemeVars } from './tokens'
 
 const ELEMENTS = [
   { id: '1', name: 'Hydrogen',   description: 'H · 1.008 · Group 1'  },
@@ -31,7 +34,7 @@ const ELEMENTS_W_DISABLED = ELEMENTS.map((el, i) => ({
 
 const TOKENS = [
   { var: '--aria-bg-primary',   label: 'bg-primary'   },
-  { var: '--aria-bg-secondary', label: 'bg-secondary' },
+  { var: '--aria-bg-secondary',  label: 'bg-secondary' },
   { var: '--aria-bg-tertiary',  label: 'bg-tertiary'  },
   { var: '--aria-accent',       label: 'accent'       },
   { var: '--aria-error',        label: 'error'        },
@@ -53,6 +56,11 @@ const LANGUAGES = [
   { id: 'rust', name: 'Rust' },
   { id: 'python', name: 'Python' },
 ]
+
+function detectPresetId(vars: ThemeVars): string {
+  const preset = presets.find((item) => JSON.stringify(item.vars) === JSON.stringify(vars))
+  return preset?.id ?? 'custom'
+}
 
 function SectionHead({ num, title }: { num: string; title: string }) {
   return (
@@ -80,15 +88,215 @@ function Card({
   )
 }
 
+interface ThemePanelProps {
+  vars: ThemeVars
+  onVarsChange: (vars: ThemeVars) => void
+  activePresetId: string
+  onPresetApply: (id: string) => void
+  onClose: () => void
+}
+
+function ThemePanel({ vars, onVarsChange, activePresetId, onPresetApply, onClose }: ThemePanelProps) {
+  const [copied, setCopied] = useState(false)
+  const [notice, setNotice] = useState('')
+  const [importWarnings, setImportWarnings] = useState<string[]>([])
+  const fileInputRef = useRef<HTMLInputElement | null>(null)
+
+  const generatedCss = useMemo(() => generateCss(vars), [vars])
+  const contrastReport = useMemo(() => getContrastReport(vars), [vars])
+  const activePresetVars = activePresetId === 'custom' ? initialVars : presets.find((p) => p.id === activePresetId)?.vars ?? initialVars
+  const isDirty = JSON.stringify(vars) !== JSON.stringify(activePresetVars)
+
+  const updateVar = (name: keyof ThemeVars, value: string) => {
+    onVarsChange({ ...vars, [name]: value })
+  }
+
+  const copyCss = async () => {
+    await navigator.clipboard.writeText(generatedCss)
+    setCopied(true)
+    setNotice('CSS copied to clipboard')
+    setTimeout(() => setCopied(false), 1200)
+  }
+
+  const resetTheme = () => {
+    onVarsChange(initialVars)
+    onPresetApply('default')
+    setImportWarnings([])
+    clearSavedTheme()
+    setNotice('Theme reset to default')
+  }
+
+  const applyPreset = (presetId: string) => {
+    const preset = presets.find((item) => item.id === presetId)
+    if (!preset) return
+    onVarsChange(preset.vars)
+    onPresetApply(preset.id)
+    setImportWarnings([])
+    setNotice(`Preset applied: ${preset.name}`)
+  }
+
+  const exportJson = () => {
+    const payload = JSON.stringify(toThemePayload(vars), null, 2)
+    const blob = new Blob([payload], { type: 'application/json' })
+    const url = URL.createObjectURL(blob)
+    const link = document.createElement('a')
+    link.href = url
+    link.download = 'aria-lab-theme.json'
+    link.click()
+    URL.revokeObjectURL(url)
+    setNotice('JSON theme exported')
+  }
+
+  const downloadCss = () => {
+    const blob = new Blob([generatedCss], { type: 'text/css' })
+    const url = URL.createObjectURL(blob)
+    const link = document.createElement('a')
+    link.href = url
+    link.download = 'theme.css'
+    link.click()
+    URL.revokeObjectURL(url)
+    setNotice('CSS downloaded')
+  }
+
+  const handleImport = async (event: ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0]
+    if (!file) return
+    const text = await file.text()
+    const imported = parseThemePayload(text)
+    onVarsChange(imported.vars)
+    onPresetApply(detectPresetId(imported.vars))
+    setImportWarnings(imported.warnings)
+    setNotice(imported.warnings.length > 0 ? 'Theme imported with warnings' : 'Theme imported')
+    event.target.value = ''
+  }
+
+  return (
+    <div className="demo-theme-panel">
+      <div className="demo-theme-panel-header">
+        <h2>Customize theme</h2>
+        <Button variant="ghost" size="icon-sm" onPress={onClose} aria-label="Close panel">
+          ✕
+        </Button>
+      </div>
+      <div className="demo-theme-panel-body">
+        <section>
+          <h3>Presets</h3>
+          <div className="demo-theme-preset-row">
+            {presets.map((preset) => (
+              <Button
+                key={preset.id}
+                variant={activePresetId === preset.id ? 'primary' : 'secondary'}
+                onPress={() => applyPreset(preset.id)}
+              >
+                {preset.name}
+              </Button>
+            ))}
+          </div>
+          <p className="demo-theme-status">{isDirty ? 'Unsaved changes' : 'In sync with preset'}</p>
+        </section>
+
+        <section>
+          <h3>Colors</h3>
+          <div className="demo-theme-controls-grid">
+            <label>Accent<input type="color" value={vars['--aria-accent']} onChange={(e) => updateVar('--aria-accent', e.target.value)} /></label>
+            <label>Accent Hover<input type="color" value={vars['--aria-accent-hover']} onChange={(e) => updateVar('--aria-accent-hover', e.target.value)} /></label>
+            <label>Accent Text<input type="color" value={vars['--aria-accent-text']} onChange={(e) => updateVar('--aria-accent-text', e.target.value)} /></label>
+            <label>Background<input type="color" value={vars['--aria-bg-primary']} onChange={(e) => updateVar('--aria-bg-primary', e.target.value)} /></label>
+            <label>Surface<input type="color" value={vars['--aria-bg-secondary']} onChange={(e) => updateVar('--aria-bg-secondary', e.target.value)} /></label>
+            <label>Text<input type="color" value={vars['--aria-text-primary']} onChange={(e) => updateVar('--aria-text-primary', e.target.value)} /></label>
+            <label>Text Secondary<input type="color" value={vars['--aria-text-secondary']} onChange={(e) => updateVar('--aria-text-secondary', e.target.value)} /></label>
+            <label>Border<input type="color" value={vars['--aria-border']} onChange={(e) => updateVar('--aria-border', e.target.value)} /></label>
+          </div>
+        </section>
+
+        <section>
+          <h3>Typography</h3>
+          <label className="demo-theme-row">
+            Font family
+            <select value={vars['--aria-font-sans']} onChange={(e) => updateVar('--aria-font-sans', e.target.value)}>
+              <option value={fontOptions.manrope}>Manrope</option>
+              <option value={fontOptions.plex}>IBM Plex Sans</option>
+              <option value={fontOptions.space}>Space Grotesk</option>
+            </select>
+          </label>
+        </section>
+
+        <section>
+          <h3>Sizing and Spacing</h3>
+          <div className="demo-theme-controls-grid">
+            <label>Control sm<input type="text" value={vars['--aria-control-height-sm']} onChange={(e) => updateVar('--aria-control-height-sm', e.target.value)} /></label>
+            <label>Control md<input type="text" value={vars['--aria-control-height-md']} onChange={(e) => updateVar('--aria-control-height-md', e.target.value)} /></label>
+            <label>Control lg<input type="text" value={vars['--aria-control-height-lg']} onChange={(e) => updateVar('--aria-control-height-lg', e.target.value)} /></label>
+            <label>Space 2<input type="text" value={vars['--aria-space-2']} onChange={(e) => updateVar('--aria-space-2', e.target.value)} /></label>
+            <label>Space 4<input type="text" value={vars['--aria-space-4']} onChange={(e) => updateVar('--aria-space-4', e.target.value)} /></label>
+            <label>Space 8<input type="text" value={vars['--aria-space-8']} onChange={(e) => updateVar('--aria-space-8', e.target.value)} /></label>
+          </div>
+        </section>
+
+        <section>
+          <h3>Radius</h3>
+          <div className="demo-theme-controls-grid">
+            <label>Radius sm<input type="text" value={vars['--aria-radius-sm']} onChange={(e) => updateVar('--aria-radius-sm', e.target.value)} /></label>
+            <label>Radius md<input type="text" value={vars['--aria-radius-md']} onChange={(e) => updateVar('--aria-radius-md', e.target.value)} /></label>
+            <label>Radius lg<input type="text" value={vars['--aria-radius-lg']} onChange={(e) => updateVar('--aria-radius-lg', e.target.value)} /></label>
+          </div>
+        </section>
+
+        <section>
+          <h3>Accessibility</h3>
+          <ul className="demo-theme-contrast-list">
+            {contrastReport.map((item) => (
+              <li key={item.label} className={item.aaPass ? 'pass' : 'fail'}>
+                <span>{item.label}</span>
+                <span>{item.ratio ? item.ratio.toFixed(2) : 'n/a'} : 1</span>
+                <span>{item.aaPass ? 'AA pass' : 'AA fail'}</span>
+              </li>
+            ))}
+          </ul>
+        </section>
+
+        <section>
+          <h3>Export and Import</h3>
+          <textarea readOnly value={generatedCss} rows={9} className="demo-theme-textarea" />
+          <div className="demo-theme-actions">
+            <Button onPress={copyCss}>{copied ? 'Copied!' : 'Copy CSS'}</Button>
+            <Button variant="secondary" onPress={downloadCss}>Download CSS</Button>
+            <Button variant="secondary" onPress={exportJson}>Export JSON</Button>
+            <Button variant="secondary" onPress={() => fileInputRef.current?.click()}>Import JSON</Button>
+            <Button variant="secondary" onPress={resetTheme}>Reset</Button>
+          </div>
+          <input ref={fileInputRef} type="file" accept="application/json" className="demo-theme-hidden-input" onChange={handleImport} />
+          {notice && <p className="demo-theme-status">{notice}</p>}
+          {importWarnings.length > 0 && (
+            <ul className="demo-theme-warnings">
+              {importWarnings.map((warning) => (
+                <li key={warning}>{warning}</li>
+              ))}
+            </ul>
+          )}
+        </section>
+      </div>
+    </div>
+  )
+}
+
 export default function App() {
   const [inputVal, setInputVal] = useState('')
+  const [vars, setVars] = useState<ThemeVars>(() => loadTheme() ?? initialVars)
+  const [activePresetId, setActivePresetId] = useState(() => detectPresetId(loadTheme() ?? initialVars))
+  const [panelOpen, setPanelOpen] = useState(false)
 
   const single = useListState({ items: ELEMENTS, selectionMode: 'single' })
   const multi  = useListState({ items: ELEMENTS, selectionMode: 'multiple' })
   const wdis   = useListState({ items: ELEMENTS_W_DISABLED, selectionMode: 'multiple' })
 
+  useEffect(() => {
+    const timeout = window.setTimeout(() => saveTheme(vars), 250)
+    return () => window.clearTimeout(timeout)
+  }, [vars])
+
   return (
-    <div className="demo-root">
+    <div className="demo-root" style={vars as CSSProperties}>
       <div className="demo-bg" aria-hidden="true" />
 
       {/* ── Nav ── */}
@@ -98,12 +306,31 @@ export default function App() {
             aria<span>-</span>lab
           </div>
           <div className="demo-nav-tags">
+            <Button variant="ghost" size="sm" className="demo-nav-customize" onPress={() => setPanelOpen(true)}>
+              Customize theme
+            </Button>
             <span className="demo-tag">v0.1.0</span>
             <span className="demo-tag">React 19</span>
             <span className="demo-tag demo-tag-green">Beta</span>
           </div>
         </div>
       </nav>
+
+      {/* ── Theme Panel overlay ── */}
+      {panelOpen && (
+        <>
+          <div className="demo-theme-backdrop" aria-hidden onClick={() => setPanelOpen(false)} />
+          <aside className={`demo-theme-panel-wrap ${panelOpen ? 'is-open' : ''}`}>
+            <ThemePanel
+              vars={vars}
+              onVarsChange={setVars}
+              activePresetId={activePresetId}
+              onPresetApply={setActivePresetId}
+              onClose={() => setPanelOpen(false)}
+            />
+          </aside>
+        </>
+      )}
 
       {/* ── Hero ── */}
       <section className="demo-hero">

@@ -73,11 +73,8 @@ pnpm install
 # Build the library
 pnpm build
 
-# Run demo
-pnpm dev:demo
-
-# Run theme generator
-pnpm dev:theme
+# Run showcase (components + theme generator)
+pnpm dev:showcase
 
 # Run storybook
 pnpm storybook
@@ -86,8 +83,7 @@ pnpm storybook
 ## Packages
 
 - `packages/aria-lab` - Component library
-- `apps/demo` - Demo application
-- `apps/theme-generator` - Visual theme generator
+- `apps/showcase` - Components showcase + theme generator (customize theme, copy CSS)
 - `apps/storybook` - Storybook documentation
 
 ## License

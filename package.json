@@ -7,11 +7,9 @@
   "scripts": {
     "build": "pnpm --filter aria-lab build",
     "dev": "pnpm --filter aria-lab dev",
-    "dev:demo": "pnpm --filter demo dev",
-    "dev:theme": "pnpm --filter theme-generator dev",
+    "dev:showcase": "pnpm --filter showcase dev",
     "storybook": "pnpm --filter storybook storybook",
     "build-storybook": "pnpm --filter storybook build-storybook",
-    "build:theme": "pnpm --filter theme-generator build",
     "test": "pnpm --filter aria-lab test",
     "typecheck": "pnpm --filter aria-lab typecheck",
     "lint": "pnpm -r lint"
