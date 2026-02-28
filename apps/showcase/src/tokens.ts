@@ -93,6 +93,84 @@ export interface ThemePreset {
   vars: ThemeVars
 }
 
+export interface ThemeEditorOption {
+  label: string
+  value: string
+}
+
+export interface ThemeEditorField {
+  key: ThemeVarKey
+  label: string
+  control: 'color' | 'text' | 'select'
+  options?: ThemeEditorOption[]
+}
+
+export interface ThemeEditorSection {
+  id: string
+  title: string
+  layout: 'grid' | 'row'
+  fields: ThemeEditorField[]
+}
+
+export const themeEditorSections: ThemeEditorSection[] = [
+  {
+    id: 'colors',
+    title: 'Colors',
+    layout: 'grid',
+    fields: [
+      { key: '--aria-accent', label: 'Accent', control: 'color' },
+      { key: '--aria-accent-hover', label: 'Accent Hover', control: 'color' },
+      { key: '--aria-accent-text', label: 'Accent Text', control: 'color' },
+      { key: '--aria-bg-primary', label: 'Background', control: 'color' },
+      { key: '--aria-bg-secondary', label: 'Surface', control: 'color' },
+      { key: '--aria-text-primary', label: 'Text', control: 'color' },
+      { key: '--aria-text-secondary', label: 'Text Secondary', control: 'color' },
+      { key: '--aria-border', label: 'Border', control: 'color' },
+    ],
+  },
+  {
+    id: 'typography',
+    title: 'Typography',
+    layout: 'row',
+    fields: [
+      {
+        key: '--aria-font-sans',
+        label: 'Font family',
+        control: 'select',
+        options: [
+          { label: 'Manrope', value: fontOptions.manrope },
+          { label: 'IBM Plex Sans', value: fontOptions.plex },
+          { label: 'Space Grotesk', value: fontOptions.space },
+        ],
+      },
+    ],
+  },
+  {
+    id: 'sizing',
+    title: 'Sizing and Spacing',
+    layout: 'grid',
+    fields: [
+      { key: '--aria-control-height-sm', label: 'Control sm', control: 'text' },
+      { key: '--aria-control-height-md', label: 'Control md', control: 'text' },
+      { key: '--aria-control-height-lg', label: 'Control lg', control: 'text' },
+      { key: '--aria-space-2', label: 'Space 2', control: 'text' },
+      { key: '--aria-space-4', label: 'Space 4', control: 'text' },
+      { key: '--aria-space-6', label: 'Space 6', control: 'text' },
+      { key: '--aria-space-8', label: 'Space 8', control: 'text' },
+    ],
+  },
+  {
+    id: 'radius',
+    title: 'Radius',
+    layout: 'grid',
+    fields: [
+      { key: '--aria-radius-sm', label: 'Radius sm', control: 'text' },
+      { key: '--aria-radius-md', label: 'Radius md', control: 'text' },
+      { key: '--aria-radius-lg', label: 'Radius lg', control: 'text' },
+    ],
+  },
+]
+
 export const presets: ThemePreset[] = [
   {
     id: 'default',

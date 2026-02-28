@@ -16,7 +16,7 @@ import {
 import { DialogTrigger, Heading } from 'react-aria-components'
 import { getContrastReport } from './contrast'
 import { clearSavedTheme, generateCss, loadTheme, parseThemePayload, saveTheme, toThemePayload } from './theme-io'
-import { fontOptions, initialVars, presets, type ThemeVars } from './tokens'
+import { initialVars, presets, themeEditorSections, type ThemeEditorField, type ThemeVars } from './tokens'
 
 const ELEMENTS = [
   { id: '1', name: 'Hydrogen',   description: 'H · 1.008 · Group 1'  },
@@ -96,9 +96,15 @@ interface ThemePanelProps {
   onClose: () => void
 }
 
+interface ToastMessage {
+  id: number
+  message: string
+  tone: 'success' | 'info' | 'warning'
+}
+
 function ThemePanel({ vars, onVarsChange, activePresetId, onPresetApply, onClose }: ThemePanelProps) {
   const [copied, setCopied] = useState(false)
-  const [notice, setNotice] = useState('')
+  const [toasts, setToasts] = useState<ToastMessage[]>([])
   const [importWarnings, setImportWarnings] = useState<string[]>([])
   const fileInputRef = useRef<HTMLInputElement | null>(null)
 
@@ -111,11 +117,47 @@ function ThemePanel({ vars, onVarsChange, activePresetId, onPresetApply, onClose
     onVarsChange({ ...vars, [name]: value })
   }
 
+  const showToast = (message: string, tone: ToastMessage['tone'] = 'info') => {
+    const id = Date.now() + Math.floor(Math.random() * 1000)
+    setToasts((prev) => [...prev, { id, message, tone }])
+    window.setTimeout(() => {
+      setToasts((prev) => prev.filter((toast) => toast.id !== id))
+    }, 2200)
+  }
+
+  const renderFieldControl = (field: ThemeEditorField) => {
+    if (field.control === 'select') {
+      return (
+        <select value={vars[field.key]} onChange={(e) => updateVar(field.key, e.target.value)}>
+          {(field.options ?? []).map((option) => (
+            <option key={option.value} value={option.value}>
+              {option.label}
+            </option>
+          ))}
+        </select>
+      )
+    }
+
+    return (
+      <input
+        type={field.control}
+        value={vars[field.key]}
+        onChange={(e) => updateVar(field.key, e.target.value)}
+      />
+    )
+  }
+
   const copyCss = async () => {
     await navigator.clipboard.writeText(generatedCss)
     setCopied(true)
-    setNotice('CSS copied to clipboard')
+    showToast('CSS copied to clipboard', 'success')
     setTimeout(() => setCopied(false), 1200)
+  }
+
+  const copyJson = async () => {
+    const payload = JSON.stringify(toThemePayload(vars), null, 2)
+    await navigator.clipboard.writeText(payload)
+    showToast('JSON copied to clipboard', 'success')
   }
 
   const resetTheme = () => {
@@ -123,7 +165,7 @@ function ThemePanel({ vars, onVarsChange, activePresetId, onPresetApply, onClose
     onPresetApply('default')
     setImportWarnings([])
     clearSavedTheme()
-    setNotice('Theme reset to default')
+    showToast('Theme reset to default', 'info')
   }
 
   const applyPreset = (presetId: string) => {
@@ -132,7 +174,7 @@ function ThemePanel({ vars, onVarsChange, activePresetId, onPresetApply, onClose
     onVarsChange(preset.vars)
     onPresetApply(preset.id)
     setImportWarnings([])
-    setNotice(`Preset applied: ${preset.name}`)
+    showToast(`Preset applied: ${preset.name}`, 'info')
   }
 
   const exportJson = () => {
@@ -144,7 +186,7 @@ function ThemePanel({ vars, onVarsChange, activePresetId, onPresetApply, onClose
     link.download = 'aria-lab-theme.json'
     link.click()
     URL.revokeObjectURL(url)
-    setNotice('JSON theme exported')
+    showToast('JSON theme exported', 'success')
   }
 
   const downloadCss = () => {
@@ -155,7 +197,7 @@ function ThemePanel({ vars, onVarsChange, activePresetId, onPresetApply, onClose
     link.download = 'theme.css'
     link.click()
     URL.revokeObjectURL(url)
-    setNotice('CSS downloaded')
+    showToast('CSS downloaded', 'success')
   }
 
   const handleImport = async (event: ChangeEvent<HTMLInputElement>) => {
@@ -166,7 +208,7 @@ function ThemePanel({ vars, onVarsChange, activePresetId, onPresetApply, onClose
     onVarsChange(imported.vars)
     onPresetApply(detectPresetId(imported.vars))
     setImportWarnings(imported.warnings)
-    setNotice(imported.warnings.length > 0 ? 'Theme imported with warnings' : 'Theme imported')
+    showToast(imported.warnings.length > 0 ? 'Theme imported with warnings' : 'Theme imported', imported.warnings.length > 0 ? 'warning' : 'success')
     event.target.value = ''
   }
 
@@ -195,52 +237,19 @@ function ThemePanel({ vars, onVarsChange, activePresetId, onPresetApply, onClose
           <p className="demo-theme-status">{isDirty ? 'Unsaved changes' : 'In sync with preset'}</p>
         </section>
 
-        <section>
-          <h3>Colors</h3>
-          <div className="demo-theme-controls-grid">
-            <label>Accent<input type="color" value={vars['--aria-accent']} onChange={(e) => updateVar('--aria-accent', e.target.value)} /></label>
-            <label>Accent Hover<input type="color" value={vars['--aria-accent-hover']} onChange={(e) => updateVar('--aria-accent-hover', e.target.value)} /></label>
-            <label>Accent Text<input type="color" value={vars['--aria-accent-text']} onChange={(e) => updateVar('--aria-accent-text', e.target.value)} /></label>
-            <label>Background<input type="color" value={vars['--aria-bg-primary']} onChange={(e) => updateVar('--aria-bg-primary', e.target.value)} /></label>
-            <label>Surface<input type="color" value={vars['--aria-bg-secondary']} onChange={(e) => updateVar('--aria-bg-secondary', e.target.value)} /></label>
-            <label>Text<input type="color" value={vars['--aria-text-primary']} onChange={(e) => updateVar('--aria-text-primary', e.target.value)} /></label>
-            <label>Text Secondary<input type="color" value={vars['--aria-text-secondary']} onChange={(e) => updateVar('--aria-text-secondary', e.target.value)} /></label>
-            <label>Border<input type="color" value={vars['--aria-border']} onChange={(e) => updateVar('--aria-border', e.target.value)} /></label>
-          </div>
-        </section>
-
-        <section>
-          <h3>Typography</h3>
-          <label className="demo-theme-row">
-            Font family
-            <select value={vars['--aria-font-sans']} onChange={(e) => updateVar('--aria-font-sans', e.target.value)}>
-              <option value={fontOptions.manrope}>Manrope</option>
-              <option value={fontOptions.plex}>IBM Plex Sans</option>
-              <option value={fontOptions.space}>Space Grotesk</option>
-            </select>
-          </label>
-        </section>
-
-        <section>
-          <h3>Sizing and Spacing</h3>
-          <div className="demo-theme-controls-grid">
-            <label>Control sm<input type="text" value={vars['--aria-control-height-sm']} onChange={(e) => updateVar('--aria-control-height-sm', e.target.value)} /></label>
-            <label>Control md<input type="text" value={vars['--aria-control-height-md']} onChange={(e) => updateVar('--aria-control-height-md', e.target.value)} /></label>
-            <label>Control lg<input type="text" value={vars['--aria-control-height-lg']} onChange={(e) => updateVar('--aria-control-height-lg', e.target.value)} /></label>
-            <label>Space 2<input type="text" value={vars['--aria-space-2']} onChange={(e) => updateVar('--aria-space-2', e.target.value)} /></label>
-            <label>Space 4<input type="text" value={vars['--aria-space-4']} onChange={(e) => updateVar('--aria-space-4', e.target.value)} /></label>
-            <label>Space 8<input type="text" value={vars['--aria-space-8']} onChange={(e) => updateVar('--aria-space-8', e.target.value)} /></label>
-          </div>
-        </section>
-
-        <section>
-          <h3>Radius</h3>
-          <div className="demo-theme-controls-grid">
-            <label>Radius sm<input type="text" value={vars['--aria-radius-sm']} onChange={(e) => updateVar('--aria-radius-sm', e.target.value)} /></label>
-            <label>Radius md<input type="text" value={vars['--aria-radius-md']} onChange={(e) => updateVar('--aria-radius-md', e.target.value)} /></label>
-            <label>Radius lg<input type="text" value={vars['--aria-radius-lg']} onChange={(e) => updateVar('--aria-radius-lg', e.target.value)} /></label>
-          </div>
-        </section>
+        {themeEditorSections.map((section) => (
+          <section key={section.id}>
+            <h3>{section.title}</h3>
+            <div className={section.layout === 'grid' ? 'demo-theme-controls-grid' : 'demo-theme-row'}>
+              {section.fields.map((field) => (
+                <label key={field.key}>
+                  {field.label}
+                  {renderFieldControl(field)}
+                </label>
+              ))}
+            </div>
+          </section>
+        ))}
 
         <section>
           <h3>Accessibility</h3>
@@ -261,12 +270,12 @@ function ThemePanel({ vars, onVarsChange, activePresetId, onPresetApply, onClose
           <div className="demo-theme-actions">
             <Button onPress={copyCss}>{copied ? 'Copied!' : 'Copy CSS'}</Button>
             <Button variant="secondary" onPress={downloadCss}>Download CSS</Button>
+            <Button variant="secondary" onPress={copyJson}>Copy JSON</Button>
             <Button variant="secondary" onPress={exportJson}>Export JSON</Button>
             <Button variant="secondary" onPress={() => fileInputRef.current?.click()}>Import JSON</Button>
             <Button variant="secondary" onPress={resetTheme}>Reset</Button>
           </div>
           <input ref={fileInputRef} type="file" accept="application/json" className="demo-theme-hidden-input" onChange={handleImport} />
-          {notice && <p className="demo-theme-status">{notice}</p>}
           {importWarnings.length > 0 && (
             <ul className="demo-theme-warnings">
               {importWarnings.map((warning) => (
@@ -275,6 +284,14 @@ function ThemePanel({ vars, onVarsChange, activePresetId, onPresetApply, onClose
             </ul>
           )}
         </section>
+      </div>
+
+      <div className="demo-theme-toast-stack" aria-live="polite">
+        {toasts.map((toast) => (
+          <div key={toast.id} className={`demo-theme-toast ${toast.tone}`}>
+            {toast.message}
+          </div>
+        ))}
       </div>
     </div>
   )
