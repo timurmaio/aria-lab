@@ -68,7 +68,7 @@ export function Select<T extends object>({
             )}
           >
             <SelectValue className="flex-1 truncate text-[var(--aria-text-primary)]">
-              {({ selectedText }) => selectedText ?? placeholder}
+              {({ selectedText, defaultChildren }) => selectedText || defaultChildren || placeholder}
             </SelectValue>
             <svg
               aria-hidden

@@ -461,14 +461,22 @@ export default function App() {
                   placeholder="Choose framework"
                   items={FRAMEWORKS}
                 >
-                  {(item) => <SelectItem id={item.id}>{item.name}</SelectItem>}
+                  {(item) => (
+                    <SelectItem id={item.id} textValue={item.name}>
+                      {item.name}
+                    </SelectItem>
+                  )}
                 </Select>
                 <ComboBox
                   label="Language"
                   placeholder="Search language"
                   items={LANGUAGES}
                 >
-                  {(item) => <ComboBoxItem id={item.id}>{item.name}</ComboBoxItem>}
+                  {(item) => (
+                    <ComboBoxItem id={item.id} textValue={item.name}>
+                      {item.name}
+                    </ComboBoxItem>
+                  )}
                 </ComboBox>
                 <DialogTrigger>
                   <Button variant="secondary">Open dialog</Button>
