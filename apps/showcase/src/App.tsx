@@ -544,9 +544,18 @@ export default function App() {
           aria<span className="accent">-</span>lab
         </h1>
         <p className="demo-hero-desc">
-          A composable React component library built on React Aria Components.
-          Accessible by default, unstyled by design, infinitely customizable.
+          Composable React primitives built on React Aria. Accessible by default,
+          unstyled by design—bring your own aesthetic.
         </p>
+        <div className="demo-hero-cta">
+          <Button
+            variant="primary"
+            size="lg"
+            onPress={() => document.getElementById('demo-main')?.scrollIntoView({ behavior: 'smooth' })}
+          >
+            Explore components
+          </Button>
+        </div>
         <div className="demo-hero-stats">
           <div className="demo-stat">
             <span className="demo-stat-val accent">{totalComponents}</span>
@@ -561,10 +570,27 @@ export default function App() {
             <span className="demo-stat-label">AA Compliant</span>
           </div>
         </div>
+        <div className="demo-hero-preview">
+          <div className="demo-hero-preview-inner">
+            <div style={{ marginBottom: 16, fontSize: 11, fontWeight: 600, letterSpacing: '0.08em', color: 'var(--d-text-dim)', textTransform: 'uppercase' }}>
+              Live preview
+            </div>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+              <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
+                <Button variant="primary" size="sm">Primary</Button>
+                <Button variant="secondary" size="sm">Secondary</Button>
+              </div>
+              <Input placeholder="Try me..." size="sm" />
+              <Select label="Framework" placeholder="Choose" items={FRAMEWORKS} size="sm">
+                {(item) => <SelectItem id={item.id} textValue={item.name}>{item.name}</SelectItem>}
+              </Select>
+            </div>
+          </div>
+        </div>
       </section>
 
       {/* ── Main ── */}
-      <main className="demo-main">
+      <main id="demo-main" className="demo-main">
 
         {/* 01 BUTTON */}
         <section className="demo-section" style={{ animationDelay: '80ms' }}>
