@@ -6,7 +6,6 @@ import {
   ComboBoxItem,
   Dialog,
   DialogTrigger,
-  DropdownItem,
   FieldDescription,
   FieldErrorText,
   FieldLabel,
@@ -1007,25 +1006,44 @@ export default function App() {
             description="List items for menus and selection lists with keyboard navigation."
           />
           <ComponentGrid>
-            <Card label="Dropdown Items">
-              <div className="demo-dropdown-preview">
-                <DropdownItem id="1">Account Settings</DropdownItem>
-                <DropdownItem id="2">Billing</DropdownItem>
-                <DropdownItem id="3">Notifications</DropdownItem>
-                <DropdownItem id="4" isDisabled>Delete Account</DropdownItem>
+            <Card label="Dropdown Menu (Select with DropdownItem)">
+              <div className="demo-col">
+                <Select
+                  label="Account"
+                  placeholder="Choose action"
+                  items={[
+                    { id: '1', name: 'Account Settings' },
+                    { id: '2', name: 'Billing' },
+                    { id: '3', name: 'Notifications' },
+                    { id: '4', name: 'Delete Account' },
+                  ]}
+                  disabledKeys={['4']}
+                >
+                  {(item) => (
+                    <SelectItem id={item.id} textValue={item.name}>
+                      {item.name}
+                    </SelectItem>
+                  )}
+                </Select>
               </div>
             </Card>
             <Card label="With Icons">
-              <div className="demo-dropdown-preview">
-                <DropdownItem id="1">
-                  <span>✓</span> Profile
-                </DropdownItem>
-                <DropdownItem id="2">
-                  <span>⚙</span> Settings
-                </DropdownItem>
-                <DropdownItem id="3">
-                  <span>?</span> Help
-                </DropdownItem>
+              <div className="demo-col">
+                <Select
+                  label="Quick actions"
+                  placeholder="Select..."
+                  items={[
+                    { id: '1', name: 'Profile' },
+                    { id: '2', name: 'Settings' },
+                    { id: '3', name: 'Help' },
+                  ]}
+                >
+                  {(item) => (
+                    <SelectItem id={item.id} textValue={item.name}>
+                      {item.name}
+                    </SelectItem>
+                  )}
+                </Select>
               </div>
             </Card>
           </ComponentGrid>
