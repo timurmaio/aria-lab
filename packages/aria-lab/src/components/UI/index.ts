@@ -4,6 +4,20 @@ import { TextField, type TextFieldProps } from './TextField';
 import { Select, SelectItem, type SelectProps, type SelectItemProps } from './Select';
 import { ComboBox, ComboBoxItem, type ComboBoxProps, type ComboBoxItemProps } from './ComboBox';
 import { Dialog, Modal, AlertDialog, type DialogProps, type ModalProps, type AlertDialogProps } from './Dialog';
+import { Checkbox, CheckboxGroup, type CheckboxProps, type CheckboxGroupProps } from './Checkbox';
+import { Radio, RadioGroup, type RadioProps, type RadioGroupProps } from './Radio';
+import { Tabs, TabList, Tab, TabPanels, TabPanel, type TabsProps, type TabListProps, type TabProps, type TabPanelProps } from './Tabs';
+import { Switch, type SwitchProps } from './Switch';
+import { Disclosure, DisclosureHeader, DisclosurePanel, DisclosureGroup, type DisclosureProps, type DisclosureHeaderProps, type DisclosurePanelProps, type DisclosureGroupProps } from './Disclosure';
+import { Tooltip, type TooltipProps } from './Tooltip';
+import { Breadcrumbs, Breadcrumb, type BreadcrumbsProps, type BreadcrumbProps } from './Breadcrumbs';
+import { Slider, type SliderProps } from './Slider';
+import { ProgressBar, type ProgressBarProps } from './ProgressBar';
+import { Badge, type BadgeProps, type BadgeVariant } from './Badge';
+import { NumberField, type NumberFieldProps } from './NumberField';
+import { SearchField, type SearchFieldProps } from './SearchField';
+import { Separator, type SeparatorProps } from './Separator';
+import { TagGroup, Tag, type TagGroupProps, type TagProps } from './TagGroup';
 
 export const UI = {
   Button,
@@ -18,6 +32,31 @@ export const UI = {
   Dialog,
   Modal,
   AlertDialog,
+  Checkbox,
+  CheckboxGroup,
+  Radio,
+  RadioGroup,
+  Tabs,
+  TabList,
+  Tab,
+  TabPanels,
+  TabPanel,
+  Switch,
+  Disclosure,
+  DisclosureHeader,
+  DisclosurePanel,
+  DisclosureGroup,
+  Tooltip,
+  Breadcrumbs,
+  Breadcrumb,
+  Slider,
+  ProgressBar,
+  Badge,
+  NumberField,
+  SearchField,
+  Separator,
+  TagGroup,
+  Tag,
 } as const;
 
 export type UI = {
@@ -33,6 +72,31 @@ export type UI = {
   Dialog: typeof Dialog;
   Modal: typeof Modal;
   AlertDialog: typeof AlertDialog;
+  Checkbox: typeof Checkbox;
+  CheckboxGroup: typeof CheckboxGroup;
+  Radio: typeof Radio;
+  RadioGroup: typeof RadioGroup;
+  Tabs: typeof Tabs;
+  TabList: typeof TabList;
+  Tab: typeof Tab;
+  TabPanels: typeof TabPanels;
+  TabPanel: typeof TabPanel;
+  Switch: typeof Switch;
+  Disclosure: typeof Disclosure;
+  DisclosureHeader: typeof DisclosureHeader;
+  DisclosurePanel: typeof DisclosurePanel;
+  DisclosureGroup: typeof DisclosureGroup;
+  Tooltip: typeof Tooltip;
+  Breadcrumbs: typeof Breadcrumbs;
+  Breadcrumb: typeof Breadcrumb;
+  Slider: typeof Slider;
+  ProgressBar: typeof ProgressBar;
+  Badge: typeof Badge;
+  NumberField: typeof NumberField;
+  SearchField: typeof SearchField;
+  Separator: typeof Separator;
+  TagGroup: typeof TagGroup;
+  Tag: typeof Tag;
 };
 
 export {
@@ -48,6 +112,31 @@ export {
   Dialog,
   Modal,
   AlertDialog,
+  Checkbox,
+  CheckboxGroup,
+  Radio,
+  RadioGroup,
+  Tabs,
+  TabList,
+  Tab,
+  TabPanels,
+  TabPanel,
+  Switch,
+  Disclosure,
+  DisclosureHeader,
+  DisclosurePanel,
+  DisclosureGroup,
+  Tooltip,
+  Breadcrumbs,
+  Breadcrumb,
+  Slider,
+  ProgressBar,
+  Badge,
+  NumberField,
+  SearchField,
+  Separator,
+  TagGroup,
+  Tag,
 };
 
 export type {
@@ -63,4 +152,29 @@ export type {
   DialogProps,
   ModalProps,
   AlertDialogProps,
+  CheckboxProps,
+  CheckboxGroupProps,
+  RadioProps,
+  RadioGroupProps,
+  TabsProps,
+  TabListProps,
+  TabProps,
+  TabPanelProps,
+  SwitchProps,
+  DisclosureProps,
+  DisclosureHeaderProps,
+  DisclosurePanelProps,
+  DisclosureGroupProps,
+  TooltipProps,
+  BreadcrumbsProps,
+  BreadcrumbProps,
+  SliderProps,
+  ProgressBarProps,
+  BadgeProps,
+  BadgeVariant,
+  NumberFieldProps,
+  SearchFieldProps,
+  SeparatorProps,
+  TagGroupProps,
+  TagProps,
 };
