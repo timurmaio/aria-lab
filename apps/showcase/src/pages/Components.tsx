@@ -1,7 +1,10 @@
-import { useState, useId } from 'react'
+import { useState, useId, useEffect } from 'react'
+import { Link, useParams } from 'react-router-dom'
 import {
   AlertDialog,
   Button,
+  Checkbox,
+  CheckboxGroup,
   ComboBox,
   ComboBoxItem,
   Dialog,
@@ -15,11 +18,20 @@ import {
   InputGroup,
   Modal,
   Popover,
+  Radio,
+  RadioGroup,
   Select,
   SelectItem,
+  Switch,
+  Tab,
+  TabList,
+  TabPanel,
+  TabPanels,
+  Tabs,
   TextField,
   UIListBox,
   UIPicker,
+  useItemSelection,
   useListState,
 } from 'aria-lab'
 import {
@@ -30,6 +42,8 @@ import {
   LANGUAGES,
   TOKENS,
 } from '../data'
+import { componentRegistry } from '../componentRegistry'
+import { CodeBlock } from '../components/CodeBlock'
 
 function SectionHead({ num, title, description }: { num: string; title: string; description?: string }) {
   return (
@@ -48,11 +62,17 @@ function Card({
   full,
   children,
   className = '',
-}: { label?: string; full?: boolean; children: React.ReactNode; className?: string }) {
+  code,
+}: { label?: string; full?: boolean; children: React.ReactNode; className?: string; code?: string }) {
   return (
     <div className={`demo-card${full ? ' demo-card-full' : ''} ${className}`}>
       {label && <div className="demo-card-label">{label}</div>}
       {children}
+      {code && (
+        <div className="demo-card-code">
+          <CodeBlock code={code} />
+        </div>
+      )}
     </div>
   )
 }
@@ -94,7 +114,66 @@ function FieldRequiredDemo() {
   )
 }
 
+function CustomListItemDemo() {
+  const [selected, setSelected] = useState<Set<string>>(new Set())
+  const items = [
+    { id: 'a', name: 'Option A' },
+    { id: 'b', name: 'Option B' },
+    { id: 'c', name: 'Option C' },
+  ]
+  return (
+    <div className="demo-lb-wrap">
+      {items.map((item) => (
+        <CustomItem
+          key={item.id}
+          item={item}
+          selectedKeys={selected}
+          onSelectionChange={(keys) => setSelected(new Set([...keys].map(String)))}
+        />
+      ))}
+      {selected.size > 0 && (
+        <div className="demo-selection-info">Selected: {Array.from(selected).join(', ')}</div>
+      )}
+    </div>
+  )
+}
+
+function CustomItem({
+  item,
+  selectedKeys,
+  onSelectionChange,
+}: {
+  item: { id: string; name: string }
+  selectedKeys: Set<string>
+  onSelectionChange: (keys: Iterable<string | number>) => void
+}) {
+  const { handleClick, isSelected } = useItemSelection({
+    itemKey: item.id,
+    selectionMode: 'single',
+    selectedKeys,
+    onSelectionChange,
+  })
+  return (
+    <div
+      role="option"
+      aria-selected={isSelected}
+      tabIndex={0}
+      onClick={handleClick}
+      onKeyDown={(e) => e.key === 'Enter' && handleClick()}
+      style={{
+        padding: '8px 12px',
+        cursor: 'pointer',
+        background: isSelected ? 'var(--aria-accent-subtle, rgba(59,130,246,0.1))' : 'transparent',
+        borderRadius: '6px',
+      }}
+    >
+      {item.name} {isSelected && '✓'}
+    </div>
+  )
+}
+
 export function Components() {
+  const { componentId } = useParams<{ componentId?: string }>()
   const [inputVal, setInputVal] = useState('')
   const [inputWithAddon, setInputWithAddon] = useState('')
   const [showPicker, setShowPicker] = useState(false)
@@ -102,13 +181,44 @@ export function Components() {
   const multi = useListState({ items: ELEMENTS, selectionMode: 'multiple' })
   const wdis = useListState({ items: ELEMENTS_W_DISABLED, selectionMode: 'multiple' })
 
+  useEffect(() => {
+    if (componentId) {
+      const el = document.getElementById(componentId)
+      if (el) {
+        el.scrollIntoView({ behavior: 'smooth', block: 'start' })
+      }
+    }
+  }, [componentId])
+
   return (
-    <main id="demo-main" className="demo-main">
+    <main id="demo-main" className="demo-main demo-main-with-toc">
+      <aside className="demo-toc">
+        <nav className="demo-toc-nav" aria-label="Component navigation">
+          {componentRegistry.map(({ id, label }) => (
+            <Link
+              key={id}
+              to={`/components/${id}`}
+              className={`demo-toc-link ${componentId === id ? 'active' : ''}`}
+            >
+              {label}
+            </Link>
+          ))}
+        </nav>
+      </aside>
+      <div className="demo-main-content">
       {/* 01 BUTTON */}
-      <section className="demo-section" style={{ animationDelay: '80ms' }}>
+      <section id="button" className="demo-section" style={{ animationDelay: '80ms' }}>
         <SectionHead num="01" title="Button" description="Versatile button component with multiple variants, sizes, and states." />
         <ComponentGrid>
-          <Card label="Variants" full>
+          <Card
+            label="Variants"
+            full
+            code={`<Button variant="primary">Primary</Button>
+<Button variant="secondary">Secondary</Button>
+<Button variant="ghost">Ghost</Button>
+<Button variant="destructive">Destructive</Button>
+<Button variant="link">Link</Button>`}
+          >
             <div className="demo-row">
               <Button variant="primary">Primary</Button>
               <Button variant="secondary">Secondary</Button>
@@ -148,10 +258,18 @@ export function Components() {
       </section>
 
       {/* 02 INPUT */}
-      <section className="demo-section" style={{ animationDelay: '160ms' }}>
+      <section id="input" className="demo-section" style={{ animationDelay: '160ms' }}>
         <SectionHead num="02" title="Input" description="Text input with variants, sizes, and addon support." />
         <ComponentGrid>
-          <Card label="Default">
+          <Card
+            label="Default"
+            code={`<Input
+  placeholder="Type something..."
+  value={value}
+  onChange={(e) => setValue(e.target.value)}
+  aria-label="Sample text input"
+/>`}
+          >
             <div className="demo-col">
               <Input placeholder="Type something..." value={inputVal} onChange={(e) => setInputVal(e.target.value)} aria-label="Sample text input" />
             </div>
@@ -192,9 +310,41 @@ export function Components() {
         </ComponentGrid>
       </section>
 
-      {/* 03 FIELD */}
-      <section className="demo-section" style={{ animationDelay: '200ms' }}>
-        <SectionHead num="03" title="Field" description="Form field primitives for labels, descriptions, and error messages." />
+      {/* 03 INPUT GROUP & INPUT ADDON */}
+      <section id="inputgroup" className="demo-section" style={{ animationDelay: '180ms' }}>
+        <SectionHead num="03" title="InputGroup & InputAddon" description="Wrap Input with left or right addons (prefixes, suffixes)." />
+        <ComponentGrid>
+          <Card label="Left addon">
+            <div className="demo-col">
+              <InputGroup>
+                <InputAddon position="left">€</InputAddon>
+                <Input placeholder="0.00" style={{ paddingLeft: '36px' }} aria-label="Amount EUR" />
+              </InputGroup>
+            </div>
+          </Card>
+          <Card label="Right addon">
+            <div className="demo-col">
+              <InputGroup>
+                <Input placeholder="yourname" style={{ paddingRight: '72px' }} aria-label="Username" />
+                <InputAddon position="right">.dev</InputAddon>
+              </InputGroup>
+            </div>
+          </Card>
+          <Card label="Both sides" full>
+            <div className="demo-row">
+              <InputGroup>
+                <InputAddon position="left">https://</InputAddon>
+                <Input placeholder="domain.com" style={{ paddingLeft: '60px', paddingRight: '48px' }} aria-label="URL" />
+                <InputAddon position="right">/path</InputAddon>
+              </InputGroup>
+            </div>
+          </Card>
+        </ComponentGrid>
+      </section>
+
+      {/* 04 FIELD */}
+      <section id="field" className="demo-section" style={{ animationDelay: '200ms' }}>
+        <SectionHead num="04" title="Field" description="Form field primitives: FieldLabel, FieldDescription, FieldErrorText." />
         <ComponentGrid>
           <Card label="Basic Field"><FieldBasicDemo /></Card>
           <Card label="With Error"><FieldErrorDemo /></Card>
@@ -202,9 +352,9 @@ export function Components() {
         </ComponentGrid>
       </section>
 
-      {/* 04 TEXTFIELD */}
-      <section className="demo-section" style={{ animationDelay: '240ms' }}>
-        <SectionHead num="04" title="TextField" description="Complete form field with label, input, and helper text." />
+      {/* 05 TEXTFIELD */}
+      <section id="textfield" className="demo-section" style={{ animationDelay: '240ms' }}>
+        <SectionHead num="05" title="TextField" description="Complete form field with label, input, and helper text." />
         <ComponentGrid>
           <Card label="Basic">
             <div className="demo-col"><TextField label="Full Name" placeholder="John Doe" /></div>
@@ -218,11 +368,16 @@ export function Components() {
         </ComponentGrid>
       </section>
 
-      {/* 05 SELECT */}
-      <section className="demo-section" style={{ animationDelay: '280ms' }}>
-        <SectionHead num="05" title="Select" description="Dropdown selection with single and multiple choice support." />
+      {/* 06 SELECT */}
+      <section id="select" className="demo-section" style={{ animationDelay: '280ms' }}>
+        <SectionHead num="06" title="Select" description="Dropdown selection with single and multiple choice support." />
         <ComponentGrid>
-          <Card label="Single Select">
+          <Card
+            label="Single Select"
+            code={`<Select label="Framework" placeholder="Choose framework" items={FRAMEWORKS}>
+  {(item) => <SelectItem id={item.id} textValue={item.name}>{item.name}</SelectItem>}
+</Select>`}
+          >
             <div className="demo-col">
               <Select label="Framework" placeholder="Choose framework" items={FRAMEWORKS}>
                 {(item) => <SelectItem id={item.id} textValue={item.name}>{item.name}</SelectItem>}
@@ -239,9 +394,9 @@ export function Components() {
         </ComponentGrid>
       </section>
 
-      {/* 06 COMBOBOX */}
-      <section className="demo-section" style={{ animationDelay: '320ms' }}>
-        <SectionHead num="06" title="ComboBox" description="Searchable dropdown with autocomplete functionality." />
+      {/* 07 COMBOBOX */}
+      <section id="combobox" className="demo-section" style={{ animationDelay: '320ms' }}>
+        <SectionHead num="07" title="ComboBox" description="Searchable dropdown with autocomplete functionality." />
         <ComponentGrid>
           <Card label="Basic">
             <div className="demo-col">
@@ -260,9 +415,9 @@ export function Components() {
         </ComponentGrid>
       </section>
 
-      {/* 07 POPOVER */}
-      <section className="demo-section" style={{ animationDelay: '360ms' }}>
-        <SectionHead num="07" title="Popover" description="Floating content panel for menus, tooltips, and dropdowns." />
+      {/* 08 POPOVER */}
+      <section id="popover" className="demo-section" style={{ animationDelay: '360ms' }}>
+        <SectionHead num="08" title="Popover" description="Floating content panel. Use with DialogTrigger." />
         <ComponentGrid>
           <Card label="Basic Popover">
             <div className="demo-row">
@@ -297,9 +452,9 @@ export function Components() {
         </ComponentGrid>
       </section>
 
-      {/* 08 DIALOG */}
-      <section className="demo-section" style={{ animationDelay: '400ms' }}>
-        <SectionHead num="08" title="Dialog & Modal" description="Modal dialogs for confirmations, forms, and complex interactions." />
+      {/* 09 DIALOG, MODAL, ALERT DIALOG */}
+      <section id="dialog" className="demo-section" style={{ animationDelay: '400ms' }}>
+        <SectionHead num="09" title="Dialog, Modal, AlertDialog" description="Modal overlays. Use DialogTrigger + Modal + Dialog or AlertDialog." />
         <ComponentGrid>
           <Card label="Basic Dialog">
             <div className="demo-row">
@@ -364,9 +519,9 @@ export function Components() {
         </ComponentGrid>
       </section>
 
-      {/* 09 DROPDOWN */}
-      <section className="demo-section" style={{ animationDelay: '440ms' }}>
-        <SectionHead num="09" title="Dropdown" description="List items for menus and selection lists with keyboard navigation." />
+      {/* 10 DROPDOWN (SelectItem / DropdownItem) */}
+      <section id="dropdown" className="demo-section" style={{ animationDelay: '440ms' }}>
+        <SectionHead num="10" title="DropdownItem" description="List item for Select/ComboBox. Rendered via SelectItem, ComboBoxItem." />
         <ComponentGrid>
           <Card label="Dropdown Menu (Select with DropdownItem)">
             <div className="demo-col">
@@ -385,9 +540,9 @@ export function Components() {
         </ComponentGrid>
       </section>
 
-      {/* 10 UI LIST BOX */}
-      <section className="demo-section" style={{ animationDelay: '480ms' }}>
-        <SectionHead num="10" title="UIListBox" description="Accessible listbox with single and multiple selection modes." />
+      {/* 11 UI LIST BOX */}
+      <section id="uilistbox" className="demo-section" style={{ animationDelay: '480ms' }}>
+        <SectionHead num="11" title="UIListBox" description="Accessible listbox with single and multiple selection modes." />
         <ComponentGrid>
           <Card label="Single Selection">
             <div className="demo-lb-wrap">
@@ -413,9 +568,9 @@ export function Components() {
         </ComponentGrid>
       </section>
 
-      {/* 11 UI PICKER */}
-      <section className="demo-section" style={{ animationDelay: '520ms' }}>
-        <SectionHead num="11" title="UIPicker" description="Command palette style picker with search and filtering." />
+      {/* 12 UI PICKER */}
+      <section id="uipicker" className="demo-section" style={{ animationDelay: '520ms' }}>
+        <SectionHead num="12" title="UIPicker" description="Command palette style picker with search and filtering." />
         <ComponentGrid>
           <Card label="Picker" full>
             <div className="demo-row">
@@ -426,9 +581,163 @@ export function Components() {
         </ComponentGrid>
       </section>
 
-      {/* 12 DESIGN TOKENS */}
-      <section className="demo-section" style={{ animationDelay: '560ms' }}>
-        <SectionHead num="12" title="Design Tokens" description="CSS custom properties powering the entire design system." />
+      {/* 13 HOOKS */}
+      <section id="hooks" className="demo-section" style={{ animationDelay: '540ms' }}>
+        <SectionHead num="13" title="Hooks" description="useListState, useItemSelection — state management for list components." />
+        <ComponentGrid>
+          <Card label="useListState" full>
+            <div className="demo-col">
+              <p style={{ fontSize: 13, color: 'var(--d-text-mid)', marginBottom: 12 }}>
+                Manages items, selectedKeys, and provides setSelectedKeys, selectAll, deselectAll. Used by UIListBox demos above.
+              </p>
+              <div className="demo-lb-wrap">
+                <UIListBox
+                  listId="lb-hooks"
+                  ariaLabel="useListState demo"
+                  items={ELEMENTS.slice(0, 4)}
+                  selectionMode="single"
+                  selectedKeys={single.selectedKeys}
+                  onSelectionChange={single.setSelectedKeys}
+                />
+              </div>
+              {single.selectedKeys.size > 0 && (
+                <div className="demo-selection-info">selectedKeys: [{Array.from(single.selectedKeys).join(', ')}]</div>
+              )}
+            </div>
+          </Card>
+          <Card label="useItemSelection" full>
+            <div className="demo-col">
+              <p style={{ fontSize: 13, color: 'var(--d-text-mid)', marginBottom: 12 }}>
+                Low-level hook for custom list items. Returns handleClick, isSelected.
+              </p>
+              <CustomListItemDemo />
+            </div>
+          </Card>
+        </ComponentGrid>
+      </section>
+
+      {/* 15 CHECKBOX */}
+      <section id="checkbox" className="demo-section" style={{ animationDelay: '560ms' }}>
+        <SectionHead num="15" title="Checkbox" description="Single and group checkboxes for multi-select options." />
+        <ComponentGrid>
+          <Card label="Single Checkbox" code={`<Checkbox>Accept terms</Checkbox>`}>
+            <div className="demo-col">
+              <Checkbox>Accept terms</Checkbox>
+              <Checkbox defaultSelected>Subscribe to newsletter</Checkbox>
+              <Checkbox isIndeterminate>Select all</Checkbox>
+            </div>
+          </Card>
+          <Card label="CheckboxGroup" code={`<CheckboxGroup label="Preferences" defaultValue={['email']}>
+  <Checkbox value="email">Email</Checkbox>
+  <Checkbox value="sms">SMS</Checkbox>
+  <Checkbox value="push">Push</Checkbox>
+</CheckboxGroup>`}>
+            <div className="demo-col">
+              <CheckboxGroup label="Preferences" defaultValue={['email']}>
+                <Checkbox value="email">Email</Checkbox>
+                <Checkbox value="sms">SMS</Checkbox>
+                <Checkbox value="push">Push</Checkbox>
+              </CheckboxGroup>
+            </div>
+          </Card>
+          <Card label="Horizontal" full>
+            <div className="demo-col">
+              <CheckboxGroup label="Notify via" orientation="horizontal" defaultValue={['email']}>
+                <Checkbox value="email">Email</Checkbox>
+                <Checkbox value="sms">SMS</Checkbox>
+                <Checkbox value="push">Push</Checkbox>
+              </CheckboxGroup>
+            </div>
+          </Card>
+        </ComponentGrid>
+      </section>
+
+      {/* 16 RADIO */}
+      <section id="radio" className="demo-section" style={{ animationDelay: '580ms' }}>
+        <SectionHead num="16" title="Radio" description="Radio group for single selection from mutually exclusive options." />
+        <ComponentGrid>
+          <Card label="RadioGroup" code={`<RadioGroup label="Size" defaultValue="m">
+  <Radio value="s">Small</Radio>
+  <Radio value="m">Medium</Radio>
+  <Radio value="l">Large</Radio>
+</RadioGroup>`}>
+            <div className="demo-col">
+              <RadioGroup label="Size" defaultValue="m">
+                <Radio value="s">Small</Radio>
+                <Radio value="m">Medium</Radio>
+                <Radio value="l">Large</Radio>
+              </RadioGroup>
+            </div>
+          </Card>
+          <Card label="Horizontal">
+            <div className="demo-col">
+              <RadioGroup label="Theme" defaultValue="light" orientation="horizontal">
+                <Radio value="light">Light</Radio>
+                <Radio value="dark">Dark</Radio>
+                <Radio value="system">System</Radio>
+              </RadioGroup>
+            </div>
+          </Card>
+        </ComponentGrid>
+      </section>
+
+      {/* 17 TABS */}
+      <section id="tabs" className="demo-section" style={{ animationDelay: '600ms' }}>
+        <SectionHead num="17" title="Tabs" description="Tabbed interface for organizing content into sections." />
+        <ComponentGrid>
+          <Card label="Basic Tabs" full code={`<Tabs>
+  <TabList aria-label="Settings">
+    <Tab id="general">General</Tab>
+    <Tab id="account">Account</Tab>
+    <Tab id="security">Security</Tab>
+  </TabList>
+  <TabPanels>
+    <TabPanel id="general">General settings...</TabPanel>
+    <TabPanel id="account">Account settings...</TabPanel>
+    <TabPanel id="security">Security settings...</TabPanel>
+  </TabPanels>
+</Tabs>`}>
+            <div className="demo-col" style={{ minWidth: 280 }}>
+              <Tabs>
+                <TabList aria-label="Settings">
+                  <Tab id="general">General</Tab>
+                  <Tab id="account">Account</Tab>
+                  <Tab id="security">Security</Tab>
+                </TabList>
+                <TabPanels>
+                  <TabPanel id="general">
+                    <p style={{ fontSize: 13, color: 'var(--d-text-dim)' }}>General settings content goes here.</p>
+                  </TabPanel>
+                  <TabPanel id="account">
+                    <p style={{ fontSize: 13, color: 'var(--d-text-dim)' }}>Account settings content goes here.</p>
+                  </TabPanel>
+                  <TabPanel id="security">
+                    <p style={{ fontSize: 13, color: 'var(--d-text-dim)' }}>Security settings content goes here.</p>
+                  </TabPanel>
+                </TabPanels>
+              </Tabs>
+            </div>
+          </Card>
+        </ComponentGrid>
+      </section>
+
+      {/* 18 SWITCH */}
+      <section id="switch" className="demo-section" style={{ animationDelay: '620ms' }}>
+        <SectionHead num="18" title="Switch" description="Toggle switch for on/off settings." />
+        <ComponentGrid>
+          <Card label="Basic Switch" code={`<Switch>Enable notifications</Switch>`}>
+            <div className="demo-col">
+              <Switch>Enable notifications</Switch>
+              <Switch defaultSelected>Dark mode</Switch>
+              <Switch isDisabled>Disabled</Switch>
+            </div>
+          </Card>
+        </ComponentGrid>
+      </section>
+
+      {/* 19 DESIGN TOKENS */}
+      <section id="tokens" className="demo-section" style={{ animationDelay: '640ms' }}>
+        <SectionHead num="14" title="Design Tokens" description="CSS custom properties powering the entire design system." />
         <div className="demo-tokens">
           {TOKENS.map((t) => (
             <div key={t.var} className="demo-token">
@@ -441,6 +750,7 @@ export function Components() {
           ))}
         </div>
       </section>
+      </div>
     </main>
   )
 }

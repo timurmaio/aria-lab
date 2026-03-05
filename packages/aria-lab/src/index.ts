@@ -15,6 +15,16 @@ export {
   Dialog,
   Modal,
   AlertDialog,
+  Checkbox,
+  CheckboxGroup,
+  Radio,
+  RadioGroup,
+  Tabs,
+  TabList,
+  Tab,
+  TabPanels,
+  TabPanel,
+  Switch,
 } from './components/UI';
 export type {
   ButtonProps,
@@ -29,6 +39,15 @@ export type {
   DialogProps,
   ModalProps,
   AlertDialogProps,
+  CheckboxProps,
+  CheckboxGroupProps,
+  RadioProps,
+  RadioGroupProps,
+  TabsProps,
+  TabListProps,
+  TabProps,
+  TabPanelProps,
+  SwitchProps,
 } from './components/UI';
 
 // Field Components
