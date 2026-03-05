@@ -20,6 +20,9 @@ export const componentRegistry = [
   { id: 'disclosure', label: 'Disclosure' },
   { id: 'tooltip', label: 'Tooltip' },
   { id: 'breadcrumbs', label: 'Breadcrumbs' },
+  { id: 'slider', label: 'Slider' },
+  { id: 'progressbar', label: 'ProgressBar' },
+  { id: 'badge', label: 'Badge' },
 ] as const
 
 export type ComponentId = (typeof componentRegistry)[number]['id']

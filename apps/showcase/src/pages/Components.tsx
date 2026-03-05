@@ -2,6 +2,7 @@ import { useState, useId, useEffect } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import {
   AlertDialog,
+  Badge,
   Breadcrumb,
   Breadcrumbs,
   Button,
@@ -24,10 +25,12 @@ import {
   InputGroup,
   Modal,
   Popover,
+  ProgressBar,
   Radio,
   RadioGroup,
   Select,
   SelectItem,
+  Slider,
   Switch,
   Tab,
   TabList,
@@ -812,9 +815,67 @@ export function Components() {
         </ComponentGrid>
       </section>
 
-      {/* 21 BREADCRUMBS */}
-      <section id="breadcrumbs" className="demo-section" style={{ animationDelay: '680ms' }}>
-        <SectionHead num="21" title="Breadcrumbs" description="Hierarchical navigation links to the current page." />
+      {/* 21 SLIDER */}
+      <section id="slider" className="demo-section" style={{ animationDelay: '680ms' }}>
+        <SectionHead num="21" title="Slider" description="Select values within a range." />
+        <ComponentGrid>
+          <Card label="Single Thumb" code={`<Slider label="Volume" defaultValue={50} />`}>
+            <Slider label="Volume" defaultValue={50} />
+          </Card>
+          <Card label="Range" full code={`<Slider
+  label="Price range"
+  defaultValue={[20, 80]}
+  minValue={0}
+  maxValue={100}
+  thumbLabels={['Min', 'Max']}
+/>`}>
+            <Slider
+              label="Price range"
+              defaultValue={[20, 80]}
+              minValue={0}
+              maxValue={100}
+              thumbLabels={['Min', 'Max']}
+            />
+          </Card>
+        </ComponentGrid>
+      </section>
+
+      {/* 22 PROGRESS BAR */}
+      <section id="progressbar" className="demo-section" style={{ animationDelay: '700ms' }}>
+        <SectionHead num="22" title="ProgressBar" description="Determinate and indeterminate progress indicators." />
+        <ComponentGrid>
+          <Card label="Determinate" code={`<ProgressBar label="Upload" value={65} maxValue={100} />`}>
+            <ProgressBar label="Upload" value={65} maxValue={100} />
+          </Card>
+          <Card label="Indeterminate" code={`<ProgressBar label="Loading..." isIndeterminate />`}>
+            <ProgressBar label="Loading..." isIndeterminate />
+          </Card>
+        </ComponentGrid>
+      </section>
+
+      {/* 23 BADGE */}
+      <section id="badge" className="demo-section" style={{ animationDelay: '720ms' }}>
+        <SectionHead num="23" title="Badge" description="Status labels and tags." />
+        <ComponentGrid>
+          <Card label="Variants" code={`<Badge variant="neutral">Draft</Badge>
+<Badge variant="success">Active</Badge>
+<Badge variant="warning">Pending</Badge>
+<Badge variant="error">Error</Badge>
+<Badge variant="info">New</Badge>`}>
+            <div className="demo-row flex-wrap gap-2">
+              <Badge variant="neutral">Draft</Badge>
+              <Badge variant="success">Active</Badge>
+              <Badge variant="warning">Pending</Badge>
+              <Badge variant="error">Error</Badge>
+              <Badge variant="info">New</Badge>
+            </div>
+          </Card>
+        </ComponentGrid>
+      </section>
+
+      {/* 24 BREADCRUMBS */}
+      <section id="breadcrumbs" className="demo-section" style={{ animationDelay: '740ms' }}>
+        <SectionHead num="24" title="Breadcrumbs" description="Browse hierarchical navigation." />
         <ComponentGrid>
           <Card label="Basic Breadcrumbs" code={`<Breadcrumbs aria-label="Breadcrumb">
   <Breadcrumb href="#">Home</Breadcrumb>
@@ -842,9 +903,9 @@ export function Components() {
         </ComponentGrid>
       </section>
 
-      {/* 22 DESIGN TOKENS */}
-      <section id="tokens" className="demo-section" style={{ animationDelay: '700ms' }}>
-        <SectionHead num="22" title="Design Tokens" description="CSS custom properties powering the entire design system." />
+      {/* 25 DESIGN TOKENS */}
+      <section id="tokens" className="demo-section" style={{ animationDelay: '760ms' }}>
+        <SectionHead num="25" title="Design Tokens" description="CSS custom properties powering the entire design system." />
         <div className="demo-tokens">
           {TOKENS.map((t) => (
             <div key={t.var} className="demo-token">

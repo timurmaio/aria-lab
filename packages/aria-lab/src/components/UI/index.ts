@@ -11,6 +11,9 @@ import { Switch, type SwitchProps } from './Switch';
 import { Disclosure, DisclosureHeader, DisclosurePanel, DisclosureGroup, type DisclosureProps, type DisclosureHeaderProps, type DisclosurePanelProps, type DisclosureGroupProps } from './Disclosure';
 import { Tooltip, type TooltipProps } from './Tooltip';
 import { Breadcrumbs, Breadcrumb, type BreadcrumbsProps, type BreadcrumbProps } from './Breadcrumbs';
+import { Slider, type SliderProps } from './Slider';
+import { ProgressBar, type ProgressBarProps } from './ProgressBar';
+import { Badge, type BadgeProps, type BadgeVariant } from './Badge';
 
 export const UI = {
   Button,
@@ -42,6 +45,9 @@ export const UI = {
   Tooltip,
   Breadcrumbs,
   Breadcrumb,
+  Slider,
+  ProgressBar,
+  Badge,
 } as const;
 
 export type UI = {
@@ -74,6 +80,9 @@ export type UI = {
   Tooltip: typeof Tooltip;
   Breadcrumbs: typeof Breadcrumbs;
   Breadcrumb: typeof Breadcrumb;
+  Slider: typeof Slider;
+  ProgressBar: typeof ProgressBar;
+  Badge: typeof Badge;
 };
 
 export {
@@ -106,6 +115,9 @@ export {
   Tooltip,
   Breadcrumbs,
   Breadcrumb,
+  Slider,
+  ProgressBar,
+  Badge,
 };
 
 export type {
@@ -137,4 +149,8 @@ export type {
   TooltipProps,
   BreadcrumbsProps,
   BreadcrumbProps,
+  SliderProps,
+  ProgressBarProps,
+  BadgeProps,
+  BadgeVariant,
 };

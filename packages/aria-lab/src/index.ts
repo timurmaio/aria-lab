@@ -32,6 +32,9 @@ export {
   Tooltip,
   Breadcrumbs,
   Breadcrumb,
+  Slider,
+  ProgressBar,
+  Badge,
 } from './components/UI';
 export type {
   ButtonProps,
@@ -62,6 +65,10 @@ export type {
   TooltipProps,
   BreadcrumbsProps,
   BreadcrumbProps,
+  SliderProps,
+  ProgressBarProps,
+  BadgeProps,
+  BadgeVariant,
 } from './components/UI';
 
 // Field Components
