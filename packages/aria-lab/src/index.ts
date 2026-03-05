@@ -35,6 +35,11 @@ export {
   Slider,
   ProgressBar,
   Badge,
+  NumberField,
+  SearchField,
+  Separator,
+  TagGroup,
+  Tag,
 } from './components/UI';
 export type {
   ButtonProps,
@@ -69,6 +74,11 @@ export type {
   ProgressBarProps,
   BadgeProps,
   BadgeVariant,
+  NumberFieldProps,
+  SearchFieldProps,
+  SeparatorProps,
+  TagGroupProps,
+  TagProps,
 } from './components/UI';
 
 // Field Components

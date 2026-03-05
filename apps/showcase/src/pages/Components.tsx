@@ -24,12 +24,15 @@ import {
   InputAddon,
   InputGroup,
   Modal,
+  NumberField,
   Popover,
   ProgressBar,
   Radio,
   RadioGroup,
+  SearchField,
   Select,
   SelectItem,
+  Separator,
   Slider,
   Switch,
   Tab,
@@ -37,6 +40,8 @@ import {
   TabPanel,
   TabPanels,
   Tabs,
+  Tag,
+  TagGroup,
   TextField,
   Tooltip,
   TooltipTrigger,
@@ -873,9 +878,73 @@ export function Components() {
         </ComponentGrid>
       </section>
 
-      {/* 24 BREADCRUMBS */}
-      <section id="breadcrumbs" className="demo-section" style={{ animationDelay: '740ms' }}>
-        <SectionHead num="24" title="Breadcrumbs" description="Browse hierarchical navigation." />
+      {/* 24 NUMBERFIELD */}
+      <section id="numberfield" className="demo-section" style={{ animationDelay: '740ms' }}>
+        <SectionHead num="24" title="NumberField" description="Numeric input with increment/decrement steppers." />
+        <ComponentGrid>
+          <Card label="Basic" code={`<NumberField label="Quantity" defaultValue={5} minValue={0} maxValue={100} />`}>
+            <NumberField label="Quantity" defaultValue={5} minValue={0} maxValue={100} />
+          </Card>
+          <Card label="With Step">
+            <NumberField label="Amount" defaultValue={10} minValue={0} step={0.5} />
+          </Card>
+        </ComponentGrid>
+      </section>
+
+      {/* 25 SEARCHFIELD */}
+      <section id="searchfield" className="demo-section" style={{ animationDelay: '760ms' }}>
+        <SectionHead num="25" title="SearchField" description="Search input with clear button." />
+        <ComponentGrid>
+          <Card label="Basic" code={`<SearchField label="Search" placeholder="Search..." />`}>
+            <SearchField label="Search" placeholder="Search..." />
+          </Card>
+        </ComponentGrid>
+      </section>
+
+      {/* 26 SEPARATOR */}
+      <section id="separator" className="demo-section" style={{ animationDelay: '780ms' }}>
+        <SectionHead num="26" title="Separator" description="Visual divider between content sections." />
+        <ComponentGrid>
+          <Card label="Horizontal" code={`<Separator orientation="horizontal" />`}>
+            <div className="demo-col" style={{ width: 200 }}>
+              <p style={{ fontSize: 13, color: 'var(--d-text-dim)' }}>Above</p>
+              <Separator orientation="horizontal" />
+              <p style={{ fontSize: 13, color: 'var(--d-text-dim)' }}>Below</p>
+            </div>
+          </Card>
+          <Card label="Vertical">
+            <div style={{ display: 'flex', alignItems: 'center', gap: 16 }}>
+              <span style={{ fontSize: 13 }}>One</span>
+              <Separator orientation="vertical" />
+              <span style={{ fontSize: 13 }}>Two</span>
+              <Separator orientation="vertical" />
+              <span style={{ fontSize: 13 }}>Three</span>
+            </div>
+          </Card>
+        </ComponentGrid>
+      </section>
+
+      {/* 27 TAGGROUP */}
+      <section id="taggroup" className="demo-section" style={{ animationDelay: '800ms' }}>
+        <SectionHead num="27" title="TagGroup" description="Removable tags with keyboard navigation." />
+        <ComponentGrid>
+          <Card label="Basic" code={`<TagGroup label="Tags">
+  <Tag>News</Tag>
+  <Tag>Travel</Tag>
+  <Tag>Gaming</Tag>
+</TagGroup>`}>
+            <TagGroup label="Tags">
+              <Tag>News</Tag>
+              <Tag>Travel</Tag>
+              <Tag>Gaming</Tag>
+            </TagGroup>
+          </Card>
+        </ComponentGrid>
+      </section>
+
+      {/* 28 BREADCRUMBS */}
+      <section id="breadcrumbs" className="demo-section" style={{ animationDelay: '820ms' }}>
+        <SectionHead num="28" title="Breadcrumbs" description="Browse hierarchical navigation." />
         <ComponentGrid>
           <Card label="Basic Breadcrumbs" code={`<Breadcrumbs aria-label="Breadcrumb">
   <Breadcrumb href="#">Home</Breadcrumb>
@@ -903,9 +972,9 @@ export function Components() {
         </ComponentGrid>
       </section>
 
-      {/* 25 DESIGN TOKENS */}
-      <section id="tokens" className="demo-section" style={{ animationDelay: '760ms' }}>
-        <SectionHead num="25" title="Design Tokens" description="CSS custom properties powering the entire design system." />
+      {/* 29 DESIGN TOKENS */}
+      <section id="tokens" className="demo-section" style={{ animationDelay: '840ms' }}>
+        <SectionHead num="29" title="Design Tokens" description="CSS custom properties powering the entire design system." />
         <div className="demo-tokens">
           {TOKENS.map((t) => (
             <div key={t.var} className="demo-token">

@@ -22,6 +22,10 @@ export const componentRegistry = [
   { id: 'slider', label: 'Slider' },
   { id: 'progressbar', label: 'ProgressBar' },
   { id: 'badge', label: 'Badge' },
+  { id: 'numberfield', label: 'NumberField' },
+  { id: 'searchfield', label: 'SearchField' },
+  { id: 'separator', label: 'Separator' },
+  { id: 'taggroup', label: 'TagGroup' },
   { id: 'tokens', label: 'Design Tokens' },
 ] as const
 

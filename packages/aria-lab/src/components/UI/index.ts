@@ -14,6 +14,10 @@ import { Breadcrumbs, Breadcrumb, type BreadcrumbsProps, type BreadcrumbProps } 
 import { Slider, type SliderProps } from './Slider';
 import { ProgressBar, type ProgressBarProps } from './ProgressBar';
 import { Badge, type BadgeProps, type BadgeVariant } from './Badge';
+import { NumberField, type NumberFieldProps } from './NumberField';
+import { SearchField, type SearchFieldProps } from './SearchField';
+import { Separator, type SeparatorProps } from './Separator';
+import { TagGroup, Tag, type TagGroupProps, type TagProps } from './TagGroup';
 
 export const UI = {
   Button,
@@ -48,6 +52,11 @@ export const UI = {
   Slider,
   ProgressBar,
   Badge,
+  NumberField,
+  SearchField,
+  Separator,
+  TagGroup,
+  Tag,
 } as const;
 
 export type UI = {
@@ -83,6 +92,11 @@ export type UI = {
   Slider: typeof Slider;
   ProgressBar: typeof ProgressBar;
   Badge: typeof Badge;
+  NumberField: typeof NumberField;
+  SearchField: typeof SearchField;
+  Separator: typeof Separator;
+  TagGroup: typeof TagGroup;
+  Tag: typeof Tag;
 };
 
 export {
@@ -118,6 +132,11 @@ export {
   Slider,
   ProgressBar,
   Badge,
+  NumberField,
+  SearchField,
+  Separator,
+  TagGroup,
+  Tag,
 };
 
 export type {
@@ -153,4 +172,9 @@ export type {
   ProgressBarProps,
   BadgeProps,
   BadgeVariant,
+  NumberFieldProps,
+  SearchFieldProps,
+  SeparatorProps,
+  TagGroupProps,
+  TagProps,
 };
