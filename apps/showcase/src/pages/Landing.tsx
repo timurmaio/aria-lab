@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom'
 import { Button, Input, Select, SelectItem } from 'aria-lab'
 import { FRAMEWORKS } from '../data'
 
-const totalComponents = 18
+const totalComponents = 21
 
 export function Landing() {
   return (

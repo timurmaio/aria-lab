@@ -8,6 +8,9 @@ import { Checkbox, CheckboxGroup, type CheckboxProps, type CheckboxGroupProps } 
 import { Radio, RadioGroup, type RadioProps, type RadioGroupProps } from './Radio';
 import { Tabs, TabList, Tab, TabPanels, TabPanel, type TabsProps, type TabListProps, type TabProps, type TabPanelProps } from './Tabs';
 import { Switch, type SwitchProps } from './Switch';
+import { Disclosure, DisclosureHeader, DisclosurePanel, DisclosureGroup, type DisclosureProps, type DisclosureHeaderProps, type DisclosurePanelProps, type DisclosureGroupProps } from './Disclosure';
+import { Tooltip, type TooltipProps } from './Tooltip';
+import { Breadcrumbs, Breadcrumb, type BreadcrumbsProps, type BreadcrumbProps } from './Breadcrumbs';
 
 export const UI = {
   Button,
@@ -32,6 +35,13 @@ export const UI = {
   TabPanels,
   TabPanel,
   Switch,
+  Disclosure,
+  DisclosureHeader,
+  DisclosurePanel,
+  DisclosureGroup,
+  Tooltip,
+  Breadcrumbs,
+  Breadcrumb,
 } as const;
 
 export type UI = {
@@ -57,6 +67,13 @@ export type UI = {
   TabPanels: typeof TabPanels;
   TabPanel: typeof TabPanel;
   Switch: typeof Switch;
+  Disclosure: typeof Disclosure;
+  DisclosureHeader: typeof DisclosureHeader;
+  DisclosurePanel: typeof DisclosurePanel;
+  DisclosureGroup: typeof DisclosureGroup;
+  Tooltip: typeof Tooltip;
+  Breadcrumbs: typeof Breadcrumbs;
+  Breadcrumb: typeof Breadcrumb;
 };
 
 export {
@@ -82,6 +99,13 @@ export {
   TabPanels,
   TabPanel,
   Switch,
+  Disclosure,
+  DisclosureHeader,
+  DisclosurePanel,
+  DisclosureGroup,
+  Tooltip,
+  Breadcrumbs,
+  Breadcrumb,
 };
 
 export type {
@@ -106,4 +130,11 @@ export type {
   TabProps,
   TabPanelProps,
   SwitchProps,
+  DisclosureProps,
+  DisclosureHeaderProps,
+  DisclosurePanelProps,
+  DisclosureGroupProps,
+  TooltipProps,
+  BreadcrumbsProps,
+  BreadcrumbProps,
 };

@@ -2,6 +2,8 @@ import { useState, useId, useEffect } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import {
   AlertDialog,
+  Breadcrumb,
+  Breadcrumbs,
   Button,
   Checkbox,
   CheckboxGroup,
@@ -9,6 +11,10 @@ import {
   ComboBoxItem,
   Dialog,
   DialogTrigger,
+  Disclosure,
+  DisclosureGroup,
+  DisclosureHeader,
+  DisclosurePanel,
   FieldDescription,
   FieldErrorText,
   FieldLabel,
@@ -29,6 +35,8 @@ import {
   TabPanels,
   Tabs,
   TextField,
+  Tooltip,
+  TooltipTrigger,
   UIListBox,
   UIPicker,
   useItemSelection,
@@ -735,9 +743,108 @@ export function Components() {
         </ComponentGrid>
       </section>
 
-      {/* 19 DESIGN TOKENS */}
-      <section id="tokens" className="demo-section" style={{ animationDelay: '640ms' }}>
-        <SectionHead num="14" title="Design Tokens" description="CSS custom properties powering the entire design system." />
+      {/* 19 DISCLOSURE */}
+      <section id="disclosure" className="demo-section" style={{ animationDelay: '640ms' }}>
+        <SectionHead num="19" title="Disclosure / Accordion" description="Collapsible sections and accordion groups." />
+        <ComponentGrid>
+          <Card label="Single Disclosure" code={`<Disclosure>
+  <DisclosureHeader>System Requirements</DisclosureHeader>
+  <DisclosurePanel>Details about system requirements here.</DisclosurePanel>
+</Disclosure>`}>
+            <div className="demo-col" style={{ width: 280 }}>
+              <Disclosure>
+                <DisclosureHeader>System Requirements</DisclosureHeader>
+                <DisclosurePanel>Details about system requirements here.</DisclosurePanel>
+              </Disclosure>
+            </div>
+          </Card>
+          <Card label="Accordion (DisclosureGroup)" full code={`<DisclosureGroup>
+  <Disclosure id="info">
+    <DisclosureHeader>Personal Information</DisclosureHeader>
+    <DisclosurePanel>Form fields here.</DisclosurePanel>
+  </Disclosure>
+  <Disclosure id="billing">
+    <DisclosureHeader>Billing Address</DisclosureHeader>
+    <DisclosurePanel>Billing form here.</DisclosurePanel>
+  </Disclosure>
+</DisclosureGroup>`}>
+            <div className="demo-col" style={{ width: 280 }}>
+              <DisclosureGroup>
+                <Disclosure id="info">
+                  <DisclosureHeader>Personal Information</DisclosureHeader>
+                  <DisclosurePanel>Name, email, phone number and other contact details.</DisclosurePanel>
+                </Disclosure>
+                <Disclosure id="billing">
+                  <DisclosureHeader>Billing Address</DisclosureHeader>
+                  <DisclosurePanel>Street, city, postal code and payment method.</DisclosurePanel>
+                </Disclosure>
+                <Disclosure id="prefs">
+                  <DisclosureHeader>Preferences</DisclosureHeader>
+                  <DisclosurePanel>Notification settings and language preferences.</DisclosurePanel>
+                </Disclosure>
+              </DisclosureGroup>
+            </div>
+          </Card>
+        </ComponentGrid>
+      </section>
+
+      {/* 20 TOOLTIP */}
+      <section id="tooltip" className="demo-section" style={{ animationDelay: '660ms' }}>
+        <SectionHead num="20" title="Tooltip" description="Descriptive text on hover or focus." />
+        <ComponentGrid>
+          <Card label="Tooltip on Button" code={`<TooltipTrigger>
+  <Button>Hover me</Button>
+  <Tooltip>Helpful hint</Tooltip>
+</TooltipTrigger>`}>
+            <div className="demo-row">
+              <TooltipTrigger>
+                <Button variant="secondary">Hover me</Button>
+                <Tooltip>Helpful hint</Tooltip>
+              </TooltipTrigger>
+              <TooltipTrigger>
+                <Button variant="ghost" aria-label="Edit">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7" /><path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z" /></svg>
+                </Button>
+                <Tooltip>Edit</Tooltip>
+              </TooltipTrigger>
+            </div>
+          </Card>
+        </ComponentGrid>
+      </section>
+
+      {/* 21 BREADCRUMBS */}
+      <section id="breadcrumbs" className="demo-section" style={{ animationDelay: '680ms' }}>
+        <SectionHead num="21" title="Breadcrumbs" description="Hierarchical navigation links to the current page." />
+        <ComponentGrid>
+          <Card label="Basic Breadcrumbs" code={`<Breadcrumbs aria-label="Breadcrumb">
+  <Breadcrumb href="#">Home</Breadcrumb>
+  <Breadcrumb href="#">Products</Breadcrumb>
+  <Breadcrumb>Current Page</Breadcrumb>
+</Breadcrumbs>`}>
+            <nav aria-label="Breadcrumb navigation">
+              <Breadcrumbs aria-label="Breadcrumb">
+                <Breadcrumb href="#">Home</Breadcrumb>
+                <Breadcrumb href="#">Products</Breadcrumb>
+                <Breadcrumb>Current Page</Breadcrumb>
+              </Breadcrumbs>
+            </nav>
+          </Card>
+          <Card label="Long Path">
+            <nav aria-label="Document path">
+              <Breadcrumbs aria-label="Document path">
+                <Breadcrumb href="/">Home</Breadcrumb>
+                <Breadcrumb href="/docs">Docs</Breadcrumb>
+                <Breadcrumb href="/docs/components">Components</Breadcrumb>
+                <Breadcrumb>Breadcrumbs</Breadcrumb>
+              </Breadcrumbs>
+            </nav>
+          </Card>
+        </ComponentGrid>
+      </section>
+
+      {/* 22 DESIGN TOKENS */}
+      <section id="tokens" className="demo-section" style={{ animationDelay: '700ms' }}>
+        <SectionHead num="22" title="Design Tokens" description="CSS custom properties powering the entire design system." />
         <div className="demo-tokens">
           {TOKENS.map((t) => (
             <div key={t.var} className="demo-token">

@@ -25,6 +25,13 @@ export {
   TabPanels,
   TabPanel,
   Switch,
+  Disclosure,
+  DisclosureHeader,
+  DisclosurePanel,
+  DisclosureGroup,
+  Tooltip,
+  Breadcrumbs,
+  Breadcrumb,
 } from './components/UI';
 export type {
   ButtonProps,
@@ -48,6 +55,13 @@ export type {
   TabProps,
   TabPanelProps,
   SwitchProps,
+  DisclosureProps,
+  DisclosureHeaderProps,
+  DisclosurePanelProps,
+  DisclosureGroupProps,
+  TooltipProps,
+  BreadcrumbsProps,
+  BreadcrumbProps,
 } from './components/UI';
 
 // Field Components
@@ -78,6 +92,7 @@ export {
   DialogTrigger,
   Heading,
   Text,
+  TooltipTrigger,
 } from 'react-aria-components';
 
 // UIListBox
