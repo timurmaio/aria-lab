@@ -146,6 +146,20 @@ body {
   --aria-text-primary: var(--d-text) !important;
   --aria-bg-hover: var(--d-elevated) !important;
 }
+.demo-nav-link {
+  font-family: var(--d-font-disp);
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--d-text-mid);
+  text-decoration: none;
+  padding: 6px 12px;
+  border-radius: 6px;
+  transition: color 150ms ease, background 150ms ease;
+}
+.demo-nav-link:hover {
+  color: var(--d-text);
+  background: var(--d-elevated);
+}
 
 /* ─── Tags ─── */
 .demo-tag {
@@ -235,6 +249,29 @@ body {
   grid-column: 1;
   margin-bottom: 40px;
   animation: fadeUp 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.35s both;
+}
+.demo-hero-cta-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 3rem;
+  padding: 0 2rem;
+  font-size: 1.125rem;
+  font-weight: 600;
+  font-family: var(--d-font-disp);
+  color: var(--aria-accent-text, #fff);
+  background: var(--aria-accent);
+  border: none;
+  border-radius: var(--aria-radius-md, 8px);
+  text-decoration: none;
+  transition: background 200ms ease, box-shadow 200ms ease;
+  outline: none;
+}
+.demo-hero-cta-btn:hover {
+  background: var(--aria-accent-hover, color-mix(in srgb, var(--aria-accent) 85%, black));
+}
+.demo-hero-cta-btn:focus-visible {
+  box-shadow: 0 0 0 2px var(--d-bg), 0 0 0 4px var(--d-accent);
 }
 .demo-hero-stats {
   grid-column: 1;
