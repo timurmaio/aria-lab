@@ -62,7 +62,7 @@ export function Tab({ children, className, ...props }: TabProps) {
   )
 }
 
-/** Wrapper for TabPanel elements. Renders children as-is. */
+/** Wrapper for TabPanel elements. RAC 1.11 has no TabPanels — TabPanel reads from TabListStateContext. */
 export function TabPanels({ children }: { children?: ReactNode }) {
   return <>{children}</>
 }
