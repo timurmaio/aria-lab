@@ -12,7 +12,6 @@ export const componentRegistry = [
   { id: 'uilistbox', label: 'UIListBox' },
   { id: 'uipicker', label: 'UIPicker' },
   { id: 'hooks', label: 'Hooks' },
-  { id: 'tokens', label: 'Design Tokens' },
   { id: 'checkbox', label: 'Checkbox' },
   { id: 'radio', label: 'Radio' },
   { id: 'tabs', label: 'Tabs' },
@@ -23,6 +22,7 @@ export const componentRegistry = [
   { id: 'slider', label: 'Slider' },
   { id: 'progressbar', label: 'ProgressBar' },
   { id: 'badge', label: 'Badge' },
+  { id: 'tokens', label: 'Design Tokens' },
 ] as const
 
 export type ComponentId = (typeof componentRegistry)[number]['id']
