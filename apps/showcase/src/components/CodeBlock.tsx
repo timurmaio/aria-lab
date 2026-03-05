@@ -17,7 +17,7 @@ export function CodeBlock({ code }: { code: string }) {
     <div className="demo-theme-code-block">
       <div className="demo-theme-code-header">
         <span>Code</span>
-        <button type="button" className="demo-code-copy" onClick={handleCopy}>
+        <button type="button" className="demo-code-copy" onClick={handleCopy} aria-label="Copy code">
           {copied ? 'Copied!' : 'Copy'}
         </button>
       </div>

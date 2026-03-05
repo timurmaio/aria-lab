@@ -57,7 +57,7 @@ export function NumberField({
         </AriaButton>
         <AriaButton slot="increment" className={buttonBase} aria-label="Increment">
           <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-            <path d="M18 9H6l6 6 6-6z" />
+            <path d="M6 15l6-6 6 6" />
           </svg>
         </AriaButton>
       </Group>

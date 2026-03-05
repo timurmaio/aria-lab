@@ -17,7 +17,7 @@ const tagBase =
   'inline-flex items-center gap-1.5 rounded-[var(--aria-radius-md)] border border-[var(--aria-border)] bg-[var(--aria-bg-secondary)] px-2.5 py-1 text-sm text-[var(--aria-text-primary)] outline-none transition hover:border-[var(--aria-border-hover)] hover:bg-[var(--aria-bg-hover)] focus-visible:ring-2 focus-visible:ring-[var(--aria-accent)] data-[disabled]:opacity-50'
 
 const removeButtonBase =
-  'ml-0.5 flex h-4 w-4 shrink-0 items-center justify-center rounded-full text-[var(--aria-text-secondary)] hover:bg-[var(--aria-bg-hover)] hover:text-[var(--aria-text-primary)]'
+  'ml-0.5 flex h-4 w-4 shrink-0 items-center justify-center rounded-full text-[var(--aria-text-secondary)] outline-none hover:bg-[var(--aria-bg-hover)] hover:text-[var(--aria-text-primary)] focus-visible:ring-2 focus-visible:ring-[var(--aria-accent)]'
 
 export interface TagGroupProps extends AriaTagGroupProps {
   label?: string
