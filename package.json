@@ -14,7 +14,8 @@
     "build:analyze": "pnpm --filter showcase build:analyze",
     "test": "pnpm --filter aria-lab test",
     "typecheck": "pnpm --filter aria-lab typecheck",
-    "lint": "pnpm -r lint"
+    "lint": "pnpm -r lint",
+    "verify": "pnpm lint && pnpm typecheck && pnpm test && pnpm build && pnpm build:showcase"
   },
   "devDependencies": {
     "typescript": "5.9.2"
