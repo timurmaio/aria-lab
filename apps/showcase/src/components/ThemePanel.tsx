@@ -2,7 +2,7 @@ import { useEffect, useMemo, useRef, useState, type ChangeEvent } from 'react'
 import { Button } from 'aria-lab'
 import { getContrastReport } from '../contrast'
 import { clearSavedTheme, generateCss, toThemePayload, parseThemePayload } from '../theme-io'
-import { initialVars, presets, themeEditorSections, type ThemeEditorField, type ThemeVars } from '../tokens'
+import { detectPresetId, initialVars, presets, themeEditorSections, type ThemeEditorField, type ThemeVars } from '../tokens'
 
 interface ToastMessage {
   id: number
@@ -69,11 +69,22 @@ export function ThemePanel({ vars, onVarsChange, activePresetId, onPresetApply, 
   const [importWarnings, setImportWarnings] = useState<string[]>([])
   const [activeTab, setActiveTab] = useState<'colors' | 'typography' | 'sizing'>('colors')
   const fileInputRef = useRef<HTMLInputElement | null>(null)
+  const toastTimeoutsRef = useRef<ReturnType<typeof setTimeout>[]>([])
+  const mountedRef = useRef(true)
 
   const generatedCss = useMemo(() => generateCss(vars), [vars])
   const contrastReport = useMemo(() => getContrastReport(vars), [vars])
   const activePresetVars = activePresetId === 'custom' ? initialVars : presets.find((p) => p.id === activePresetId)?.vars ?? initialVars
   const isDirty = JSON.stringify(vars) !== JSON.stringify(activePresetVars)
+
+  useEffect(() => {
+    mountedRef.current = true
+    return () => {
+      mountedRef.current = false
+      toastTimeoutsRef.current.forEach(clearTimeout)
+      toastTimeoutsRef.current = []
+    }
+  }, [])
 
   const updateVar = (name: keyof ThemeVars, value: string) => {
     onVarsChange({ ...vars, [name]: value })
@@ -82,9 +93,12 @@ export function ThemePanel({ vars, onVarsChange, activePresetId, onPresetApply, 
   const showToast = (message: string, tone: ToastMessage['tone'] = 'info') => {
     const id = Date.now() + Math.floor(Math.random() * 1000)
     setToasts((prev) => [...prev, { id, message, tone }])
-    window.setTimeout(() => {
+    const timeoutId = setTimeout(() => {
+      if (!mountedRef.current) return
       setToasts((prev) => prev.filter((toast) => toast.id !== id))
+      toastTimeoutsRef.current = toastTimeoutsRef.current.filter((t) => t !== timeoutId)
     }, 3000)
+    toastTimeoutsRef.current.push(timeoutId)
   }
 
   const renderFieldControl = (field: ThemeEditorField) => {
@@ -200,8 +214,6 @@ export function ThemePanel({ vars, onVarsChange, activePresetId, onPresetApply, 
     const passCount = contrastReport.filter((item) => item.aaPass).length
     return Math.round((passCount / contrastReport.length) * 100)
   }, [contrastReport])
-
-  const detectPresetId = (v: ThemeVars) => presets.find((p) => JSON.stringify(p.vars) === JSON.stringify(v))?.id ?? 'custom'
 
   return (
     <div className="demo-theme-panel">

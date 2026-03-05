@@ -1,8 +1,7 @@
 import { Link } from 'react-router-dom'
 import { Button, Input, Select, SelectItem } from 'aria-lab'
+import { componentRegistry } from '../componentRegistry'
 import { FRAMEWORKS } from '../data'
-
-const totalComponents = 28
 
 export function Landing() {
   return (
@@ -22,7 +21,7 @@ export function Landing() {
       </div>
       <div className="demo-hero-stats">
         <div className="demo-stat">
-          <span className="demo-stat-val accent">{totalComponents}</span>
+          <span className="demo-stat-val accent">{componentRegistry.length}</span>
           <span className="demo-stat-label">Components</span>
         </div>
         <div className="demo-stat">

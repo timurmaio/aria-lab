@@ -138,7 +138,7 @@ function CustomListItemDemo() {
     { id: 'c', name: 'Option C' },
   ]
   return (
-    <div className="demo-lb-wrap">
+    <div className="demo-lb-wrap" role="listbox" aria-label="Custom options">
       {items.map((item) => (
         <CustomItem
           key={item.id}
