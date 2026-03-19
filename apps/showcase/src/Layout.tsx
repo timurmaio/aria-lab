@@ -8,9 +8,22 @@ import { detectPresetId } from './tokens'
 import { initialVars, type ThemeVars } from './tokens'
 
 export function Layout() {
-  const [vars, setVars] = useState<ThemeVars>(() => loadTheme() ?? initialVars)
-  const [activePresetId, setActivePresetId] = useState(() => detectPresetId(loadTheme() ?? initialVars))
+  const [{ vars, activePresetId }, setTheme] = useState(() => {
+    const loaded = loadTheme() ?? initialVars
+    return { vars: loaded, activePresetId: detectPresetId(loaded) }
+  })
   const [panelOpen, setPanelOpen] = useState(false)
+
+  const setVars = (next: ThemeVars | ((prev: ThemeVars) => ThemeVars)) => {
+    setTheme((s) => ({
+      ...s,
+      vars: typeof next === 'function' ? next(s.vars) : next,
+    }))
+  }
+
+  const setActivePresetId = (id: string) => {
+    setTheme((s) => ({ ...s, activePresetId: id }))
+  }
 
   useEffect(() => {
     const timeout = window.setTimeout(() => saveTheme(vars), 250)
