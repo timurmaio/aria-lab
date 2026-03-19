@@ -4,12 +4,14 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
+    "lint": "eslint .",
     "dev": "vite",
     "build": "pnpm --filter aria-lab build && tsc && vite build",
     "build:analyze": "ANALYZE=1 pnpm --filter aria-lab build && tsc && vite build",
     "preview": "vite preview"
   },
   "dependencies": {
+    "@react-stately/color": "3.9.0",
     "aria-lab": "workspace:*",
     "react": "^19.0.0",
     "react-aria-components": "^1.11.0",

@@ -1,5 +1,5 @@
-import { useState, useId, useEffect } from 'react'
-import { Link, useParams } from 'react-router-dom'
+import { useState, useId, useEffect, useMemo } from 'react'
+import { Link, useNavigate, useParams } from 'react-router-dom'
 import {
   AlertDialog,
   Badge,
@@ -190,6 +190,11 @@ function CustomItem({
 
 export function Components() {
   const { componentId } = useParams<{ componentId?: string }>()
+  const navigate = useNavigate()
+  const validComponentIds = useMemo(
+    () => new Set<string>(componentRegistry.map((c) => c.id)),
+    [],
+  )
   const [inputVal, setInputVal] = useState('')
   const [inputWithAddon, setInputWithAddon] = useState('')
   const [showPicker, setShowPicker] = useState(false)
@@ -198,13 +203,18 @@ export function Components() {
   const wdis = useListState({ items: ELEMENTS_W_DISABLED, selectionMode: 'multiple' })
 
   useEffect(() => {
-    if (componentId) {
-      const el = document.getElementById(componentId)
-      if (el) {
-        el.scrollIntoView({ behavior: 'smooth', block: 'start' })
-      }
+    if (componentId && !validComponentIds.has(componentId)) {
+      navigate('/components', { replace: true })
     }
-  }, [componentId])
+  }, [componentId, navigate, validComponentIds])
+
+  useEffect(() => {
+    if (!componentId || !validComponentIds.has(componentId)) return
+    const el = document.getElementById(componentId)
+    if (el) {
+      el.scrollIntoView({ behavior: 'smooth', block: 'start' })
+    }
+  }, [componentId, validComponentIds])
 
   return (
     <main id="demo-main" className="demo-main demo-main-with-toc">

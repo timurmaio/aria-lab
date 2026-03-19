@@ -23,7 +23,10 @@ const inputBase =
 const groupBase =
   'flex w-fit items-stretch overflow-hidden rounded-[var(--aria-radius-md)] border border-[var(--aria-border)] bg-[var(--aria-bg-primary)] transition duration-200 focus-within:shadow-[var(--aria-focus-ring)] hover:border-[var(--aria-border-hover)] data-[invalid]:border-[var(--aria-error)]'
 
-const buttonBase =
+const decrementButtonBase =
+  'flex shrink-0 items-center justify-center border-r border-[var(--aria-border)] bg-[var(--aria-bg-secondary)] px-2 text-[var(--aria-text-secondary)] transition hover:bg-[var(--aria-bg-hover)] hover:text-[var(--aria-text-primary)] focus:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-[var(--aria-accent)] disabled:opacity-50'
+
+const incrementButtonBase =
   'flex shrink-0 items-center justify-center border-l border-[var(--aria-border)] bg-[var(--aria-bg-secondary)] px-2 text-[var(--aria-text-secondary)] transition hover:bg-[var(--aria-bg-hover)] hover:text-[var(--aria-text-primary)] focus:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-[var(--aria-accent)] disabled:opacity-50'
 
 export interface NumberFieldProps extends Omit<AriaNumberFieldProps, 'children'> {
@@ -49,13 +52,13 @@ export function NumberField({
     >
       {label != null && <FieldLabel>{label}</FieldLabel>}
       <Group className={composeClassName(undefined, () => cn(groupBase, sizeStyles[size]))}>
-        <Input className={inputBase} placeholder={placeholder} />
-        <AriaButton slot="decrement" className={buttonBase} aria-label="Decrement">
+        <AriaButton slot="decrement" className={decrementButtonBase} aria-label="Decrement">
           <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
             <path d="M18 15H6" />
           </svg>
         </AriaButton>
-        <AriaButton slot="increment" className={buttonBase} aria-label="Increment">
+        <Input className={inputBase} placeholder={placeholder} />
+        <AriaButton slot="increment" className={incrementButtonBase} aria-label="Increment">
           <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
             <path d="M6 15l6-6 6 6" />
           </svg>

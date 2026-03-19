@@ -1,5 +1,7 @@
 import { useEffect, useMemo, useRef, useState, type ChangeEvent } from 'react'
 import { Button } from 'aria-lab'
+import { ColorField, ColorSwatch, Group, Input } from 'react-aria-components'
+import { parseColor } from '@react-stately/color'
 import { getContrastReport } from '../contrast'
 import { clearSavedTheme, generateCss, toThemePayload, parseThemePayload } from '../theme-io'
 import { detectPresetId, initialVars, presets, themeEditorSections, type ThemeEditorField, type ThemeVars } from '../tokens'
@@ -10,48 +12,53 @@ interface ToastMessage {
   tone: 'success' | 'info' | 'warning' | 'error'
 }
 
-function ColorInput({ value, onChange, label }: { value: string; onChange: (value: string) => void; label: string }) {
-  const [localValue, setLocalValue] = useState(value)
-  const inputRef = useRef<HTMLInputElement>(null)
-
-  useEffect(() => {
-    setLocalValue(value)
-  }, [value])
-
-  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const newValue = e.target.value
-    setLocalValue(newValue)
-    if (/^#[0-9a-fA-F]{6}$/.test(newValue)) {
-      onChange(newValue)
-    }
+function parseThemeColor(hex: string): ReturnType<typeof parseColor> {
+  try {
+    const v = hex.trim()
+    return parseColor(v.startsWith('#') ? v : `#${v}`)
+  } catch {
+    return parseColor('#000000')
   }
+}
+
+function ColorInput({ value, onChange, label }: { value: string; onChange: (value: string) => void; label: string }) {
+  const nativePickerRef = useRef<HTMLInputElement>(null)
+  const color = useMemo(() => parseThemeColor(value), [value])
 
   return (
-    <div className="demo-color-input-wrapper">
-      <div
-        className="demo-color-swatch"
-        style={{ backgroundColor: localValue }}
-        onClick={() => inputRef.current?.click()}
-      >
+    <ColorField
+      value={color}
+      onChange={(c) => {
+        if (c) onChange(c.toString('hex'))
+      }}
+      aria-label={label}
+      className="demo-color-field"
+    >
+      <Group className="demo-color-input-wrapper">
+        <Button
+          type="button"
+          variant="secondary"
+          className="demo-color-swatch-btn"
+          onPress={() => nativePickerRef.current?.click()}
+          aria-label={`${label} — system color picker`}
+        >
+          <ColorSwatch color={color} className="demo-color-swatch-fill" />
+        </Button>
         <input
-          ref={inputRef}
+          ref={nativePickerRef}
           type="color"
-          value={localValue}
-          onChange={handleChange}
-          className="demo-color-native"
+          className="sr-only"
+          tabIndex={-1}
+          aria-hidden
+          value={color.toString('hex')}
+          onChange={(e) => onChange(e.target.value)}
         />
-      </div>
-      <div className="demo-color-text-wrapper">
-        <span className="demo-color-label">{label}</span>
-        <input
-          type="text"
-          value={localValue}
-          onChange={handleChange}
-          className="demo-color-text"
-          maxLength={7}
-        />
-      </div>
-    </div>
+        <div className="demo-color-text-wrapper">
+          <span className="demo-color-label">{label}</span>
+          <Input className="demo-color-text" />
+        </div>
+      </Group>
+    </ColorField>
   )
 }
 
