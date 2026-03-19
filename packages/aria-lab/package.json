@@ -59,6 +59,7 @@
     "copy-css": "node -e \"const fs=require('fs');const path=require('path');fs.mkdirSync('dist/theme',{recursive:true});fs.readdirSync('src/theme').forEach(f=>fs.copyFileSync(path.join('src/theme',f),path.join('dist/theme',f)))\"",
     "dev": "tsdown --watch",
     "test": "vitest",
+    "lint": "eslint .",
     "typecheck": "tsc --noEmit",
     "release": "bumpp && pnpm publish",
     "prepublishOnly": "pnpm run build"

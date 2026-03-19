@@ -241,3 +241,12 @@ export const presets: ThemePreset[] = [
     },
   },
 ]
+
+export function detectPresetId(vars: ThemeVars): string {
+  for (const p of presets) {
+    if (themeVarKeys.every((k) => p.vars[k] === vars[k])) {
+      return p.id
+    }
+  }
+  return 'custom'
+}

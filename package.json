@@ -10,11 +10,18 @@
     "dev:showcase": "pnpm --filter showcase dev",
     "storybook": "pnpm --filter storybook storybook",
     "build-storybook": "pnpm --filter storybook build-storybook",
+    "build:showcase": "pnpm --filter showcase build",
+    "build:analyze": "pnpm --filter showcase build:analyze",
     "test": "pnpm --filter aria-lab test",
     "typecheck": "pnpm --filter aria-lab typecheck",
-    "lint": "pnpm -r lint"
+    "lint": "pnpm -r lint",
+    "verify": "pnpm lint && pnpm typecheck && pnpm test && pnpm build && pnpm build:showcase"
   },
   "devDependencies": {
-    "typescript": "5.9.2"
+    "@eslint/js": "^9.21.0",
+    "eslint": "^9.21.0",
+    "eslint-plugin-react-hooks": "^5.1.0",
+    "typescript": "5.9.2",
+    "typescript-eslint": "^8.25.0"
   }
 }
