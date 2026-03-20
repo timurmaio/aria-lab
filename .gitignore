@@ -3,6 +3,7 @@ dist
 *.log
 .DS_Store
 .vscode/
+.vite-hooks/
 
 *storybook.log
 storybook-static

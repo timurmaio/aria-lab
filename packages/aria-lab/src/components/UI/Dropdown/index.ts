@@ -1,2 +1,2 @@
-export { DropdownItem } from './DropdownItem.js'
-export type { DropdownItemProps } from './DropdownItem.js'
+export { DropdownItem } from "./DropdownItem.js";
+export type { DropdownItemProps } from "./DropdownItem.js";

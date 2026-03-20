@@ -1,31 +1,31 @@
-import type { Meta, StoryObj } from '@storybook/react'
-import { DialogTrigger, Heading } from 'react-aria-components'
-import { Button, Dialog, Modal } from 'aria-lab'
+import type { Meta, StoryObj } from "@storybook/react";
+import { DialogTrigger, Heading } from "react-aria-components";
+import { Button, Dialog, Modal } from "aria-lab";
 
 const meta: Meta<typeof Modal> = {
-  title: 'Components/Modal',
+  title: "Components/Modal",
   component: Modal,
   parameters: {
-    layout: 'centered',
+    layout: "centered",
   },
-  tags: ['autodocs'],
+  tags: ["autodocs"],
   argTypes: {
     size: {
-      control: 'select',
-      options: ['sm', 'md', 'lg'],
+      control: "select",
+      options: ["sm", "md", "lg"],
     },
     isDismissable: {
-      control: 'boolean',
+      control: "boolean",
     },
   },
   args: {
-    size: 'md',
+    size: "md",
     isDismissable: true,
   },
-}
+};
 
-export default meta
-type Story = StoryObj<typeof meta>
+export default meta;
+type Story = StoryObj<typeof meta>;
 
 export const Playground: Story = {
   render: (args) => (
@@ -35,7 +35,10 @@ export const Playground: Story = {
         <Dialog>
           {({ close }: { close: () => void }) => (
             <>
-              <Heading slot="title" className="text-lg font-semibold text-[var(--aria-text-primary)]">
+              <Heading
+                slot="title"
+                className="text-lg font-semibold text-[var(--aria-text-primary)]"
+              >
                 Modal size: {String(args.size)}
               </Heading>
               <p className="mt-2 text-sm text-[var(--aria-text-secondary)]">
@@ -53,4 +56,4 @@ export const Playground: Story = {
       </Modal>
     </DialogTrigger>
   ),
-}
+};

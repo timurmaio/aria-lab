@@ -1,18 +1,18 @@
-import type { Meta, StoryObj } from '@storybook/react'
-import { DialogTrigger, Heading } from 'react-aria-components'
-import { Button, Dialog, Modal } from 'aria-lab'
+import type { Meta, StoryObj } from "@storybook/react";
+import { DialogTrigger, Heading } from "react-aria-components";
+import { Button, Dialog, Modal } from "aria-lab";
 
 const meta: Meta<typeof Dialog> = {
-  title: 'Components/Dialog',
+  title: "Components/Dialog",
   component: Dialog,
   parameters: {
-    layout: 'centered',
+    layout: "centered",
   },
-  tags: ['autodocs'],
-}
+  tags: ["autodocs"],
+};
 
-export default meta
-type Story = StoryObj<typeof meta>
+export default meta;
+type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   render: () => (
@@ -22,7 +22,10 @@ export const Default: Story = {
         <Dialog>
           {({ close }: { close: () => void }) => (
             <>
-              <Heading slot="title" className="text-lg font-semibold text-[var(--aria-text-primary)]">
+              <Heading
+                slot="title"
+                className="text-lg font-semibold text-[var(--aria-text-primary)]"
+              >
                 Invite teammate
               </Heading>
               <p className="mt-2 text-sm text-[var(--aria-text-secondary)]">
@@ -40,4 +43,4 @@ export const Default: Story = {
       </Modal>
     </DialogTrigger>
   ),
-}
+};

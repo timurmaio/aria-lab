@@ -1,5 +1,5 @@
-import type { Meta, StoryObj } from '@storybook/react'
-import { useState } from 'react'
+import type { Meta, StoryObj } from "@storybook/react";
+import { useState } from "react";
 import {
   Button,
   Checkbox,
@@ -15,37 +15,37 @@ import {
   TabPanels,
   Tabs,
   TextField,
-} from 'aria-lab'
+} from "aria-lab";
 
 const meta: Meta = {
-  title: 'Examples/Form',
+  title: "Examples/Form",
   parameters: {
-    layout: 'centered',
+    layout: "centered",
   },
-  tags: ['autodocs'],
-}
+  tags: ["autodocs"],
+};
 
-export default meta
-type Story = StoryObj
+export default meta;
+type Story = StoryObj;
 
 const roleOptions = [
-  { id: 'admin', name: 'Administrator' },
-  { id: 'editor', name: 'Editor' },
-  { id: 'viewer', name: 'Viewer' },
-]
+  { id: "admin", name: "Administrator" },
+  { id: "editor", name: "Editor" },
+  { id: "viewer", name: "Viewer" },
+];
 
 export const MultiStepForm: Story = {
   render: function MultiStepFormStory() {
-    const [step, setStep] = useState(1)
+    const [step, setStep] = useState(1);
     const [formData, setFormData] = useState({
-      name: '',
-      email: '',
-      role: '',
+      name: "",
+      email: "",
+      role: "",
       notifications: [] as string[],
-      theme: 'light',
+      theme: "light",
       terms: false,
       marketing: false,
-    })
+    });
 
     return (
       <div style={{ width: 420 }}>
@@ -57,8 +57,8 @@ export const MultiStepForm: Story = {
           </TabList>
           <TabPanels>
             <TabPanel id="1">
-              <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
-                <h3 style={{ margin: '0 0 8px', fontSize: 16 }}>Account details</h3>
+              <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
+                <h3 style={{ margin: "0 0 8px", fontSize: 16 }}>Account details</h3>
                 <TextField
                   label="Full name"
                   placeholder="John Doe"
@@ -76,16 +76,22 @@ export const MultiStepForm: Story = {
               </div>
             </TabPanel>
             <TabPanel id="2">
-              <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
-                <h3 style={{ margin: '0 0 8px', fontSize: 16 }}>Preferences</h3>
+              <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
+                <h3 style={{ margin: "0 0 8px", fontSize: 16 }}>Preferences</h3>
                 <Select
                   label="Role"
                   placeholder="Select role"
                   selectedKey={formData.role || undefined}
-                  onSelectionChange={(k) => setFormData((d) => ({ ...d, role: k != null ? String(k) : '' }))}
+                  onSelectionChange={(k) =>
+                    setFormData((d) => ({ ...d, role: k != null ? String(k) : "" }))
+                  }
                   items={roleOptions}
                 >
-                  {(item) => <SelectItem id={item.id} textValue={item.name}>{item.name}</SelectItem>}
+                  {(item) => (
+                    <SelectItem id={item.id} textValue={item.name}>
+                      {item.name}
+                    </SelectItem>
+                  )}
                 </Select>
                 <RadioGroup
                   label="Theme"
@@ -105,20 +111,30 @@ export const MultiStepForm: Story = {
                   <Checkbox value="push">Push</Checkbox>
                   <Checkbox value="sms">SMS</Checkbox>
                 </CheckboxGroup>
-                <div style={{ display: 'flex', gap: 16 }}>
-                  <Button variant="secondary" onPress={() => setStep(1)}>Back</Button>
+                <div style={{ display: "flex", gap: 16 }}>
+                  <Button variant="secondary" onPress={() => setStep(1)}>
+                    Back
+                  </Button>
                   <Button onPress={() => setStep(3)}>Next</Button>
                 </div>
               </div>
             </TabPanel>
             <TabPanel id="3">
-              <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
-                <h3 style={{ margin: '0 0 8px', fontSize: 16 }}>Review & submit</h3>
-                <div style={{ fontSize: 13, color: '#666' }}>
-                  <p style={{ margin: '0 0 8px' }}><strong>Name:</strong> {formData.name || '—'}</p>
-                  <p style={{ margin: '0 0 8px' }}><strong>Email:</strong> {formData.email || '—'}</p>
-                  <p style={{ margin: '0 0 8px' }}><strong>Role:</strong> {formData.role || '—'}</p>
-                  <p style={{ margin: '0 0 8px' }}><strong>Theme:</strong> {formData.theme}</p>
+              <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
+                <h3 style={{ margin: "0 0 8px", fontSize: 16 }}>Review & submit</h3>
+                <div style={{ fontSize: 13, color: "#666" }}>
+                  <p style={{ margin: "0 0 8px" }}>
+                    <strong>Name:</strong> {formData.name || "—"}
+                  </p>
+                  <p style={{ margin: "0 0 8px" }}>
+                    <strong>Email:</strong> {formData.email || "—"}
+                  </p>
+                  <p style={{ margin: "0 0 8px" }}>
+                    <strong>Role:</strong> {formData.role || "—"}
+                  </p>
+                  <p style={{ margin: "0 0 8px" }}>
+                    <strong>Theme:</strong> {formData.theme}
+                  </p>
                 </div>
                 <Checkbox
                   isSelected={formData.terms}
@@ -132,9 +148,11 @@ export const MultiStepForm: Story = {
                 >
                   Send me marketing emails
                 </Switch>
-                <div style={{ display: 'flex', gap: 16 }}>
-                  <Button variant="secondary" onPress={() => setStep(2)}>Back</Button>
-                  <Button isDisabled={!formData.terms} onPress={() => alert('Submitted!')}>
+                <div style={{ display: "flex", gap: 16 }}>
+                  <Button variant="secondary" onPress={() => setStep(2)}>
+                    Back
+                  </Button>
+                  <Button isDisabled={!formData.terms} onPress={() => alert("Submitted!")}>
                     Submit
                   </Button>
                 </div>
@@ -143,39 +161,52 @@ export const MultiStepForm: Story = {
           </TabPanels>
         </Tabs>
       </div>
-    )
+    );
   },
-}
+};
 
 export const ManyFields: Story = {
   render: () => (
-    <div style={{ width: 400, maxWidth: '100%' }}>
+    <div style={{ width: 400, maxWidth: "100%" }}>
       <form
         onSubmit={(e) => e.preventDefault()}
-        style={{ display: 'flex', flexDirection: 'column', gap: 20 }}
+        style={{ display: "flex", flexDirection: "column", gap: 20 }}
       >
         <TextField label="First name" placeholder="John" isRequired />
         <TextField label="Last name" placeholder="Doe" isRequired />
         <TextField label="Email" placeholder="john@example.com" type="email" />
         <TextField label="Phone" placeholder="+1 (555) 000-0000" />
-        <Select label="Country" placeholder="Select country" items={[{ id: 'us', name: 'United States' }, { id: 'uk', name: 'United Kingdom' }]}>
-          {(item) => <SelectItem id={item.id} textValue={item.name}>{item.name}</SelectItem>}
+        <Select
+          label="Country"
+          placeholder="Select country"
+          items={[
+            { id: "us", name: "United States" },
+            { id: "uk", name: "United Kingdom" },
+          ]}
+        >
+          {(item) => (
+            <SelectItem id={item.id} textValue={item.name}>
+              {item.name}
+            </SelectItem>
+          )}
         </Select>
         <RadioGroup label="Account type" defaultValue="personal">
           <Radio value="personal">Personal</Radio>
           <Radio value="business">Business</Radio>
         </RadioGroup>
-        <CheckboxGroup label="Interests" defaultValue={['dev']}>
+        <CheckboxGroup label="Interests" defaultValue={["dev"]}>
           <Checkbox value="dev">Development</Checkbox>
           <Checkbox value="design">Design</Checkbox>
           <Checkbox value="product">Product</Checkbox>
         </CheckboxGroup>
         <Switch defaultSelected>Subscribe to newsletter</Switch>
-        <div style={{ display: 'flex', gap: 12 }}>
+        <div style={{ display: "flex", gap: 12 }}>
           <Button type="submit">Submit</Button>
-          <Button variant="secondary" type="button">Cancel</Button>
+          <Button variant="secondary" type="button">
+            Cancel
+          </Button>
         </div>
       </form>
     </div>
   ),
-}
+};

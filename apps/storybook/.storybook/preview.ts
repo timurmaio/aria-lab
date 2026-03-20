@@ -1,6 +1,6 @@
-import type { Preview } from '@storybook/react'
-import 'aria-lab/styles.css'
-import 'aria-lab/theme/default.css'
+import type { Preview } from "@storybook/react";
+import "aria-lab/styles.css";
+import "aria-lab/theme/default.css";
 
 const preview: Preview = {
   parameters: {
@@ -11,13 +11,13 @@ const preview: Preview = {
       },
     },
     backgrounds: {
-      default: 'light',
+      default: "light",
       values: [
-        { name: 'light', value: '#ffffff' },
-        { name: 'dark', value: '#09090b' },
+        { name: "light", value: "#ffffff" },
+        { name: "dark", value: "#09090b" },
       ],
     },
   },
-}
+};
 
-export default preview
+export default preview;

@@ -1,46 +1,46 @@
-import type { Meta, StoryObj } from '@storybook/react'
-import { Switch } from 'aria-lab'
+import type { Meta, StoryObj } from "@storybook/react";
+import { Switch } from "aria-lab";
 
 const meta: Meta<typeof Switch> = {
-  title: 'Components/Switch',
+  title: "Components/Switch",
   component: Switch,
   parameters: {
-    layout: 'centered',
+    layout: "centered",
   },
-  tags: ['autodocs'],
+  tags: ["autodocs"],
   argTypes: {
     isDisabled: {
-      control: 'boolean',
+      control: "boolean",
     },
   },
-}
+};
 
-export default meta
-type Story = StoryObj<typeof meta>
+export default meta;
+type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   args: {
-    children: 'Enable notifications',
+    children: "Enable notifications",
   },
-}
+};
 
 export const Selected: Story = {
   args: {
-    children: 'Dark mode',
+    children: "Dark mode",
     defaultSelected: true,
   },
-}
+};
 
 export const Disabled: Story = {
   args: {
-    children: 'Disabled option',
+    children: "Disabled option",
     isDisabled: true,
   },
-}
+};
 
 export const AllStates: Story = {
   render: () => (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+    <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
       <Switch>Enable notifications</Switch>
       <Switch defaultSelected>Dark mode</Switch>
       <Switch isDisabled>Disabled off</Switch>
@@ -49,4 +49,4 @@ export const AllStates: Story = {
       </Switch>
     </div>
   ),
-}
+};

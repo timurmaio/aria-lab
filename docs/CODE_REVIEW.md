@@ -38,8 +38,8 @@
 ### 5. Layout — `window.setTimeout` вместо `setTimeout`
 
 ```tsx
-const timeout = window.setTimeout(() => saveTheme(vars), 250)
-return () => window.clearTimeout(timeout)
+const timeout = window.setTimeout(() => saveTheme(vars), 250);
+return () => window.clearTimeout(timeout);
 ```
 
 `setTimeout` и `clearTimeout` глобальные; `window.` опционален, но не ошибка.
@@ -54,12 +54,12 @@ return () => window.clearTimeout(timeout)
 
 ## Рекомендации
 
-| Приоритет | Действие | Статус |
-|-----------|----------|--------|
-| ~~Высокий~~   | ~~Иконка increment в NumberField~~ | ✓ |
-| ~~Средний~~   | ~~Focus ring на кнопку Remove в Tag~~ | ✓ |
-| ~~Средний~~   | ~~aria-label на кнопку Copy~~ | ✓ |
-| Низкий    | Унифицировать UIListBox/UIPicker под `--aria-*` | — |
+| Приоритет   | Действие                                        | Статус |
+| ----------- | ----------------------------------------------- | ------ |
+| ~~Высокий~~ | ~~Иконка increment в NumberField~~              | ✓      |
+| ~~Средний~~ | ~~Focus ring на кнопку Remove в Tag~~           | ✓      |
+| ~~Средний~~ | ~~aria-label на кнопку Copy~~                   | ✓      |
+| Низкий      | Унифицировать UIListBox/UIPicker под `--aria-*` | —      |
 
 ## Проверки
 

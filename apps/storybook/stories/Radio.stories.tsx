@@ -1,26 +1,26 @@
-import type { Meta, StoryObj } from '@storybook/react'
-import { Radio, RadioGroup } from 'aria-lab'
+import type { Meta, StoryObj } from "@storybook/react";
+import { Radio, RadioGroup } from "aria-lab";
 
 const meta: Meta<typeof RadioGroup> = {
-  title: 'Components/Radio',
+  title: "Components/Radio",
   component: RadioGroup,
   parameters: {
-    layout: 'centered',
+    layout: "centered",
   },
-  tags: ['autodocs'],
+  tags: ["autodocs"],
   argTypes: {
     orientation: {
-      control: 'select',
-      options: ['vertical', 'horizontal'],
+      control: "select",
+      options: ["vertical", "horizontal"],
     },
     isDisabled: {
-      control: 'boolean',
+      control: "boolean",
     },
   },
-}
+};
 
-export default meta
-type Story = StoryObj<typeof meta>
+export default meta;
+type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   render: () => (
@@ -30,7 +30,7 @@ export const Default: Story = {
       <Radio value="l">Large</Radio>
     </RadioGroup>
   ),
-}
+};
 
 export const Horizontal: Story = {
   render: () => (
@@ -40,7 +40,7 @@ export const Horizontal: Story = {
       <Radio value="system">System</Radio>
     </RadioGroup>
   ),
-}
+};
 
 export const WithDescription: Story = {
   render: () => (
@@ -54,7 +54,7 @@ export const WithDescription: Story = {
       <Radio value="overnight">Overnight</Radio>
     </RadioGroup>
   ),
-}
+};
 
 export const Disabled: Story = {
   render: () => (
@@ -63,4 +63,4 @@ export const Disabled: Story = {
       <Radio value="paypal">PayPal</Radio>
     </RadioGroup>
   ),
-}
+};

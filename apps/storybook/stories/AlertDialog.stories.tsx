@@ -1,18 +1,18 @@
-import type { Meta, StoryObj } from '@storybook/react'
-import { DialogTrigger } from 'react-aria-components'
-import { AlertDialog, Button, Modal } from 'aria-lab'
+import type { Meta, StoryObj } from "@storybook/react";
+import { DialogTrigger } from "react-aria-components";
+import { AlertDialog, Button, Modal } from "aria-lab";
 
 const meta: Meta<typeof AlertDialog> = {
-  title: 'Components/AlertDialog',
+  title: "Components/AlertDialog",
   component: AlertDialog,
   parameters: {
-    layout: 'centered',
+    layout: "centered",
   },
-  tags: ['autodocs'],
-}
+  tags: ["autodocs"],
+};
 
-export default meta
-type Story = StoryObj<typeof meta>
+export default meta;
+type Story = StoryObj<typeof meta>;
 
 export const Destructive: Story = {
   render: (args: any) => (
@@ -24,12 +24,12 @@ export const Destructive: Story = {
     </DialogTrigger>
   ),
   args: {
-    title: 'Delete project',
-    children: 'Are you sure you want to delete this project? This action cannot be undone.',
-    variant: 'destructive',
-    actionLabel: 'Delete',
+    title: "Delete project",
+    children: "Are you sure you want to delete this project? This action cannot be undone.",
+    variant: "destructive",
+    actionLabel: "Delete",
   },
-}
+};
 
 export const Info: Story = {
   render: (args: any) => (
@@ -41,9 +41,9 @@ export const Info: Story = {
     </DialogTrigger>
   ),
   args: {
-    title: 'Enable sync',
-    children: 'Turn on cloud sync for all team members now?',
-    variant: 'info',
-    actionLabel: 'Enable',
+    title: "Enable sync",
+    children: "Turn on cloud sync for all team members now?",
+    variant: "info",
+    actionLabel: "Enable",
   },
-}
+};

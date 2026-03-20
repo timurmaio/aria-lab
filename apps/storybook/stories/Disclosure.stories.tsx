@@ -1,28 +1,31 @@
-import type { Meta, StoryObj } from '@storybook/react'
-import { Disclosure, DisclosureGroup, DisclosureHeader, DisclosurePanel } from 'aria-lab'
+import type { Meta, StoryObj } from "@storybook/react";
+import { Disclosure, DisclosureGroup, DisclosureHeader, DisclosurePanel } from "aria-lab";
 
 const meta: Meta<typeof Disclosure> = {
-  title: 'Components/Disclosure',
+  title: "Components/Disclosure",
   component: Disclosure,
   parameters: {
-    layout: 'centered',
+    layout: "centered",
   },
-  tags: ['autodocs'],
-}
+  tags: ["autodocs"],
+};
 
-export default meta
-type Story = StoryObj<typeof meta>
+export default meta;
+type Story = StoryObj<typeof meta>;
 
 export const SingleDisclosure: Story = {
   render: () => (
     <div style={{ width: 320 }}>
       <Disclosure>
         <DisclosureHeader>System Requirements</DisclosureHeader>
-        <DisclosurePanel>Details about system requirements here. You may need a modern browser and JavaScript enabled.</DisclosurePanel>
+        <DisclosurePanel>
+          Details about system requirements here. You may need a modern browser and JavaScript
+          enabled.
+        </DisclosurePanel>
       </Disclosure>
     </div>
   ),
-}
+};
 
 export const Accordion: Story = {
   render: () => (
@@ -43,12 +46,12 @@ export const Accordion: Story = {
       </DisclosureGroup>
     </div>
   ),
-}
+};
 
 export const MultipleExpanded: Story = {
   render: () => (
     <div style={{ width: 320 }}>
-      <DisclosureGroup defaultExpandedKeys={['info', 'prefs']}>
+      <DisclosureGroup defaultExpandedKeys={["info", "prefs"]}>
         <Disclosure id="info">
           <DisclosureHeader>Personal Information</DisclosureHeader>
           <DisclosurePanel>Name, email, phone number.</DisclosurePanel>
@@ -64,4 +67,4 @@ export const MultipleExpanded: Story = {
       </DisclosureGroup>
     </div>
   ),
-}
+};

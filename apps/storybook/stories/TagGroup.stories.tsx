@@ -1,15 +1,15 @@
-import type { Meta, StoryObj } from '@storybook/react'
-import { Tag, TagGroup } from 'aria-lab'
+import type { Meta, StoryObj } from "@storybook/react";
+import { Tag, TagGroup } from "aria-lab";
 
 const meta: Meta<typeof TagGroup> = {
-  title: 'Components/TagGroup',
+  title: "Components/TagGroup",
   component: TagGroup,
-  parameters: { layout: 'centered' },
-  tags: ['autodocs'],
-}
+  parameters: { layout: "centered" },
+  tags: ["autodocs"],
+};
 
-export default meta
-type Story = StoryObj<typeof meta>
+export default meta;
+type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   render: () => (
@@ -20,4 +20,4 @@ export const Default: Story = {
       <Tag>Shopping</Tag>
     </TagGroup>
   ),
-}
+};

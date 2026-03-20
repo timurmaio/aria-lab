@@ -3,22 +3,28 @@
   "version": "0.1.0",
   "private": true,
   "description": "Aria Lab - React Aria component library monorepo",
-  "packageManager": "pnpm@10.14.0",
+  "type": "module",
   "scripts": {
-    "build": "pnpm --filter aria-lab build",
-    "dev": "pnpm --filter aria-lab dev",
-    "dev:showcase": "pnpm --filter showcase dev",
-    "storybook": "pnpm --filter storybook storybook",
-    "build-storybook": "pnpm --filter storybook build-storybook",
-    "build:showcase": "pnpm --filter showcase build",
-    "build:analyze": "pnpm --filter showcase build:analyze",
-    "test": "pnpm --filter aria-lab test",
-    "typecheck": "pnpm --filter aria-lab typecheck",
-    "lint": "oxlint .",
-    "verify": "pnpm lint && pnpm typecheck && pnpm test && pnpm build && pnpm build:showcase"
+    "dev": "vp run aria-lab#dev",
+    "dev:showcase": "vp run showcase#dev",
+    "storybook": "vp run storybook#storybook",
+    "build": "vp run aria-lab#build",
+    "build:showcase": "vp run showcase#build",
+    "build:analyze": "vp run showcase#build:analyze",
+    "build-storybook": "vp run storybook#build-storybook",
+    "test": "vp run aria-lab#test",
+    "typecheck": "vp run aria-lab#typecheck",
+    "lint": "vp lint .",
+    "fmt": "vp fmt",
+    "fmt:check": "vp fmt --check",
+    "check": "vp check",
+    "verify": "vp run gate",
+    "ci": "vp run gate",
+    "prepare": "vp config"
   },
   "devDependencies": {
-    "oxlint": "1.56.0",
-    "typescript": "5.9.2"
-  }
+    "typescript": "5.9.2",
+    "vite-plus": "catalog:"
+  },
+  "packageManager": "pnpm@10.14.0"
 }

@@ -1,20 +1,30 @@
-import { Autocomplete, Button, Input, Label, SearchField, useFilter, ListBox, ListBoxItem } from 'react-aria-components';
+import {
+  Autocomplete,
+  Button,
+  Input,
+  Label,
+  SearchField,
+  useFilter,
+  ListBox,
+  ListBoxItem,
+} from "react-aria-components";
 
 export function UIPicker() {
-  const { contains } = useFilter({ sensitivity: 'base' });
+  const { contains } = useFilter({ sensitivity: "base" });
 
   return (
     <Autocomplete filter={contains}>
       <SearchField>
-        <Label className="block text-sm font-medium text-gray-700">
-          Commands
-        </Label>
+        <Label className="block text-sm font-medium text-gray-700">Commands</Label>
         <Input
           placeholder="Search commands...."
           className="flex-1 border-none outline-none bg-transparent text-sm text-gray-900 placeholder-gray-500"
           autoFocus={true}
         />
-        <Button slot="clear" className="ml-2 rounded p-1 text-gray-400 transition-colors hover:bg-gray-100 hover:text-gray-600">
+        <Button
+          slot="clear"
+          className="ml-2 rounded p-1 text-gray-400 transition-colors hover:bg-gray-100 hover:text-gray-600"
+        >
           ✕
         </Button>
       </SearchField>
@@ -43,5 +53,5 @@ export function UIPicker() {
         </ListBoxItem>
       </ListBox>
     </Autocomplete>
-  )
+  );
 }

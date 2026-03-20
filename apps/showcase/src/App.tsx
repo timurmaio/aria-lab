@@ -1,9 +1,11 @@
-import { lazy, Suspense } from 'react'
-import { BrowserRouter, Routes, Route } from 'react-router-dom'
-import { Layout } from './Layout'
-import { Landing } from './pages/Landing'
+import { lazy, Suspense } from "react";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { Layout } from "./Layout";
+import { Landing } from "./pages/Landing";
 
-const Components = lazy(() => import('./pages/Components').then((m) => ({ default: m.Components })))
+const Components = lazy(() =>
+  import("./pages/Components").then((m) => ({ default: m.Components })),
+);
 
 export default function App() {
   return (
@@ -14,7 +16,16 @@ export default function App() {
           <Route
             path="components/:componentId?"
             element={
-              <Suspense fallback={<div className="demo-main demo-main-with-toc" style={{ padding: 48, textAlign: 'center', color: 'var(--d-text-dim)' }}>Loading components…</div>}>
+              <Suspense
+                fallback={
+                  <div
+                    className="demo-main demo-main-with-toc"
+                    style={{ padding: 48, textAlign: "center", color: "var(--d-text-dim)" }}
+                  >
+                    Loading components…
+                  </div>
+                }
+              >
                 <Components />
               </Suspense>
             }
@@ -22,5 +33,5 @@ export default function App() {
         </Route>
       </Routes>
     </BrowserRouter>
-  )
+  );
 }

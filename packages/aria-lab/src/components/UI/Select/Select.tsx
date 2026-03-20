@@ -1,4 +1,4 @@
-import { type ReactNode } from 'react'
+import { type ReactNode } from "react";
 import {
   Button,
   ListBox,
@@ -6,39 +6,39 @@ import {
   SelectValue,
   type SelectProps as AriaSelectProps,
   type ValidationResult,
-} from 'react-aria-components'
-import { cn, composeClassName } from '../../../lib/cn.js'
-import { DropdownItem, type DropdownItemProps } from '../Dropdown/index.js'
-import { FieldDescription, FieldErrorText, FieldLabel } from '../Field/index.js'
-import { Popover } from '../Popover/index.js'
+} from "react-aria-components";
+import { cn, composeClassName } from "../../../lib/cn.js";
+import { DropdownItem, type DropdownItemProps } from "../Dropdown/index.js";
+import { FieldDescription, FieldErrorText, FieldLabel } from "../Field/index.js";
+import { Popover } from "../Popover/index.js";
 
-type SelectVariant = 'default' | 'error'
-type SelectSize = 'sm' | 'md' | 'lg'
+type SelectVariant = "default" | "error";
+type SelectSize = "sm" | "md" | "lg";
 
 const triggerBaseStyles =
-  'flex w-full min-w-[180px] items-center gap-3 rounded-[var(--aria-radius-md)] border px-3 text-left outline-none transition duration-200 ease-out focus-visible:shadow-[var(--aria-focus-ring)] data-[disabled]:pointer-events-none data-[disabled]:cursor-not-allowed data-[disabled]:bg-[var(--aria-bg-disabled)] data-[disabled]:text-[var(--aria-text-disabled)]'
+  "flex w-full min-w-[180px] items-center gap-3 rounded-[var(--aria-radius-md)] border px-3 text-left outline-none transition duration-200 ease-out focus-visible:shadow-[var(--aria-focus-ring)] data-[disabled]:pointer-events-none data-[disabled]:cursor-not-allowed data-[disabled]:bg-[var(--aria-bg-disabled)] data-[disabled]:text-[var(--aria-text-disabled)]";
 
 const triggerSizeStyles: Record<SelectSize, string> = {
-  sm: 'h-[var(--aria-control-height-sm)] text-xs',
-  md: 'h-[var(--aria-control-height-md)] text-sm',
-  lg: 'h-[var(--aria-control-height-lg)] text-lg',
-}
+  sm: "h-[var(--aria-control-height-sm)] text-xs",
+  md: "h-[var(--aria-control-height-md)] text-sm",
+  lg: "h-[var(--aria-control-height-lg)] text-lg",
+};
 
 const triggerVariantStyles: Record<SelectVariant, string> = {
   default:
-    'border-[var(--aria-border)] bg-[var(--aria-bg-primary)] text-[var(--aria-text-primary)] hover:border-[var(--aria-border-hover)] hover:bg-[var(--aria-bg-hover)]',
-  error: 'border-[var(--aria-error)] bg-[var(--aria-bg-primary)] text-[var(--aria-text-primary)]',
-}
+    "border-[var(--aria-border)] bg-[var(--aria-bg-primary)] text-[var(--aria-text-primary)] hover:border-[var(--aria-border-hover)] hover:bg-[var(--aria-bg-hover)]",
+  error: "border-[var(--aria-error)] bg-[var(--aria-bg-primary)] text-[var(--aria-text-primary)]",
+};
 
-export interface SelectProps<T extends object> extends Omit<AriaSelectProps<T>, 'children'> {
-  label?: string
-  description?: string
-  errorMessage?: string | ((validation: ValidationResult) => string)
-  placeholder?: string
-  variant?: SelectVariant
-  size?: SelectSize
-  items?: Iterable<T>
-  children: ReactNode | ((item: T) => ReactNode)
+export interface SelectProps<T extends object> extends Omit<AriaSelectProps<T>, "children"> {
+  label?: string;
+  description?: string;
+  errorMessage?: string | ((validation: ValidationResult) => string);
+  placeholder?: string;
+  variant?: SelectVariant;
+  size?: SelectSize;
+  items?: Iterable<T>;
+  children: ReactNode | ((item: T) => ReactNode);
 }
 
 export function Select<T extends object>({
@@ -46,8 +46,8 @@ export function Select<T extends object>({
   description,
   errorMessage,
   placeholder,
-  variant = 'default',
-  size = 'md',
+  variant = "default",
+  size = "md",
   items,
   children,
   ...props
@@ -55,7 +55,7 @@ export function Select<T extends object>({
   return (
     <AriaSelect
       {...props}
-      className={composeClassName(props.className, () => 'group flex flex-col gap-1.5')}
+      className={composeClassName(props.className, () => "group flex flex-col gap-1.5")}
     >
       {({ isInvalid }) => (
         <>
@@ -64,11 +64,15 @@ export function Select<T extends object>({
             className={cn(
               triggerBaseStyles,
               triggerSizeStyles[size],
-              variant === 'error' || isInvalid ? triggerVariantStyles.error : triggerVariantStyles.default,
+              variant === "error" || isInvalid
+                ? triggerVariantStyles.error
+                : triggerVariantStyles.default,
             )}
           >
             <SelectValue className="flex-1 truncate text-[var(--aria-text-primary)]">
-              {({ selectedText, defaultChildren }) => selectedText || defaultChildren || placeholder}
+              {({ selectedText, defaultChildren }) =>
+                selectedText || defaultChildren || placeholder
+              }
             </SelectValue>
             <svg
               aria-hidden
@@ -93,11 +97,11 @@ export function Select<T extends object>({
         </>
       )}
     </AriaSelect>
-  )
+  );
 }
 
-export type SelectItemProps = DropdownItemProps
+export type SelectItemProps = DropdownItemProps;
 
 export function SelectItem(props: SelectItemProps) {
-  return <DropdownItem {...props} />
+  return <DropdownItem {...props} />;
 }
