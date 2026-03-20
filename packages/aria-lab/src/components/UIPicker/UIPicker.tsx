@@ -1,7 +1,7 @@
 import { Autocomplete, Button, Input, Label, SearchField, useFilter, ListBox, ListBoxItem } from 'react-aria-components';
 
 export function UIPicker() {
-  let { contains } = useFilter({ sensitivity: 'base' });
+  const { contains } = useFilter({ sensitivity: 'base' });
 
   return (
     <Autocomplete filter={contains}>

@@ -3,8 +3,7 @@ import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import React from "react";
 import { UIListBox } from "../index";
-import type { Key } from "../types";
-import { createTestEnvironment, mockItems, mockItemsWithDisabled } from "./test-utils";
+import { createTestEnvironment, mockItemsWithDisabled } from "./test-utils";
 
 describe("UIListBox Interactions", () => {
 	let testEnv: ReturnType<typeof createTestEnvironment>;
@@ -247,7 +246,6 @@ describe("UIListBox Interactions", () => {
 
 	describe("Edge cases взаимодействий", () => {
 		it("клик по пустому списку не вызывает ошибок", async () => {
-			const user = userEvent.setup();
 			const onSelectionChange = vi.fn();
 			const onFocusedChange = vi.fn();
 			render(

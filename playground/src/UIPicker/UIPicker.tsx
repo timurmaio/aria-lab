@@ -6,7 +6,7 @@ import { tv } from 'tailwind-variants';
 
 export function UIPicker() {
   const [selectedKeys, setSelectedKeys] = useState<Set<Key>>(new Set());
-  let { contains } = useFilter({ sensitivity: 'base' });
+  const { contains } = useFilter({ sensitivity: 'base' });
 
   return (
     <DialogTrigger>

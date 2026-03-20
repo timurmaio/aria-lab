@@ -12,9 +12,20 @@ export default defineConfig({
   build: {
     rollupOptions: {
       output: {
-        manualChunks: {
-          'react-vendor': ['react', 'react-dom', 'react-router-dom'],
-          'aria-lab': ['aria-lab'],
+        // Vite 8 / Rolldown: manualChunks must be a function (object form removed).
+        manualChunks(id: string) {
+          if (
+            /[/\\]node_modules[/\\](react[/\\]|react-dom[/\\]|react-router-dom[/\\])/.test(
+              id,
+            )
+          ) {
+            return 'react-vendor'
+          }
+          if (
+            /[/\\]node_modules[/\\](\.pnpm[/\\][^/\\]+[/\\])?aria-lab[/\\]/.test(id)
+          ) {
+            return 'aria-lab'
+          }
         },
       },
     },
