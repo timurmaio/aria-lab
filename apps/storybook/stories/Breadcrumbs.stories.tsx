@@ -1,17 +1,17 @@
-import type { Meta, StoryObj } from '@storybook/react'
-import { Breadcrumb, Breadcrumbs } from 'aria-lab'
+import type { Meta, StoryObj } from "@storybook/react";
+import { Breadcrumb, Breadcrumbs } from "aria-lab";
 
 const meta: Meta<typeof Breadcrumbs> = {
-  title: 'Components/Breadcrumbs',
+  title: "Components/Breadcrumbs",
   component: Breadcrumbs,
   parameters: {
-    layout: 'centered',
+    layout: "centered",
   },
-  tags: ['autodocs'],
-}
+  tags: ["autodocs"],
+};
 
-export default meta
-type Story = StoryObj<typeof meta>
+export default meta;
+type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   render: () => (
@@ -23,7 +23,7 @@ export const Default: Story = {
       </Breadcrumbs>
     </nav>
   ),
-}
+};
 
 export const LongPath: Story = {
   render: () => (
@@ -37,7 +37,7 @@ export const LongPath: Story = {
       </Breadcrumbs>
     </nav>
   ),
-}
+};
 
 export const TwoLevels: Story = {
   render: () => (
@@ -48,4 +48,4 @@ export const TwoLevels: Story = {
       </Breadcrumbs>
     </nav>
   ),
-}
+};

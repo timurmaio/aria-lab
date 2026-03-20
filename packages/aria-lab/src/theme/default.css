@@ -40,7 +40,9 @@
   --aria-border-disabled: #e4e4e7;
 
   /* Typography */
-  --aria-font-sans: ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  --aria-font-sans:
+    ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol",
+    "Noto Color Emoji";
 
   /* Font Sizes */
   --aria-font-size-xs: 0.75rem;

@@ -2,20 +2,20 @@
   "name": "aria-lab",
   "version": "0.1.0-beta.2",
   "description": "React Aria component library with full accessibility",
-  "type": "module",
-  "license": "MIT",
   "homepage": "https://github.com/timurmaio/aria-lab#readme",
   "bugs": {
     "url": "https://github.com/timurmaio/aria-lab/issues"
   },
+  "license": "MIT",
+  "author": "Timur Makarov <timurmaio@gmail.com>",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/timurmaio/aria-lab.git"
   },
-  "author": "Timur Makarov <timurmaio@gmail.com>",
   "files": [
     "dist"
   ],
+  "type": "module",
   "sideEffects": [
     "**/*.css"
   ],
@@ -34,22 +34,6 @@
     "./theme/default.css": "./dist/theme/default.css",
     "./package.json": "./package.json"
   },
-  "peerDependencies": {
-    "react": "^18.0.0 || ^19.0.0",
-    "react-aria-components": ">=1.0.0",
-    "react-dom": "^18.0.0 || ^19.0.0"
-  },
-  "peerDependenciesMeta": {
-    "react": {
-      "optional": false
-    },
-    "react-dom": {
-      "optional": false
-    },
-    "react-aria-components": {
-      "optional": false
-    }
-  },
   "publishConfig": {
     "access": "public"
   },
@@ -62,6 +46,9 @@
     "typecheck": "tsc --noEmit",
     "release": "bumpp && pnpm publish",
     "prepublishOnly": "pnpm run build"
+  },
+  "dependencies": {
+    "react-aria-components": "1.11.0"
   },
   "devDependencies": {
     "@testing-library/jest-dom": "6.6.3",
@@ -77,10 +64,23 @@
     "react-dom": "19.1.1",
     "tailwindcss": "3.4.17",
     "typescript": "5.9.2",
-    "vitest": "catalog:",
-    "vite-plus": "catalog:"
+    "vite-plus": "catalog:",
+    "vitest": "catalog:"
   },
-  "dependencies": {
-    "react-aria-components": "1.11.0"
+  "peerDependencies": {
+    "react": "^18.0.0 || ^19.0.0",
+    "react-aria-components": ">=1.0.0",
+    "react-dom": "^18.0.0 || ^19.0.0"
+  },
+  "peerDependenciesMeta": {
+    "react": {
+      "optional": false
+    },
+    "react-dom": {
+      "optional": false
+    },
+    "react-aria-components": {
+      "optional": false
+    }
   }
 }

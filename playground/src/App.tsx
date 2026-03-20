@@ -1,7 +1,7 @@
-import React from 'react'
-import { MyButton } from '../../src'
-import { UIPicker } from './UIPicker'
-import "./style.css"
+import React from "react";
+import { MyButton } from "../../src";
+import { UIPicker } from "./UIPicker";
+import "./style.css";
 
 export function App() {
   return (
@@ -20,5 +20,5 @@ export function App() {
         </div>
       </div>
     </div>
-  )
+  );
 }

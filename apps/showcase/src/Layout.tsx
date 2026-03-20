@@ -1,34 +1,34 @@
-import { useEffect, useState } from 'react'
-import { Link, Outlet } from 'react-router-dom'
-import { Button } from 'aria-lab'
-import type { CSSProperties } from 'react'
-import { ThemePanel } from './components/ThemePanel'
-import { loadTheme, saveTheme } from './theme-io'
-import { detectPresetId } from './tokens'
-import { initialVars, type ThemeVars } from './tokens'
+import { useEffect, useState } from "react";
+import { Link, Outlet } from "react-router-dom";
+import { Button } from "aria-lab";
+import type { CSSProperties } from "react";
+import { ThemePanel } from "./components/ThemePanel";
+import { loadTheme, saveTheme } from "./theme-io";
+import { detectPresetId } from "./tokens";
+import { initialVars, type ThemeVars } from "./tokens";
 
 export function Layout() {
   const [{ vars, activePresetId }, setTheme] = useState(() => {
-    const loaded = loadTheme() ?? initialVars
-    return { vars: loaded, activePresetId: detectPresetId(loaded) }
-  })
-  const [panelOpen, setPanelOpen] = useState(false)
+    const loaded = loadTheme() ?? initialVars;
+    return { vars: loaded, activePresetId: detectPresetId(loaded) };
+  });
+  const [panelOpen, setPanelOpen] = useState(false);
 
   const setVars = (next: ThemeVars | ((prev: ThemeVars) => ThemeVars)) => {
     setTheme((s) => ({
       ...s,
-      vars: typeof next === 'function' ? next(s.vars) : next,
-    }))
-  }
+      vars: typeof next === "function" ? next(s.vars) : next,
+    }));
+  };
 
   const setActivePresetId = (id: string) => {
-    setTheme((s) => ({ ...s, activePresetId: id }))
-  }
+    setTheme((s) => ({ ...s, activePresetId: id }));
+  };
 
   useEffect(() => {
-    const timeout = window.setTimeout(() => saveTheme(vars), 250)
-    return () => window.clearTimeout(timeout)
-  }, [vars])
+    const timeout = window.setTimeout(() => saveTheme(vars), 250);
+    return () => window.clearTimeout(timeout);
+  }, [vars]);
 
   return (
     <div className="demo-root" style={vars as CSSProperties}>
@@ -45,9 +45,25 @@ export function Layout() {
             <Link to="/components" className="demo-nav-link">
               Components
             </Link>
-            <Button variant="ghost" size="sm" className="demo-nav-customize" onPress={() => setPanelOpen(true)}>
-              <svg width="14" height="14" viewBox="0 0 16 16" fill="none" style={{ marginRight: '6px' }}>
-                <path d="M8 1v2m0 12v2M1 8h2m12 0h2M3.343 3.343l1.414 1.414m8.486 8.486l1.414 1.414M3.343 12.657l1.414-1.414m8.486-8.486l1.414-1.414" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
+            <Button
+              variant="ghost"
+              size="sm"
+              className="demo-nav-customize"
+              onPress={() => setPanelOpen(true)}
+            >
+              <svg
+                width="14"
+                height="14"
+                viewBox="0 0 16 16"
+                fill="none"
+                style={{ marginRight: "6px" }}
+              >
+                <path
+                  d="M8 1v2m0 12v2M1 8h2m12 0h2M3.343 3.343l1.414 1.414m8.486 8.486l1.414 1.414M3.343 12.657l1.414-1.414m8.486-8.486l1.414-1.414"
+                  stroke="currentColor"
+                  strokeWidth="1.5"
+                  strokeLinecap="round"
+                />
               </svg>
               Customize
             </Button>
@@ -61,7 +77,7 @@ export function Layout() {
       {panelOpen && (
         <>
           <div className="demo-theme-backdrop" aria-hidden onClick={() => setPanelOpen(false)} />
-          <aside className={`demo-theme-panel-wrap ${panelOpen ? 'is-open' : ''}`}>
+          <aside className={`demo-theme-panel-wrap ${panelOpen ? "is-open" : ""}`}>
             <ThemePanel
               vars={vars}
               onVarsChange={setVars}
@@ -90,5 +106,5 @@ export function Layout() {
         </div>
       </footer>
     </div>
-  )
+  );
 }

@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "description": "Aria Lab - React Aria component library monorepo",
-  "packageManager": "pnpm@10.14.0",
+  "type": "module",
   "scripts": {
     "dev": "vp run aria-lab#dev",
     "dev:showcase": "vp run showcase#dev",
@@ -17,8 +17,7 @@
     "lint": "vp lint .",
     "fmt": "vp fmt",
     "fmt:check": "vp fmt --check",
-    "check": "vp check --no-fmt",
-    "check:full": "vp check",
+    "check": "vp check",
     "verify": "vp run gate",
     "ci": "vp run gate",
     "prepare": "vp config"
@@ -26,5 +25,6 @@
   "devDependencies": {
     "typescript": "5.9.2",
     "vite-plus": "catalog:"
-  }
+  },
+  "packageManager": "pnpm@10.14.0"
 }

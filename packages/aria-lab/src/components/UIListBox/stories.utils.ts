@@ -12,9 +12,19 @@ export const TEST_DATA = {
 
   withDisabled: [
     { id: "1", name: "Активный элемент 1", description: "Этот элемент активен" },
-    { id: "2", name: "Отключенный элемент 2", description: "Этот элемент отключен", disabled: true },
+    {
+      id: "2",
+      name: "Отключенный элемент 2",
+      description: "Этот элемент отключен",
+      disabled: true,
+    },
     { id: "3", name: "Активный элемент 3", description: "Этот элемент активен" },
-    { id: "4", name: "Отключенный элемент 4", description: "Этот элемент отключен", disabled: true },
+    {
+      id: "4",
+      name: "Отключенный элемент 4",
+      description: "Этот элемент отключен",
+      disabled: true,
+    },
     { id: "5", name: "Активный элемент 5", description: "Этот элемент активен" },
   ] as UIListItem[],
 

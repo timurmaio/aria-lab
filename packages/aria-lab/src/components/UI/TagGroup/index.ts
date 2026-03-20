@@ -1,2 +1,2 @@
-export { TagGroup, Tag } from './TagGroup.js'
-export type { TagGroupProps, TagProps } from './TagGroup.js'
+export { TagGroup, Tag } from "./TagGroup.js";
+export type { TagGroupProps, TagProps } from "./TagGroup.js";

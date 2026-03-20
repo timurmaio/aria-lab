@@ -42,8 +42,8 @@ pnpm --filter aria-lab publish --access public --tag beta
 In a fresh test app:
 
 ```tsx
-import 'aria-lab/styles.css'
-import 'aria-lab/theme/default.css'
+import "aria-lab/styles.css";
+import "aria-lab/theme/default.css";
 ```
 
 Confirm the package renders components without any Tailwind setup in the consumer.

@@ -1,17 +1,17 @@
-import type { Meta, StoryObj } from '@storybook/react'
-import { Tabs, TabList, Tab, TabPanels, TabPanel } from 'aria-lab'
+import type { Meta, StoryObj } from "@storybook/react";
+import { Tabs, TabList, Tab, TabPanels, TabPanel } from "aria-lab";
 
 const meta: Meta<typeof Tabs> = {
-  title: 'Components/Tabs',
+  title: "Components/Tabs",
   component: Tabs,
   parameters: {
-    layout: 'centered',
+    layout: "centered",
   },
-  tags: ['autodocs'],
-}
+  tags: ["autodocs"],
+};
 
-export default meta
-type Story = StoryObj<typeof meta>
+export default meta;
+type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   render: () => (
@@ -34,7 +34,7 @@ export const Default: Story = {
       </TabPanels>
     </Tabs>
   ),
-}
+};
 
 export const WithFormContent: Story = {
   render: () => (
@@ -46,32 +46,32 @@ export const WithFormContent: Story = {
         </TabList>
         <TabPanels>
           <TabPanel id="general">
-            <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
-              <label style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
+            <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
+              <label style={{ display: "flex", flexDirection: "column", gap: 4 }}>
                 <span style={{ fontSize: 13, fontWeight: 500 }}>Display name</span>
                 <input
                   type="text"
                   placeholder="Enter name"
                   style={{
-                    padding: '8px 12px',
+                    padding: "8px 12px",
                     borderRadius: 6,
-                    border: '1px solid #e5e7eb',
+                    border: "1px solid #e5e7eb",
                   }}
                 />
               </label>
-              <label style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+              <label style={{ display: "flex", alignItems: "center", gap: 8 }}>
                 <input type="checkbox" />
                 <span style={{ fontSize: 13 }}>Show email in profile</span>
               </label>
             </div>
           </TabPanel>
           <TabPanel id="notifications">
-            <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
-              <label style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+            <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
+              <label style={{ display: "flex", alignItems: "center", gap: 8 }}>
                 <input type="checkbox" defaultChecked />
                 <span style={{ fontSize: 13 }}>Email notifications</span>
               </label>
-              <label style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+              <label style={{ display: "flex", alignItems: "center", gap: 8 }}>
                 <input type="checkbox" />
                 <span style={{ fontSize: 13 }}>Push notifications</span>
               </label>
@@ -81,4 +81,4 @@ export const WithFormContent: Story = {
       </Tabs>
     </div>
   ),
-}
+};

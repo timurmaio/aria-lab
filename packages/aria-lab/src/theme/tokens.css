@@ -38,7 +38,7 @@
   --aria-border-disabled: #e5e7eb;
 
   /* Typography - Font Family */
-  --aria-font-sans: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --aria-font-sans: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   --aria-font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
 
   /* Typography - Font Size */
@@ -97,7 +97,8 @@
 
   /* Focus Ring */
   --aria-focus-ring: 0 0 0 2px var(--aria-bg-primary), 0 0 0 4px var(--aria-accent);
-  --aria-focus-ring-inset: inset 0 0 0 2px var(--aria-bg-primary), inset 0 0 0 4px var(--aria-accent);
+  --aria-focus-ring-inset:
+    inset 0 0 0 2px var(--aria-bg-primary), inset 0 0 0 4px var(--aria-accent);
 
   /* Overlay and Dialog */
   --aria-overlay-backdrop: rgb(0 0 0 / 0.45);

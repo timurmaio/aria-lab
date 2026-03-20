@@ -8,4 +8,4 @@ export {
   type TabListProps,
   type TabProps,
   type TabPanelProps,
-} from './Tabs.js'
+} from "./Tabs.js";

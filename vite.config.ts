@@ -1,4 +1,4 @@
-import { defineConfig } from 'vite-plus';
+import { defineConfig } from "vite-plus";
 
 export default defineConfig({
   staged: {
@@ -14,38 +14,33 @@ export default defineConfig({
     tasks: {
       /** Full CI gate: lint + typecheck + tests + library build + showcase app build (parallel where safe) */
       gate: {
-        command: 'node -e "console.log(\'gate: ok\')"',
+        command: "node -e \"console.log('gate: ok')\"",
         dependsOn: [
-          'aria-lab-workspace#lint',
-          'aria-lab#typecheck',
-          'aria-lab#test',
-          'showcase#build',
+          "aria-lab-workspace#lint",
+          "aria-lab#typecheck",
+          "aria-lab#test",
+          "showcase#build",
         ],
       },
     },
   },
 
   lint: {
-    "plugins": [
-      "oxc",
-      "typescript",
-      "unicorn",
-      "react"
-    ],
-    "categories": {
-      "correctness": "warn"
+    plugins: ["oxc", "typescript", "unicorn", "react"],
+    categories: {
+      correctness: "warn",
     },
-    "env": {
-      "builtin": true
+    env: {
+      builtin: true,
     },
-    "ignorePatterns": [
+    ignorePatterns: [
       "**/dist/**",
       "**/node_modules/**",
       "**/storybook-static/**",
       "**/coverage/**",
-      "pnpm-lock.yaml"
+      "pnpm-lock.yaml",
     ],
-    "rules": {
+    rules: {
       "constructor-super": "error",
       "for-direction": "error",
       "no-async-promise-executor": "error",
@@ -120,17 +115,12 @@ export default defineConfig({
       "@typescript-eslint/no-wrapper-object-types": "error",
       "@typescript-eslint/prefer-as-const": "error",
       "@typescript-eslint/prefer-namespace-keyword": "error",
-      "@typescript-eslint/triple-slash-reference": "error"
+      "@typescript-eslint/triple-slash-reference": "error",
     },
-    "overrides": [
+    overrides: [
       {
-        "files": [
-          "**/*.ts",
-          "**/*.tsx",
-          "**/*.mts",
-          "**/*.cts"
-        ],
-        "rules": {
+        files: ["**/*.ts", "**/*.tsx", "**/*.mts", "**/*.cts"],
+        rules: {
           "constructor-super": "off",
           "no-class-assign": "off",
           "no-const-assign": "off",
@@ -148,14 +138,12 @@ export default defineConfig({
           "no-with": "off",
           "prefer-const": "error",
           "prefer-rest-params": "error",
-          "prefer-spread": "error"
-        }
+          "prefer-spread": "error",
+        },
       },
       {
-        "files": [
-          "**/*.{ts,tsx}"
-        ],
-        "rules": {
+        files: ["**/*.{ts,tsx}"],
+        rules: {
           "react-hooks/rules-of-hooks": "error",
           "react-hooks/exhaustive-deps": "warn",
           "@typescript-eslint/no-explicit-any": "off",
@@ -164,12 +152,12 @@ export default defineConfig({
           "no-unused-vars": [
             "warn",
             {
-              "argsIgnorePattern": "^_",
-              "varsIgnorePattern": "^_"
-            }
-          ]
-        }
-      }
-    ]
+              argsIgnorePattern: "^_",
+              varsIgnorePattern: "^_",
+            },
+          ],
+        },
+      },
+    ],
   },
 });

@@ -25,10 +25,7 @@ export function useItemSelection({
   onSelectionChange,
   isDisabled = false,
 }: UseItemSelectionProps): UseItemSelectionReturn {
-  const currentSelectedKeys = useMemo(
-    () => new Set(selectedKeys || []),
-    [selectedKeys],
-  );
+  const currentSelectedKeys = useMemo(() => new Set(selectedKeys || []), [selectedKeys]);
   const isSelected = currentSelectedKeys.has(itemKey);
 
   const handleClick = useCallback(() => {
@@ -42,7 +39,7 @@ export function useItemSelection({
         newSelectedKeys.add(itemKey);
         break;
       }
-      
+
       case "multiple": {
         if (newSelectedKeys.has(itemKey)) {
           newSelectedKeys.delete(itemKey);
@@ -51,13 +48,13 @@ export function useItemSelection({
         }
         break;
       }
-      
+
       case "none": {
         // В режиме "none" очищаем выбор
         newSelectedKeys.clear();
         break;
       }
-      
+
       default: {
         // Не должно произойти, но для безопасности
         return;

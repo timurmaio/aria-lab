@@ -1,86 +1,88 @@
-import { type ReactNode } from 'react'
-import { Input as AriaInput, type InputProps as AriaInputProps } from 'react-aria-components'
-import { cn, composeClassName } from '../../../lib/cn.js'
+import { type ReactNode } from "react";
+import { Input as AriaInput, type InputProps as AriaInputProps } from "react-aria-components";
+import { cn, composeClassName } from "../../../lib/cn.js";
 
-type InputVariant = 'default' | 'error'
-type InputSize = 'sm' | 'md' | 'lg'
+type InputVariant = "default" | "error";
+type InputSize = "sm" | "md" | "lg";
 
 const sizeStyles: Record<InputSize, string> = {
-  sm: 'h-[var(--aria-control-height-sm)] px-2 text-xs',
-  md: 'h-[var(--aria-control-height-md)] px-3 text-sm',
-  lg: 'h-[var(--aria-control-height-lg)] px-4 text-lg',
-}
+  sm: "h-[var(--aria-control-height-sm)] px-2 text-xs",
+  md: "h-[var(--aria-control-height-md)] px-3 text-sm",
+  lg: "h-[var(--aria-control-height-lg)] px-4 text-lg",
+};
 
 const variantStyles: Record<InputVariant, string> = {
   default:
-    'border-[var(--aria-border)] bg-[var(--aria-bg-primary)] hover:border-[var(--aria-border-hover)]',
-  error: 'border-[var(--aria-error)] bg-[var(--aria-bg-primary)]',
-}
+    "border-[var(--aria-border)] bg-[var(--aria-bg-primary)] hover:border-[var(--aria-border-hover)]",
+  error: "border-[var(--aria-error)] bg-[var(--aria-bg-primary)]",
+};
 
 const baseStyles =
-  'flex w-full rounded-[var(--aria-radius-md)] border text-[var(--aria-text-primary)] transition duration-200 ease-out outline-none placeholder:text-[var(--aria-text-secondary)] focus-visible:shadow-[var(--aria-focus-ring)] data-[disabled]:pointer-events-none data-[disabled]:cursor-not-allowed data-[disabled]:bg-[var(--aria-bg-disabled)] data-[disabled]:text-[var(--aria-text-disabled)]'
+  "flex w-full rounded-[var(--aria-radius-md)] border text-[var(--aria-text-primary)] transition duration-200 ease-out outline-none placeholder:text-[var(--aria-text-secondary)] focus-visible:shadow-[var(--aria-focus-ring)] data-[disabled]:pointer-events-none data-[disabled]:cursor-not-allowed data-[disabled]:bg-[var(--aria-bg-disabled)] data-[disabled]:text-[var(--aria-text-disabled)]";
 
-export interface InputProps extends Omit<AriaInputProps, 'size'> {
-  variant?: InputVariant
-  size?: InputSize
-  isDisabled?: boolean
-  disabled?: boolean
+export interface InputProps extends Omit<AriaInputProps, "size"> {
+  variant?: InputVariant;
+  size?: InputSize;
+  isDisabled?: boolean;
+  disabled?: boolean;
 }
 
 export function Input({
-  variant = 'default',
-  size = 'md',
+  variant = "default",
+  size = "md",
   className,
   isDisabled,
   disabled,
   ...props
 }: InputProps) {
-  const resolvedDisabled = isDisabled ?? disabled
+  const resolvedDisabled = isDisabled ?? disabled;
 
   return (
     <AriaInput
-      className={composeClassName(className, () => cn(baseStyles, sizeStyles[size], variantStyles[variant]))}
+      className={composeClassName(className, () =>
+        cn(baseStyles, sizeStyles[size], variantStyles[variant]),
+      )}
       disabled={resolvedDisabled}
       {...props}
     />
-  )
+  );
 }
 
 export interface InputGroupProps {
-  children: ReactNode
-  className?: string
+  children: ReactNode;
+  className?: string;
 }
 
 export function InputGroup({ children, className }: InputGroupProps) {
   return (
-    <div style={{ position: 'relative' }} className={className}>
+    <div style={{ position: "relative" }} className={className}>
       {children}
     </div>
-  )
+  );
 }
 
 export interface InputAddonProps {
-  children: ReactNode
-  position?: 'left' | 'right'
-  className?: string
+  children: ReactNode;
+  position?: "left" | "right";
+  className?: string;
 }
 
-export function InputAddon({ children, position = 'left', className }: InputAddonProps) {
+export function InputAddon({ children, position = "left", className }: InputAddonProps) {
   const positionStyle: React.CSSProperties = {
-    position: 'absolute',
-    top: '50%',
-    transform: 'translateY(-50%)',
-    display: 'flex',
-    alignItems: 'center',
-    padding: '0 0.75rem',
-    fontSize: '0.875rem',
-    color: 'var(--aria-text-secondary)',
-    ...(position === 'left' ? { left: 0 } : { right: 0 }),
-  }
+    position: "absolute",
+    top: "50%",
+    transform: "translateY(-50%)",
+    display: "flex",
+    alignItems: "center",
+    padding: "0 0.75rem",
+    fontSize: "0.875rem",
+    color: "var(--aria-text-secondary)",
+    ...(position === "left" ? { left: 0 } : { right: 0 }),
+  };
 
   return (
     <div style={positionStyle} className={className}>
       {children}
     </div>
-  )
+  );
 }
