@@ -14,11 +14,12 @@
     "build:analyze": "pnpm --filter showcase build:analyze",
     "test": "pnpm --filter aria-lab test",
     "typecheck": "pnpm --filter aria-lab typecheck",
-    "lint": "oxlint .",
-    "verify": "pnpm lint && pnpm typecheck && pnpm test && pnpm build && pnpm build:showcase"
+    "lint": "vp lint .",
+    "verify": "pnpm lint && pnpm typecheck && pnpm test && pnpm build && pnpm build:showcase",
+    "prepare": "vp config"
   },
   "devDependencies": {
-    "oxlint": "1.56.0",
-    "typescript": "5.9.2"
+    "typescript": "5.9.2",
+    "vite-plus": "catalog:"
   }
 }

@@ -1,6 +1,6 @@
 import { screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import { vi, expect } from "vitest";
+import { vi, expect } from "vite-plus/test";
 import type { Key, UIListItem } from "../types";
 
 // Общие тестовые данные для всех тестов
