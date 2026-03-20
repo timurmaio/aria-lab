@@ -2,8 +2,29 @@ import { defineConfig } from 'vite-plus';
 
 export default defineConfig({
   staged: {
-    "*": "vp check --fix"
+    "*": "vp check --fix",
   },
+
+  /** Vite Task: cached DAG over workspace scripts (`vp run`, `vp run verify`) */
+  run: {
+    cache: {
+      tasks: true,
+      scripts: true,
+    },
+    tasks: {
+      /** Full CI gate: lint + typecheck + tests + library build + showcase app build (parallel where safe) */
+      gate: {
+        command: 'node -e "console.log(\'gate: ok\')"',
+        dependsOn: [
+          'aria-lab-workspace#lint',
+          'aria-lab#typecheck',
+          'aria-lab#test',
+          'showcase#build',
+        ],
+      },
+    },
+  },
+
   lint: {
     "plugins": [
       "oxc",
