@@ -1,4 +1,4 @@
-import { describe, it, expect, beforeEach, afterEach, vi } from "vitest";
+import { describe, it, expect, beforeEach, afterEach } from "vitest";
 import { render, screen } from "@testing-library/react";
 import React from "react";
 import { UIListBox } from "../index";
@@ -32,7 +32,7 @@ describe("UIListBox Core", () => {
 			const items = screen.getAllByRole("option");
 			expect(items).toHaveLength(5);
 
-			mockItems.forEach((item, index) => {
+			mockItems.forEach((item) => {
 				expect(screen.getByText(item.name)).toBeInTheDocument();
 				if (item.description) {
 					expect(screen.getByText(item.description)).toBeInTheDocument();

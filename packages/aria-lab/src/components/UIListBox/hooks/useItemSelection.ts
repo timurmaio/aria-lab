@@ -1,4 +1,4 @@
-import { useCallback } from "react";
+import { useCallback, useMemo } from "react";
 import type { Key, Selection, SelectionMode } from "../types";
 
 export interface UseItemSelectionProps {
@@ -25,8 +25,10 @@ export function useItemSelection({
   onSelectionChange,
   isDisabled = false,
 }: UseItemSelectionProps): UseItemSelectionReturn {
-  
-  const currentSelectedKeys = new Set(selectedKeys || []);
+  const currentSelectedKeys = useMemo(
+    () => new Set(selectedKeys || []),
+    [selectedKeys],
+  );
   const isSelected = currentSelectedKeys.has(itemKey);
 
   const handleClick = useCallback(() => {

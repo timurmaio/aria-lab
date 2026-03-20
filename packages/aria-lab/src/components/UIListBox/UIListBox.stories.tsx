@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { UIListBox } from "./index";
 import { TEST_DATA, formatSelectedKeys, DISABLED_KEYS } from "./stories.utils";
-import type { Key, UIListItem, Selection } from "./types";
+import type { Key, Selection } from "./types";
 
 // Интерактивный компонент с состоянием
 function InteractiveUIListBox({

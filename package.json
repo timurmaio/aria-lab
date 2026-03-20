@@ -14,14 +14,11 @@
     "build:analyze": "pnpm --filter showcase build:analyze",
     "test": "pnpm --filter aria-lab test",
     "typecheck": "pnpm --filter aria-lab typecheck",
-    "lint": "pnpm -r lint",
+    "lint": "oxlint .",
     "verify": "pnpm lint && pnpm typecheck && pnpm test && pnpm build && pnpm build:showcase"
   },
   "devDependencies": {
-    "@eslint/js": "^9.21.0",
-    "eslint": "^9.21.0",
-    "eslint-plugin-react-hooks": "^5.1.0",
-    "typescript": "5.9.2",
-    "typescript-eslint": "^8.25.0"
+    "oxlint": "1.56.0",
+    "typescript": "5.9.2"
   }
 }
