@@ -1,7 +1,0 @@
-# Oxfmt (via `vp fmt` / `vp check`) — keep agent skills and bulky vendored docs out of format runs
-.agents/
-node_modules/
-dist/
-storybook-static/
-coverage/
-pnpm-lock.yaml

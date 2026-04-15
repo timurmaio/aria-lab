@@ -25,6 +25,18 @@ export default defineConfig({
     },
   },
 
+  /** Oxfmt (`vp fmt` / `vp check`): skip agent assets and build artifacts. */
+  fmt: {
+    ignorePatterns: [
+      ".agents/**",
+      "**/node_modules/**",
+      "**/dist/**",
+      "**/storybook-static/**",
+      "**/coverage/**",
+      "pnpm-lock.yaml",
+    ],
+  },
+
   lint: {
     plugins: ["oxc", "typescript", "unicorn", "react"],
     categories: {

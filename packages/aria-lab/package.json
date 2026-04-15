@@ -39,7 +39,7 @@
   },
   "scripts": {
     "build": "vp pack && pnpm build:styles && pnpm copy-css",
-    "build:styles": "tailwindcss -i ./src/styles.css -o ./dist/styles.css --content \"./src/**/*.ts\" --content \"./src/**/*.tsx\" --minify",
+    "build:styles": "tailwindcss -i ./src/styles.css -o ./dist/styles.css --minify",
     "copy-css": "node -e \"const fs=require('fs');const path=require('path');fs.mkdirSync('dist/theme',{recursive:true});fs.readdirSync('src/theme').forEach(f=>fs.copyFileSync(path.join('src/theme',f),path.join('dist/theme',f)))\"",
     "dev": "vp pack --watch",
     "test": "vp test",
@@ -51,6 +51,7 @@
     "react-aria-components": "1.11.0"
   },
   "devDependencies": {
+    "@tailwindcss/cli": "4.2.2",
     "@testing-library/jest-dom": "6.6.3",
     "@testing-library/react": "16.2.0",
     "@testing-library/user-event": "14.5.2",
@@ -62,7 +63,8 @@
     "jsdom": "26.1.0",
     "react": "19.1.1",
     "react-dom": "19.1.1",
-    "tailwindcss": "3.4.17",
+    "tailwindcss": "4.2.2",
+    "tailwindcss-animate": "1.0.7",
     "typescript": "5.9.2",
     "vite-plus": "catalog:",
     "vitest": "catalog:"
