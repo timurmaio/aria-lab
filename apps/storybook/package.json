@@ -3,9 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "storybook": "pnpm --filter aria-lab build && storybook dev -p 6006",
-    "build": "pnpm --filter aria-lab build && storybook build",
-    "build-storybook": "pnpm --filter aria-lab build && storybook build"
+    "storybook": "vp run aria-lab#build && vp exec storybook dev -p 6006",
+    "build": "vp run aria-lab#build && vp exec storybook build",
+    "build-storybook": "vp run aria-lab#build && vp exec storybook build"
   },
   "dependencies": {
     "aria-lab": "workspace:*",
