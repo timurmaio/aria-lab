@@ -45,10 +45,6 @@ import {
   TextField,
   Tooltip,
   TooltipTrigger,
-  UIListBox,
-  UIPicker,
-  useItemSelection,
-  useListState,
 } from "aria-lab";
 import { CURRENCIES, ELEMENTS, ELEMENTS_W_DISABLED, FRAMEWORKS, LANGUAGES, TOKENS } from "../data";
 import { componentRegistry } from "../componentRegistry";
@@ -102,6 +98,185 @@ function Card({
 
 function ComponentGrid({ children }: { children: React.ReactNode }) {
   return <div className="demo-grid">{children}</div>;
+}
+
+type ListItem = {
+  id: string;
+  name: string;
+  description?: string;
+  disabled?: boolean;
+};
+
+function useListState({
+  items,
+  selectionMode,
+}: {
+  items: ListItem[];
+  selectionMode: "single" | "multiple";
+}) {
+  const [selectedKeys, setSelectedKeys] = useState<Set<string>>(new Set());
+
+  return {
+    selectedKeys,
+    setSelectedKeys(keys: Iterable<string | number>) {
+      setSelectedKeys(new Set([...keys].map(String)));
+    },
+    selectAll() {
+      if (selectionMode === "multiple") {
+        setSelectedKeys(new Set(items.filter((item) => !item.disabled).map((item) => item.id)));
+      }
+    },
+    deselectAll() {
+      setSelectedKeys(new Set());
+    },
+  };
+}
+
+function useItemSelection({
+  itemKey,
+  selectionMode,
+  selectedKeys,
+  onSelectionChange,
+  disabled,
+}: {
+  itemKey: string;
+  selectionMode: "single" | "multiple";
+  selectedKeys: Set<string>;
+  onSelectionChange: (keys: Iterable<string | number>) => void;
+  disabled?: boolean;
+}) {
+  const isSelected = selectedKeys.has(itemKey);
+
+  return {
+    isSelected,
+    handleClick() {
+      if (disabled) return;
+      const next = selectionMode === "multiple" ? new Set(selectedKeys) : new Set<string>();
+      if (selectionMode === "multiple" && isSelected) {
+        next.delete(itemKey);
+      } else {
+        next.add(itemKey);
+      }
+      onSelectionChange(next);
+    },
+  };
+}
+
+function UIListBox({
+  listId,
+  ariaLabel,
+  items,
+  selectionMode,
+  selectedKeys,
+  onSelectionChange,
+}: {
+  listId: string;
+  ariaLabel: string;
+  items: ListItem[];
+  selectionMode: "single" | "multiple";
+  selectedKeys: Set<string>;
+  onSelectionChange: (keys: Iterable<string | number>) => void;
+}) {
+  return (
+    <div
+      id={listId}
+      role="listbox"
+      aria-label={ariaLabel}
+      aria-multiselectable={selectionMode === "multiple"}
+    >
+      {items.map((item) => (
+        <UIListBoxItem
+          key={item.id}
+          item={item}
+          selectionMode={selectionMode}
+          selectedKeys={selectedKeys}
+          onSelectionChange={onSelectionChange}
+        />
+      ))}
+    </div>
+  );
+}
+
+function UIListBoxItem({
+  item,
+  selectionMode,
+  selectedKeys,
+  onSelectionChange,
+}: {
+  item: ListItem;
+  selectionMode: "single" | "multiple";
+  selectedKeys: Set<string>;
+  onSelectionChange: (keys: Iterable<string | number>) => void;
+}) {
+  const { handleClick, isSelected } = useItemSelection({
+    itemKey: item.id,
+    selectionMode,
+    selectedKeys,
+    onSelectionChange,
+    disabled: item.disabled,
+  });
+
+  return (
+    <div
+      role="option"
+      aria-selected={isSelected}
+      aria-disabled={item.disabled || undefined}
+      tabIndex={item.disabled ? -1 : 0}
+      onClick={handleClick}
+      onKeyDown={(event) => {
+        if (event.key === "Enter" || event.key === " ") {
+          event.preventDefault();
+          handleClick();
+        }
+      }}
+      style={{
+        padding: "10px 12px",
+        cursor: item.disabled ? "not-allowed" : "pointer",
+        opacity: item.disabled ? 0.45 : 1,
+        background: isSelected ? "var(--aria-accent-subtle, rgba(59,130,246,0.1))" : "transparent",
+        borderRadius: "6px",
+      }}
+    >
+      <div>{item.name}</div>
+      {item.description && (
+        <div style={{ color: "var(--d-text-dim)", fontSize: 11, marginTop: 2 }}>
+          {item.description}
+        </div>
+      )}
+    </div>
+  );
+}
+
+function UIPicker() {
+  const [query, setQuery] = useState("");
+  const options = [...FRAMEWORKS, ...LANGUAGES];
+  const filtered = options.filter((option) =>
+    option.name.toLowerCase().includes(query.toLowerCase()),
+  );
+
+  return (
+    <div className="demo-col">
+      <Input
+        placeholder="Search options..."
+        value={query}
+        onChange={(event) => setQuery(event.target.value)}
+        aria-label="Search picker options"
+      />
+      <div className="demo-lb-wrap" role="listbox" aria-label="Picker options">
+        {filtered.map((option) => (
+          <div
+            key={option.id}
+            role="option"
+            aria-selected={false}
+            tabIndex={0}
+            style={{ padding: "8px 12px" }}
+          >
+            {option.name}
+          </div>
+        ))}
+      </div>
+    </div>
+  );
 }
 
 function FieldBasicDemo() {
