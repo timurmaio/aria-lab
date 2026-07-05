@@ -1,7 +1,12 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="aria-lab">
-  <rect width="64" height="64" rx="14" fill="#0c0a09" />
-  <path d="M23 15h-8v34h8" fill="none" stroke="#57534e" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" />
-  <path d="M41 15h8v34h-8" fill="none" stroke="#57534e" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" />
-  <circle cx="32" cy="32" r="13" fill="#e8a317" />
-  <path d="M27 39 32 24l5 15m-7.8-5h5.6" fill="none" stroke="#0c0a09" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round" />
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="64px" height="64px" viewBox="0 0 64 64" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>favicon</title>
+    <g id="favicon" stroke="none" fill="none" fill-rule="evenodd" stroke-width="1">
+        <g id="Group">
+            <rect id="Rectangle" fill="#2D2D2D" x="0" y="0" width="64" height="64" rx="12"></rect>
+            <text id="AL" fill="#FFFFFF" fill-rule="nonzero" font-family="Skia-Regular_Black, Skia" font-size="52" font-weight="700">
+                <tspan x="-3.5" y="51">AL</tspan>
+            </text>
+        </g>
+    </g>
 </svg>

@@ -117,18 +117,18 @@ body {
   justify-content: space-between;
 }
 .demo-nav-logo {
-  font-family: var(--d-font-head);
-  font-weight: 800;
-  font-size: 18px;
-  letter-spacing: -0.03em;
+  font-family: var(--d-font);
+  font-weight: 700;
+  font-size: 15px;
+  letter-spacing: 0;
   color: var(--d-text);
   display: flex;
   align-items: center;
-  gap: 2px;
+  gap: 1px;
 }
 .demo-nav-logo .logo-bracket {
   color: var(--d-text-dim);
-  font-weight: 400;
+  font-weight: 500;
 }
 .demo-nav-logo .logo-accent {
   color: var(--d-accent);
