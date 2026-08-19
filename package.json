@@ -23,8 +23,16 @@
     "prepare": "vp config"
   },
   "devDependencies": {
-    "typescript": "5.9.2",
+    "typescript": "7.0.2",
+    "vite": "catalog:",
     "vite-plus": "catalog:"
   },
-  "packageManager": "pnpm@10.14.0"
+  "packageManager": "pnpm@11.21.0",
+  "devEngines": {
+    "runtime": {
+      "name": "node",
+      "version": "22.22.2",
+      "onFail": "download"
+    }
+  }
 }

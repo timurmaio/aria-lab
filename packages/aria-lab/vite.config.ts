@@ -12,5 +12,7 @@ export default defineConfig({
     globals: true,
     environment: "jsdom",
     setupFiles: ["./test.setup.ts"],
+    // Library package currently has no colocated unit tests; keep the CI gate green.
+    passWithNoTests: true,
   },
 });

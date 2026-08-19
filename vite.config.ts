@@ -5,6 +5,12 @@ export default defineConfig({
     "*": "vp check --fix",
   },
 
+  test: {
+    // Legacy template suite under tests/ is not wired to the workspace packages.
+    exclude: ["**/node_modules/**", "**/dist/**", "tests/**"],
+    passWithNoTests: true,
+  },
+
   /** Vite Task: cached DAG over workspace scripts (`vp run`, `vp run verify`) */
   run: {
     cache: {

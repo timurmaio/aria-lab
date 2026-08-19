@@ -16,7 +16,7 @@
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true,
     "paths": {
-      "aria-lab": ["../../packages/aria-lab/src"]
+      "aria-lab": ["./../../packages/aria-lab/src"]
     }
   },
   "include": ["src"]

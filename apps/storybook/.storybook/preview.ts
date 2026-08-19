@@ -1,4 +1,4 @@
-import type { Preview } from "@storybook/react";
+import type { Preview } from "@storybook/react-vite";
 import "aria-lab/styles.css";
 import "aria-lab/theme/default.css";
 
@@ -11,12 +11,14 @@ const preview: Preview = {
       },
     },
     backgrounds: {
-      default: "light",
-      values: [
-        { name: "light", value: "#ffffff" },
-        { name: "dark", value: "#09090b" },
-      ],
+      options: {
+        light: { name: "light", value: "#ffffff" },
+        dark: { name: "dark", value: "#09090b" },
+      },
     },
+  },
+  initialGlobals: {
+    backgrounds: { value: "light" },
   },
 };
 

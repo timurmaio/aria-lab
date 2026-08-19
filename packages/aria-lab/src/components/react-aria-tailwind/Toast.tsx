@@ -12,7 +12,6 @@ import {
 import { XIcon } from "lucide-react";
 import { composeTailwindRenderProps } from "@/lib/react-aria-utils";
 import { flushSync } from "react-dom";
-import "./Toast.css";
 
 // Define the type for your toast content. This interface defines the properties of your toast content, affecting what you
 // pass to the queue calls as arguments.
