@@ -45,8 +45,8 @@ export function RangeCalendar<T extends DateValue>({
   errorMessage,
   ...props
 }: RangeCalendarProps<T>) {
-  let { direction } = useLocale();
-  let months = props.visibleDuration?.months || 1;
+  const { direction } = useLocale();
+  const months = props.visibleDuration?.months || 1;
   return (
     <AriaRangeCalendar
       {...props}

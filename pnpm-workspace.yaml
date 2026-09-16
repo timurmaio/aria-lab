@@ -21,11 +21,11 @@ minimumReleaseAgeExclude:
   - vite-plus@0.3.2
   - "@types/node@22.20.3"
 overrides:
-  vite: 'catalog:'
+  vite: "catalog:"
 peerDependencyRules:
   allowAny:
     - vite
     - vite-plus
   allowedVersions:
-    vite: '*'
-    vite-plus: '*'
+    vite: "*"
+    vite-plus: "*"

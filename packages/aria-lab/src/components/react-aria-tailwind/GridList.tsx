@@ -16,7 +16,7 @@ import { type HTMLAttributes } from "react";
 import { twMerge } from "tailwind-merge";
 
 export function GridList<T>({ children, ...props }: GridListProps<T>) {
-  let isHorizontal =
+  const isHorizontal =
     (props as { orientation?: "horizontal" | "vertical" }).orientation === "horizontal";
   return (
     <AriaGridList
@@ -57,7 +57,7 @@ const itemStyles = tv({
 });
 
 export function GridListItem({ children, ...props }: GridListItemProps) {
-  let textValue = typeof children === "string" ? children : undefined;
+  const textValue = typeof children === "string" ? children : undefined;
   return (
     <AriaGridListItem textValue={textValue} {...props} className={itemStyles}>
       {composeRenderProps(
