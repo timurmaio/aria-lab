@@ -66,7 +66,7 @@ import "aria-lab/theme/tokens";
 
 ## Development
 
-Requires Node.js `22.22.2+` (see `devEngines.runtime`) and the global [`vp`](https://viteplus.dev/) CLI.
+Requires Node.js `22.23.2+` (see `devEngines.runtime`) and the global [`vp`](https://viteplus.dev/) CLI.
 
 ```bash
 # Install dependencies

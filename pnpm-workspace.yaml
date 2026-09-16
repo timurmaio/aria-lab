@@ -5,24 +5,27 @@ allowBuilds:
   "@parcel/watcher": true
   esbuild: true
 catalog:
-  vite: npm:@voidzero-dev/vite-plus-core@0.2.9
-  vite-plus: 0.2.9
+  vite: npm:@voidzero-dev/vite-plus-core@0.3.2
+  vite-plus: 0.3.2
 minimumReleaseAgeExclude:
-  - "@testing-library/user-event@14.6.4"
-  - "@voidzero-dev/vite-plus-core@0.2.9"
-  - "@voidzero-dev/vite-plus-darwin-arm64@0.2.9"
-  - "@voidzero-dev/vite-plus-darwin-x64@0.2.9"
-  - "@voidzero-dev/vite-plus-linux-arm64-gnu@0.2.9"
-  - "@voidzero-dev/vite-plus-linux-arm64-musl@0.2.9"
-  - "@voidzero-dev/vite-plus-linux-x64-gnu@0.2.9"
-  - "@voidzero-dev/vite-plus-linux-x64-musl@0.2.9"
-  - "@voidzero-dev/vite-plus-win32-arm64-msvc@0.2.9"
-  - "@voidzero-dev/vite-plus-win32-x64-msvc@0.2.9"
-  - vite-plus@0.2.9
+  - "@testing-library/user-event@14.6.7"
+  - "@voidzero-dev/vite-plus-core@0.3.2"
+  - "@voidzero-dev/vite-plus-darwin-arm64@0.3.2"
+  - "@voidzero-dev/vite-plus-darwin-x64@0.3.2"
+  - "@voidzero-dev/vite-plus-linux-arm64-gnu@0.3.2"
+  - "@voidzero-dev/vite-plus-linux-arm64-musl@0.3.2"
+  - "@voidzero-dev/vite-plus-linux-x64-gnu@0.3.2"
+  - "@voidzero-dev/vite-plus-linux-x64-musl@0.3.2"
+  - "@voidzero-dev/vite-plus-win32-arm64-msvc@0.3.2"
+  - "@voidzero-dev/vite-plus-win32-x64-msvc@0.3.2"
+  - vite-plus@0.3.2
+  - "@types/node@22.20.3"
 overrides:
   vite: 'catalog:'
 peerDependencyRules:
   allowAny:
     - vite
+    - vite-plus
   allowedVersions:
     vite: '*'
+    vite-plus: '*'
