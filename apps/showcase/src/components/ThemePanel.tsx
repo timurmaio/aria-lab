@@ -98,6 +98,7 @@ export function ThemePanel({
   const [activeTab, setActiveTab] = useState<"colors" | "typography" | "sizing">("colors");
   const fileInputRef = useRef<HTMLInputElement | null>(null);
   const toastTimeoutsRef = useRef<ReturnType<typeof setTimeout>[]>([]);
+  const toastSeqRef = useRef(0);
   const mountedRef = useRef(true);
 
   const generatedCss = useMemo(() => generateCss(vars), [vars]);
@@ -122,7 +123,8 @@ export function ThemePanel({
   };
 
   const showToast = (message: string, tone: ToastMessage["tone"] = "info") => {
-    const id = Date.now() + Math.floor(Math.random() * 1000);
+    toastSeqRef.current += 1;
+    const id = toastSeqRef.current;
     setToasts((prev) => [...prev, { id, message, tone }]);
     const timeoutId = setTimeout(() => {
       if (!mountedRef.current) return;

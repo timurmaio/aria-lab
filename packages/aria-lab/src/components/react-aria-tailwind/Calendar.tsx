@@ -38,8 +38,8 @@ export interface CalendarProps<T extends DateValue> extends AriaCalendarProps<T>
 }
 
 export function Calendar<T extends DateValue>({ errorMessage, ...props }: CalendarProps<T>) {
-  let { direction } = useLocale();
-  let months = props.visibleDuration?.months || 1;
+  const { direction } = useLocale();
+  const months = props.visibleDuration?.months || 1;
   return (
     <AriaCalendar
       {...props}

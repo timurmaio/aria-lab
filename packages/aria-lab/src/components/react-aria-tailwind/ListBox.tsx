@@ -47,7 +47,7 @@ export const itemStyles = tv({
 });
 
 export function ListBoxItem(props: ListBoxItemProps) {
-  let textValue =
+  const textValue =
     props.textValue || (typeof props.children === "string" ? props.children : undefined);
   return (
     <AriaListBoxItem {...props} textValue={textValue} className={itemStyles}>
@@ -85,7 +85,7 @@ export const dropdownItemStyles = tv({
 });
 
 export function DropdownItem(props: ListBoxItemProps) {
-  let textValue =
+  const textValue =
     props.textValue || (typeof props.children === "string" ? props.children : undefined);
   return (
     <AriaListBoxItem {...props} textValue={textValue} className={dropdownItemStyles}>
